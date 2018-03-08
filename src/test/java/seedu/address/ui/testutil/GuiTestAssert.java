@@ -2,6 +2,7 @@ package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,8 @@ import seedu.address.model.person.Person;
  * A set of assertion methods useful for writing GUI tests.
  */
 public class GuiTestAssert {
+    private static final String LABEL_STYLE = "label";
+
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
@@ -34,8 +37,60 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
+        assertTagEquals(expectedPerson, actualCard);
+    }
+
+    /**
+     * Asserts that{@code actualCard} displays the same tag and colour of {@code expectedPerson}
+     * @param expectedPerson
+     * @param actualCard
+     */
+    private static void assertTagEquals(Person expectedPerson, PersonCardHandle actualCard) {
+        List<String> expectedTags = expectedPerson.getTags()
+                .stream().map(tag -> tag.tagName)
+                .collect(Collectors.toList());
+
+        assertEquals(expectedTags, actualCard.getTags());
+
+        expectedTags.forEach(tag -> assertEquals(Arrays
+                .asList(LABEL_STYLE, getTagColorStyleFor(tag)), actualCard.getTagStyleClasses(tag)));
+    }
+
+    /**
+     *To be updated
+     */
+    private static String getTagColorStyleFor(String tagName) {
+
+        switch(tagName) {
+
+        case "owesMoney":
+            return "red";
+
+        case "friends":
+            return "red";
+
+        case "friend":
+            return "orange";
+
+        case "husband":
+            return "orange";
+
+        case "colleagues":
+            return "green";
+
+        case "classmates":
+            return "red";
+
+        case "neighbours":
+            return "green";
+
+        case "family":
+            return "orange";
+
+        default:
+            return "";
+        }
+
     }
 
     /**
