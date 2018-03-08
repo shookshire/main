@@ -34,15 +34,10 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
-
-
-
-
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
-
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        //assertTagEquals(expectedPerson, actualCard);
+        assertTagEquals(expectedPerson, actualCard);
     }
 
     private static void assertTagEquals(Person expectedPerson, PersonCardHandle actualCard) {
@@ -60,24 +55,24 @@ public class GuiTestAssert {
     /**
      *To be updated
      */
-    private static String
-    getTagColorStyleFor(String tagName){
+    private static String getTagColorStyleFor(String tagName) {
 
         switch(tagName) {
-            case "owesMoney":
-                return "red";
 
-            case "friends":
-                return "red";
+        case "owesMoney":
+            return "red";
 
-            case "friend":
-                return "orange";
+        case "friends":
+            return "red";
 
-            case "husband":
-                return "orange";
+        case "friend":
+            return "orange";
 
-            default:
-                return "";
+        case "husband":
+            return "orange";
+
+        default:
+            return "";
         }
 
     }
