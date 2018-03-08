@@ -844,16 +844,68 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Sort by locality
+
+*MSS*
+
+1.  User types “/sortl” in to the command line.
+2.  Addressbook will prompt user to select whether they would like to view the list for students or tutors.
+3.  User will enter either “s” for students or “t” for tutors.
+4.  Addressbook will return a list of students or tutors based sorted by their locality.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. System detects an invalid input.
++
+[none]
+** 3a1. Addressbook request for either "s" or "t" to be inputted.
+** 3a2. User enter required information.
+** 3a3. Steps 3a1 and 3a2 are repeated until valid input is entered.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Match
+
+*MSS*
+
+1.  User finds the client he wants to match.
+2.  Addressbook displays information of client.
+3.  User requests for a match.
+4.  Addressbook returns a list of potential matches.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Client cannot be found.
++
+Use case ends.
+
+* 3a. There is no match found.
++
+[none]
+** 3a1. Addressbook returns an empty list.
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 5000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Application should be able execute any command within 3 seconds.
+.  Application should have a self-explanatory installation process.
+.  Application should be less than 5mb in size.
+.  Application is expected to allow printing.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
