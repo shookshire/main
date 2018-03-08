@@ -58,8 +58,8 @@ public class PersonCard extends UiPart<Region> {
      * Initialises tags
      * @param person
      */
-    private void intTags(Person person){
-        person.getTags().forEach(tag ->{
+    private void intTags(Person person) {
+        person.getTags().forEach(tag -> {
             Label newLabel = new Label(tag.tagName);
             newLabel.getStyleClass().add(getColour(tag.tagName));
             tags.getChildren().add(newLabel);
@@ -70,7 +70,7 @@ public class PersonCard extends UiPart<Region> {
      * @param name
      * @return String colour
      */
-    private String getColour(String name){
+    private String getColour(String name) {
         return TAGS_COLOUR_STYLES[(Math.abs(name.hashCode() % TAGS_COLOUR_STYLES.length))];
     }
 
