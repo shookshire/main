@@ -52,9 +52,8 @@ public class GuiTestAssert {
 
         assertEquals(expectedTags, actualCard.getTags());
 
-        expectedTags.forEach(tag ->
-                assertEquals(Arrays.asList(LABEL_STYLE,getTagColorStyleFor(tag)), 
-                        actualCard.getTagStyleClasses(tag)));
+        expectedTags.forEach(tag -> assertEquals(Arrays.asList(LABEL_STYLE,getTagColorStyleFor(tag)),
+                actualCard.getTagStyleClasses(tag)));
     }
 
     /**
