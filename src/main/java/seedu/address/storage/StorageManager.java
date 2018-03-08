@@ -82,7 +82,6 @@ public class StorageManager extends ComponentManager implements Storage {
         addressBookStorage.backupAddressBook(addressBook);
     }
 
-
     @Override
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
