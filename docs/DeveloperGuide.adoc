@@ -806,9 +806,59 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |sort contacts based on their locality |better match students to tutors
+
+|`* * *` |user |edit the information stored |keep the information up to date
+
+|`* * *` |user |tag tutors and students with multiple values |
+
+|`* * *` |user |add contacts of both tutors and students |
+
+|`* * *` |user |categorise contacts between students and tutors |
+
+|`* * *` |user |group clients based on the subject they wish to study/teach |
+
+|`* * *` |user |record what preference the students/tutors have (male/female) |
+
+|`* * *` |user |see and compare the price that students/tutors are willing to pay/accept|match them based on pricing
+
+|`* * *` |user |have an autosave function |changes will be saved once i exit the application
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |user |do multi-layer searching |narrow down the options
+
+|`* *` |student |request to know the qualification of the tutor |make my decision wisely
+
+|`* *` |tutor |request to know the grades of the students |make my decision wisely
+
+|`* *` |user |easily delete all students/tutors that quit with a single command |save time manually deleting
+
+|`* *` |user |get a list of all tutors that corresponds to a students requirements |
+
+|`* *` |user |get a list of all students that corresponds to a tutor's requirements |
+
+|`* *` |user |automatically update the year of all students |need not manually change all the information during new year
+
+|`* *` |user |update which time slot the tutor is already working |plan their timetable without any clash in timing
+
+|`* *` |user |have a ranking on how good the tutor is |understand which tutor I should recommend more
+
+|`* *` |user |highlight urgent tuition requests |set reminder to place more attention on these assignments
+
+|`* *` |user |blacklist certain tutors or students |make sure I will not accept their assignments
+
+|`* *` |user |have the option to customise the font size and colour |make changes to the appearance to suit my preference
+
+|`* *` |user |have the option to customise my background |make the application more appealing to me
+
+|`* *` |user |email the contacts in the application |save the trouble from opening another web-browser or email application
+
+|`* *` |user |keep track of whether the tutors have paid me their agent fee |keep track and remind those who have not pay me.
+
+|`*` |user |directly navigate between contacts |save the trouble from returning to the main page every time
+
+|`*` |user |keep a record of how much the students improve |keep track of how good the tutor is
 |=======================================================================
 
 _{More to be added}_
