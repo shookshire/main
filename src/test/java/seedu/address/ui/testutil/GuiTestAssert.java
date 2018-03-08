@@ -40,6 +40,11 @@ public class GuiTestAssert {
         assertTagEquals(expectedPerson, actualCard);
     }
 
+    /**
+     * Asserts that{@code actualCard} displays the same tag and colour of {@code expectedPerson}
+     * @param expectedPerson
+     * @param actualCard
+     */
     private static void assertTagEquals(Person expectedPerson, PersonCardHandle actualCard) {
         List<String> expectedTags = expectedPerson.getTags()
                 .stream().map(tag -> tag.tagName)
@@ -69,6 +74,18 @@ public class GuiTestAssert {
             return "orange";
 
         case "husband":
+            return "orange";
+
+        case "colleagues":
+            return "green";
+
+        case "classmates":
+            return "red";
+
+        case "neighbours":
+            return "green";
+
+        case "family":
             return "orange";
 
         default:
