@@ -20,14 +20,14 @@ import seedu.address.model.person.Person;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class StudentListPanel extends UiPart<Region> {
+    private static final String FXML = "StudentListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
 
     @FXML
-    private ListView<PersonCard> personListView;
+    private ListView<PersonCard> studentListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public StudentListPanel(ObservableList<Person> personList) {
         super(FXML);
         setConnections(personList);
         registerAsAnEventHandler(this);
@@ -36,13 +36,13 @@ public class PersonListPanel extends UiPart<Region> {
     private void setConnections(ObservableList<Person> personList) {
         ObservableList<PersonCard> mappedList = EasyBind.map(
                 personList, (person) -> new PersonCard(person, personList.indexOf(person) + 1));
-        personListView.setItems(mappedList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        studentListView.setItems(mappedList);
+        studentListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        studentListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in person list panel changed to : '" + newValue + "'");
@@ -56,8 +56,8 @@ public class PersonListPanel extends UiPart<Region> {
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            studentListView.scrollTo(index);
+            studentListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
