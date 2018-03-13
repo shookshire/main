@@ -800,68 +800,63 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new person (tutor or student) |expand user's addressbook for future tuition coordination
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a person |remove entries that the user no longer need
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* * *` |user |sort contacts based on their locality |better match students to tutors
+|`* * *` |user |sort contacts based on the clients' location (North, South, East, West, Central |better match students and tutors that are staying near each other.
 
 |`* * *` |user |edit the information stored |keep the information up to date
 
-|`* * *` |user |tag tutors and students with multiple values |
+|`* * *` |user |tag tutors and students with multiple fields |do multi-layer searching to better match tutors and students
 
-|`* * *` |user |add contacts of both tutors and students |
+|`* * *` |user |categorise contacts between students and tutors |reduce the number of tagging required and make searching more convenience
 
-|`* * *` |user |categorise contacts between students and tutors |
+|`* * *` |user |group clients based on the subject they wish to study/teach (Math, Eng, Phy, Chem...) |find and match client easily by the subjects registered
 
-|`* * *` |user |group clients based on the subject they wish to study/teach |
-
-|`* * *` |user |record what preference the students/tutors have (male/female) |
+|`* * *` |user |record the gender preference the students/tutors have (male/female) |find and match client easily by the gender preference registered
 
 |`* * *` |user |see and compare the price that students/tutors are willing to pay/accept|match them based on pricing
 
-|`* * *` |user |have an autosave function |changes will be saved once i exit the application
+|`* * *` |user |have an auto-save function |changes will be saved once user exit the application
+
+|`* * *` |user |search by tags added to client |generate a list of clients that have the same tags
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`* *` |user |do multi-layer searching |narrow down the options
+|`* *` |user |search multiple tags |narrow down the search to clients that fit all the different tags searched.
 
-|`* *` |student |request to know the qualification of the tutor |make my decision wisely
+|`* *` |user |easily delete all students/tutors |save time manually deleting
 
-|`* *` |tutor |request to know the grades of the students |make my decision wisely
+|`* *` |user |get a list of all tutors that corresponds to a students requirements |give students more choices on which tutor they want
 
-|`* *` |user |easily delete all students/tutors that quit with a single command |save time manually deleting
-
-|`* *` |user |get a list of all tutors that corresponds to a students requirements |
-
-|`* *` |user |get a list of all students that corresponds to a tutor's requirements |
+|`* *` |user |get a list of all students that corresponds to a tutor's requirements |give tutors more choices on which students they want
 
 |`* *` |user |automatically update the year of all students |need not manually change all the information during new year
 
 |`* *` |user |update which time slot the tutor is already working |plan their timetable without any clash in timing
 
-|`* *` |user |have a ranking on how good the tutor is |understand which tutor I should recommend more
+|`* *` |user |have a ranking on how good the tutor is |understand which tutor the user should recommend more
 
 |`* *` |user |highlight urgent tuition requests |set reminder to place more attention on these assignments
 
-|`* *` |user |blacklist certain tutors or students |make sure I will not accept their assignments
+|`* *` |user |blacklist certain tutors or students |make sure the user will not accept their assignments
 
-|`* *` |user |have the option to customise the font size and colour |make changes to the appearance to suit my preference
+|`* *` |user |have the option to customise the font size and colour |make changes to the appearance to suit the user's preference
 
-|`* *` |user |have the option to customise my background |make the application more appealing to me
+|`* *` |user |have the option to customise the user's background |make the application more appealing to the user
 
 |`* *` |user |email the contacts in the application |save the trouble from opening another web-browser or email application
 
-|`* *` |user |keep track of whether the tutors have paid me their agent fee |keep track and remind those who have not pay me.
+|`* *` |user |keep track of whether the tutors have paid their agent fee |keep track and remind those who have not paid.
 
 |`*` |user |directly navigate between contacts |save the trouble from returning to the main page every time
 
 |`*` |user |keep a record of how much the students improve |keep track of how good the tutor is
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
