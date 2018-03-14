@@ -7,7 +7,7 @@ import javafx.scene.web.WebView;
 
 /**
  * Helper methods for dealing with {@code WebView}.
- * @// TODO: 14/3/2018 Delete this class when no long required 
+ * @TODO: 14/3/2018 Delete this class when no long required
  */
 public class WebViewUtil {
 
