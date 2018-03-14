@@ -27,6 +27,7 @@ public class HelpWindowHandle extends StageHandle {
 
     /**
      * Returns the {@code URL} of the currently loaded page.
+     * @// TODO: 14/3/2018 Remove this when no longer required 
      */
     public URL getLoadedUrl() {
         return WebViewUtil.getLoadedUrl(getChildNode(HELP_WINDOW_BROWSER_ID));

@@ -3,11 +3,11 @@ package guitests.guihandles;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import guitests.GuiRobot;
 import javafx.scene.web.WebView;
 
 /**
  * Helper methods for dealing with {@code WebView}.
+ * @// TODO: 14/3/2018 Delete this class when no long required 
  */
 public class WebViewUtil {
 
