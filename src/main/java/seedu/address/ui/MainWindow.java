@@ -187,8 +187,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public TutorListPanel getTutorListPanel () { return this.tutorListPanel; }
 
+    /**
+     * @// TODO: 14/3/2018 Remove this if no longer needed 
+     */
     void releaseResources() {
-//        browserPanel.freeResources();
     }
 
     @Subscribe
