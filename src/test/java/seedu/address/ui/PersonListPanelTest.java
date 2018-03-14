@@ -17,6 +17,9 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.person.Person;
 
+/**
+ * @// TODO: 14/3/2018 Implement StudentListPanelTest and TutorListPanelTest upon creation of person and student class 
+ */
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
             FXCollections.observableList(getTypicalPersons());
@@ -27,10 +30,10 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        StudentListPanel personListPanel = new StudentListPanel(TYPICAL_PERSONS);
-        uiPartRule.setUiPart(personListPanel);
+        StudentListPanel studentListPanel = new StudentListPanel(TYPICAL_PERSONS);
+        uiPartRule.setUiPart(studentListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
+        personListPanelHandle = new PersonListPanelHandle(getChildNode(studentListPanel.getRoot(),
                 PersonListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 
@@ -48,6 +51,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Test
     public void handleJumpToListRequestEvent() {
+
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 

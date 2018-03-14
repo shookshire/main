@@ -8,10 +8,11 @@ import seedu.address.model.person.Person;
 import seedu.address.ui.PersonCard;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
+ * @// TODO: 14/3/2018 Implement StudentListPanelHandle and PersonListPanelHandle upon creation of student and tutor class 
+ * Provides a handle for {@code StudentListPanel} containing the list of {@code PersonCard}.
  */
 public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+    public static final String PERSON_LIST_VIEW_ID = "#studentListView";
 
     private Optional<PersonCard> lastRememberedSelectedPersonCard;
 
