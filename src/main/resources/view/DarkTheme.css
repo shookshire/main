@@ -87,6 +87,13 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.list-header {
+    -fx-font-size: 26pt;
+    -fx-font-family: "Bebas Neue";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;

@@ -27,17 +27,17 @@ public class TutorListPanel extends UiPart<Region> {
     @FXML
     private ListView<PersonCard> tutorListView;
 
-    public TutorListPanel(ObservableList<Person> personList) {
+    public TutorListPanel(ObservableList<Person> tutorList) {
         super(FXML);
-        setConnections(personList);
+        setConnections(tutorList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Person> personList) {
+    private void setConnections(ObservableList<Person> tutorList) {
         ObservableList<PersonCard> mappedList = EasyBind.map(
-                personList, (person) -> new PersonCard(person, personList.indexOf(person) + 1));
+                tutorList, (person) -> new PersonCard(person, tutorList.indexOf(person) + 1));
         tutorListView.setItems(mappedList);
-        tutorListView.setCellFactory(listView -> new PersonListViewCell());
+        tutorListView.setCellFactory(listView -> new StudentListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -70,7 +70,7 @@ public class TutorListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<PersonCard> {
+    class StudentListViewCell extends ListCell<PersonCard> {
 
         @Override
         protected void updateItem(PersonCard person, boolean empty) {
