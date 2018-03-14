@@ -18,7 +18,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.person.Person;
 
 /**
- * @// TODO: 14/3/2018 Implement StudentListPanelTest and TutorListPanelTest upon creation of person and student class 
+ * @// TODO: 14/3/2018 Implement StudentListPanelTest and TutorListPanelTest upon creation of person and student class
  */
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
