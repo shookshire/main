@@ -185,7 +185,9 @@ public class MainWindow extends UiPart<Stage> {
         return this.studentListPanel;
     }
 
-    public TutorListPanel getTutorListPanel () { return this.tutorListPanel; }
+    public TutorListPanel getTutorListPanel () {
+        return this.tutorListPanel;
+    }
 
     /**
      * @// TODO: 14/3/2018 Remove this if no longer needed
