@@ -20,29 +20,29 @@ import seedu.address.model.person.Person;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class StudentListPanel extends UiPart<Region> {
+    private static final String FXML = "StudentListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
 
     @FXML
-    private ListView<PersonCard> personListView;
+    private ListView<PersonCard> studentListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public StudentListPanel(ObservableList<Person> studentList) {
         super(FXML);
-        setConnections(personList);
+        setConnections(studentList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Person> personList) {
+    private void setConnections(ObservableList<Person> studentList) {
         ObservableList<PersonCard> mappedList = EasyBind.map(
-                personList, (person) -> new PersonCard(person, personList.indexOf(person) + 1));
-        personListView.setItems(mappedList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+                studentList, (person) -> new PersonCard(person, studentList.indexOf(person) + 1));
+        studentListView.setItems(mappedList);
+        studentListView.setCellFactory(listView -> new StudentListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        studentListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in person list panel changed to : '" + newValue + "'");
@@ -56,8 +56,8 @@ public class PersonListPanel extends UiPart<Region> {
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            studentListView.scrollTo(index);
+            studentListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -70,7 +70,7 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<PersonCard> {
+    class StudentListViewCell extends ListCell<PersonCard> {
 
         @Override
         protected void updateItem(PersonCard person, boolean empty) {

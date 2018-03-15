@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= TuitionCor - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -10,7 +10,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/CS2103JAN2018-F11-B2/main
+:repoURL: https://github.com/CS2103JAN2018-F11-B2/main forked from Team SE-EDU
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -782,13 +782,16 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Tuition coordinators who are comfortable with CLI applications
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+TuitionCor is targeted at tuition coordinators who have to manage a large amount of contacts.
+The daily job-scope of a tuition coordinator involves the need to manage large amount of contacts and match the students to tutors according to their credentials, needs and location.
+Therefore, TuitionCor aims to facilitate this process and make the job of a tuition coordinator easier.
+
+In addition, users are able to
+* find and filter contacts easily
+* add and edit contacts
 
 [appendix]
 == User Stories
