@@ -4,18 +4,18 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Represents a Person's available Location in the TuitionCor.
+ * Guarantees: immutable; is valid as declared in {@link #isValidLocation(String)}
  */
 public class Location {
 
     public static final String MESSAGE_LOCATION_CONSTRAINTS =
-            "Location should only be north, south, east, west, central";
-    public static final String LOCATION_NORTH = "north";
-    public static final String LOCATION_SOUTH = "south";
-    public static final String LOCATION_EAST = "east";
-    public static final String LOCATION_WEST = "west";
-    public static final String LOCATION_CENTRAL = "central";
+            "Location should only be north, south, east, west, central but can take any value if necessary";
+    /*
+     * The first character of the Location must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
     public final String value;
 
     /**
@@ -25,15 +25,15 @@ public class Location {
      */
     public Location(String location) {
         requireNonNull(location);
-        checkArgument(isValidPhone(location), MESSAGE_LOCATION_CONSTRAINTS);
+        checkArgument(isValidLocation(location), MESSAGE_LOCATION_CONSTRAINTS);
         this.value = location;
     }
 
     /**
-     * Returns true if a given string is a valid person phone number.
+     * Returns true if a given string is a valid person Location.
      */
-    public static boolean isValidPhone(String test) {
-        return test.equals(LOCATION_CENTRAL) || test.equals(LOCATION_EAST) || test.equals(LOCATION_NORTH) || test.equals(LOCATION_SOUTH) || test.equals(LOCATION_WEST);
+    public static boolean isValidLocation(String test) {
+        return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
     @Override
