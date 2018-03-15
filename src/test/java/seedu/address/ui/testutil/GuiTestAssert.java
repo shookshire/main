@@ -57,7 +57,8 @@ public class GuiTestAssert {
     }
 
     /**
-     *To be updated
+     *TODO:
+     *
      */
     private static String getTagColorStyleFor(String tagName) {
 

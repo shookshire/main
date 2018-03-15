@@ -135,12 +135,6 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_helpAlias() throws Exception {
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_ALIAS + " 3") instanceof HelpCommand);
-    }
-
-    @Test
     public void parseCommand_history() throws Exception {
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD + " 3") instanceof HistoryCommand);
@@ -199,7 +193,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_redoCommandWord_returnsRedoCommandAlias() throws Exception {
+    public void parseCommand_redoCommandAlias_returnsRedoCommand() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_ALIAS) instanceof RedoCommand);
         assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
     }
@@ -211,7 +205,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_undoCommandWord_returnsUndoCommandAlias() throws Exception {
+    public void parseCommand_undoCommandAlias_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
     }
