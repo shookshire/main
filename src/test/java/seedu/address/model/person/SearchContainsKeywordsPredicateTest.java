@@ -18,17 +18,17 @@ public class SearchContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        SearchContainsKeywordsPredicate firstPredicate
-                = new SearchContainsKeywordsPredicate(firstPredicateKeywordList);
-        SearchContainsKeywordsPredicate secondPredicate
-                = new SearchContainsKeywordsPredicate(secondPredicateKeywordList);
+        SearchContainsKeywordsPredicate firstPredicate =
+                new SearchContainsKeywordsPredicate(firstPredicateKeywordList);
+        SearchContainsKeywordsPredicate secondPredicate =
+                new SearchContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        SearchContainsKeywordsPredicate firstPredicateCopy
-                = new SearchContainsKeywordsPredicate(firstPredicateKeywordList);
+        SearchContainsKeywordsPredicate firstPredicateCopy =
+                new SearchContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -44,8 +44,8 @@ public class SearchContainsKeywordsPredicateTest {
     @Test
     public void test_searchContainsKeywords_returnsTrue() {
         // One keyword
-        SearchContainsKeywordsPredicate predicate
-                = new SearchContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        SearchContainsKeywordsPredicate predicate =
+                new SearchContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords
