@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's related Subject in the TuitionCor.
- * Guarantees: immutable; is valid as declared in {@link #isValidSubject(String)}
+ * Represents a Person's related Level in the TuitionCor.
+ * Guarantees: immutable; is valid as declared in {@link #isValidLevel(String)}
  */
-public class Subject {
+public class Level {
 
     public static final String MESSAGE_SUBJECT_CONSTRAINTS =
-            "Subjects can take any value and should not be blank";
+            "Level can be any specified level but should not be blank";
 
     /*
      * The first character of the Subject must not be a whitespace,
@@ -21,20 +21,20 @@ public class Subject {
     public final String value;
 
     /**
-     * Constructs an {@code Subject}.
+     * Constructs an {@code Level}.
      *
-     * @param subject A valid subject.
+     * @param level A valid level.
      */
-    public Subject(String subject) {
-        requireNonNull(subject);
-        checkArgument(isValidSubject(subject), MESSAGE_SUBJECT_CONSTRAINTS);
-        this.value = subject;
+    public Level(String level) {
+        requireNonNull(level);
+        checkArgument(isValidLevel(level), MESSAGE_SUBJECT_CONSTRAINTS);
+        this.value = level;
     }
 
     /**
-     * Returns true if a given string is a valid person Subject.
+     * Returns true if a given string is a valid person Level.
      */
-    public static boolean isValidSubject(String test) {
+    public static boolean isValidLevel(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
