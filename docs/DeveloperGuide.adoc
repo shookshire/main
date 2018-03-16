@@ -160,7 +160,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -782,7 +782,16 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
+<<<<<<< Updated upstream
 * Tuition coordinators who are comfortable with CLI applications
+=======
+* A tuition service agent that receive calls from both tutor and students asking for assignments.
+* has a need to manage a significant number of clients.
+* prefer desktop apps over other types
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+>>>>>>> Stashed changes
 
 *Value proposition*:
 TuitionCor is targeted at tuition coordinators who have to manage a large amount of contacts.
@@ -921,10 +930,9 @@ Use case resumes at step 4.
 
 *MSS*
 
-1.  User finds the client he wants to match.
-2.  Addressbook displays information of client.
-3.  User requests for a match.
-4.  Addressbook returns a list of potential matches.
+1.  User enter match followed by a person name.
+2.  Addressbook displays information of client in the respective list (either tutor list or student list)
+4.  Addressbook returns a list of potential matches in the respective list.
 +
 Use case ends.
 
