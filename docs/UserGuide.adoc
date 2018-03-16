@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= TuitionCor - User Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -16,7 +16,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TuitionCor is for those who *prefer to use a desktop app for managing client information*. More importantly, TuitionCor is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TuitionCor can get your client management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -26,8 +26,8 @@ AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for mana
 Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `TuitionCor.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your client information.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -60,8 +60,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Viewing help : `help`
 
 Format: `help`
-
-Alias Format: `1`
 
 === Adding a person: `add`
 
@@ -105,16 +103,16 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `e 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Locating persons: `find`
 
-Finds persons whose names contain any of the given keywords. +
+Finds persons that contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Alias Format: `f KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* Not only the name is searched, but all the fields of a person is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
@@ -125,6 +123,11 @@ Examples:
 Returns `john` and `John Doe`
 * `f Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
+* `f 96528541` +
+Returns any person having phone number `96528541`
+* `f blk` +
+Returns any person having keyword `blk`
+
 
 === Deleting a person : `delete`
 
@@ -265,6 +268,7 @@ _{explain how the user can enable/disable data encryption}_
 == Command Summary
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+<<<<<<< Updated upstream
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
 Alias: `a`
 * *Clear* : `clear` +
@@ -290,3 +294,54 @@ Alias: `h`
 Alias: `u`
 * *Redo* : `redo` +
 Alias: `r`
+=======
+
+ Alias : a
+
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+* *Clear* : `clear`
+
+ Alias : c
+
+* *Delete* : `delete INDEX` +
+
+ Alias : d
+
+e.g. `delete 3`
+
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+
+ Alias : e
+
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+
+ Alias : f
+
+e.g. `find James Jake`
+
+* *List* : `list`
+
+ Alias : l
+
+* *Help* : `help`
+* *Select* : `select INDEX` +
+
+ Alias : s
+
+e.g.`select 2`
+
+* *History* : `history`
+
+ Alias : h
+
+* *Undo* : `undo`
+
+ Alias : u
+
+* *Redo* : `redo`
+
+ Alias : r
+>>>>>>> Stashed changes
