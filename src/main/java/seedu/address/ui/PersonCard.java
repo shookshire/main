@@ -65,8 +65,7 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         intTags(person);
         intSubjects(person);
-
-    }
+        }
 
     /**
      *@author olimhc-reused
