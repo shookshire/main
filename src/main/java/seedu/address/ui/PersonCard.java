@@ -17,10 +17,10 @@ public class PersonCard extends UiPart<Region> {
     private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow" , "orange"};
 
     private static final String DUMMY_LEVEL_TEXT = "P1,P2,P3,S1,J1";
-    private static final String DUMMY_LOCALE_TEXT ="NORTH,SOUTH,EAST,WEST";
-    private static final String[] DUMMY_SUBJECTS_TEXT = {"Chem" , "Chemistry" , "Physics" , "Geography" , "Chem", "Chemistry"
-                                                    , "Physics" , "Geography" , "Chem", "Chemistry" , "Physics" , "Geography"
-                                                    , "Chem" , "Chemistry" , "Physics" , "Geography" };
+    private static final String DUMMY_LOCALE_TEXT = "NORTH,SOUTH,EAST,WEST";
+    private static final String[] DUMMY_SUBJECTS_TEXT = {"Chem" , "Chemistry" , "Physics" , "Geography" ,
+        "Chem" , "Chemistry" , "Physics" , "Geography" , "Chem" , "Chemistry" , "Physics" , "Geography" ,
+        "Chem" , "Chemistry" , "Physics" , "Geography" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -65,7 +65,7 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         intTags(person);
         intSubjects(person);
-        }
+    }
 
     /**
      *@author olimhc-reused
@@ -81,8 +81,12 @@ public class PersonCard extends UiPart<Region> {
         });
     }
 
+    /**
+     * Initialises subjects
+     * @param person
+     */
     private void intSubjects(Person person) {
-        for(String s : DUMMY_SUBJECTS_TEXT){
+        for (String s : DUMMY_SUBJECTS_TEXT) {
             Label newLabel = new Label(s);
             subjects.getChildren().add(newLabel);
         }
