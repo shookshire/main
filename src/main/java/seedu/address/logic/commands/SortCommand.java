@@ -9,9 +9,9 @@ public abstract class SortCommand extends Command {
     public static final String COMMAND_ALIAS = "so";
 
     public static final String COMMAND_WORD_NAME = "n";
-    public static final String COMMAND_WORD_LOCATION = "l";
+    public static final String COMMAND_WORD_LOCATION = "o";
     public static final String COMMAND_WORD_SUBJECT = "s";
-    public static final String COMMAND_WORD_LEVEL = "i";
+    public static final String COMMAND_WORD_LEVEL = "l";
     public static final String COMMAND_WORD_TUTORS = "t";
     public static final String COMMAND_WORD_STUDENTS = "s";
 

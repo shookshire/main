@@ -5,6 +5,8 @@ package seedu.address.logic.commands;
  */
 public class SortByLocationCommand extends SortCommand {
 
+    private static final String MESSAGE_SORT_DESC = " their location in alphabetical order.";
+
     private int index;
     private final int tutorIndex = 0;
     //private final int studentIndex = 1;
@@ -23,7 +25,7 @@ public class SortByLocationCommand extends SortCommand {
 
         case tutorIndex:
             model.sortByLocationFilteredPersonList();
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(MESSAGE_SUCCESS + MESSAGE_SORT_DESC);
 
         default:
             return new CommandResult(MESSAGE_FAILURE);
