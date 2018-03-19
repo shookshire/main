@@ -1030,3 +1030,44 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+[appendix]
+== Feature Contribution
+
+Given below are the minor and major feature contributions for each of our team member.
+
+=== Ngeow Shan Yong Destin
+
+. Major Contribution
+
+.. Extending of Person class to Client class +
+   Client class includes fields that are specific to TuitionCor such as subject, which is not available in person.
+
+. Minor Contribution
+
+.. Splitting storage of UniquePersonList into 2 List, 1 for Student and 1 for Tutor +
+   In TuitionCor all Client added would be either a student or a tutor, hence this would allow for easier organization of added entries. Also, this would remove the need to have to search through the entire list to see who are student or tutor at every command.
+
+=== Zhu Jiahui
+
+. Major Contribution
+
+.. Match Function +
+   This function matches a Student to any Tutor in TuitionCor that meets the requirements of the Student (or vice versa).This acts as the main purpose of TuitionCor, which is to help coordinate Students and Tutors.
+
+. Minor Contribution
+
+.. Enhancement of Find function to be able to find all fields and not only the person name +
+   This allows the user be able to search for anything related to the person he wishes to find in TuitionCor. For example, he can now search the address or phone number and be able to find the person.
+
+=== Lim Hong Cho
+
+. Major Contribution
+
+.. UI Changes +
+   The UI would be edited to suit TuitionCor's purpose by showing the Student and Tutor separately
+
+. Minor Contribution
+
+.. Sort +
+   This would allow the user to view the sorted list of Students and Tutors separately allowing for easier viewing of a specific category.
