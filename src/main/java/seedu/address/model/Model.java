@@ -39,6 +39,11 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    void sortByNameFilteredPersonList();
+    void sortByLocationFilteredPersonList();
+    void sortByLevelFilteredPersonList();
+    void sortBySubjectFilteredPersonList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

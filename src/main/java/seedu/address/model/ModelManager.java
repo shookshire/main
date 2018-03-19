@@ -3,12 +3,14 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -26,6 +28,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
 
+    private SortedList<Person> sortedFilteredPersons;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -37,6 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        sortedFilteredPersons = new SortedList<>(filteredPersons);
     }
 
     public ModelManager() {
@@ -89,7 +94,51 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+        return FXCollections.unmodifiableObservableList(sortedFilteredPersons);
+    }
+
+    /**
+     * @// TODO: 19/3/2018 Update when tutor and student class and specific field is available
+     */
+    @Override
+    public void sortByNameFilteredPersonList() {
+        Comparator<Person> sortByName = (person1, person2)-> (person1.getName().fullName)
+                .compareToIgnoreCase(person2.getName().fullName);
+        sortedFilteredPersons.setComparator(sortByName);
+        indicateAddressBookChanged();
+    }
+
+    /**
+     * @// TODO: 19/3/2018 Update when tutor and student class and specific field is available
+     */
+    @Override
+    public void sortByLocationFilteredPersonList() {
+        Comparator<Person> sortByLocation = (person1, person2)-> (person1.getName().fullName)
+                .compareToIgnoreCase(person2.getName().fullName);
+        sortedFilteredPersons.setComparator(sortByLocation);
+        indicateAddressBookChanged();
+    }
+
+    /**
+     * @// TODO: 19/3/2018 Update when tutor and student class and specific field available
+     */
+    @Override
+    public void sortByLevelFilteredPersonList() {
+        Comparator<Person> sortByLocation = (person1, person2)-> (person1.getName().fullName)
+                .compareToIgnoreCase(person2.getName().fullName);
+        sortedFilteredPersons.setComparator(sortByLocation);
+        indicateAddressBookChanged();
+    }
+
+    /**
+     * @// TODO: 19/3/2018 Update when tutor and student class and specific field available
+     */
+    @Override
+    public void sortBySubjectFilteredPersonList() {
+        Comparator<Person> sortByLocation = (person1, person2)-> (person1.getName().fullName)
+                .compareToIgnoreCase(person2.getName().fullName);
+        sortedFilteredPersons.setComparator(sortByLocation);
+        indicateAddressBookChanged();
     }
 
     @Override
