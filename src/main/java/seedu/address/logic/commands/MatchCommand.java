@@ -1,7 +1,10 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.person.MatchContainsKeywordsPredicate;
+import seedu.address.model.person.MatchContainsPersonsPredicate;
+import seedu.address.model.person.Person;
 
+import java.util.Arrays;
 /**
  * Finds and lists all persons in address book that contains any of the argument keywords.
  * Keyword matching is case insensitive.
@@ -23,6 +26,10 @@ public class MatchCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredPersonList(predicate);
+        Person A = model.getFilteredPersonList().get(0);
+        String B = A.toString();
+        String[] C = B.split("\\s+");
+        model.updateFilteredPersonList(new MatchContainsPersonsPredicate(Arrays.asList(C)));
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
 
