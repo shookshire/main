@@ -73,9 +73,9 @@ public class PersonCard extends UiPart<Region> {
      * @return String colour
      */
     private String getColour(String name) {
-        if(name.equalsIgnoreCase(URGENT_PATTERN_REGREX)) {
+        if (name.equalsIgnoreCase(URGENT_PATTERN_REGREX)) {
             return TAGS_COLOUR_STYLES[0];
-        }else {
+        } else {
             return TAGS_COLOUR_STYLES[(Math.abs(name.hashCode() % TAGS_COLOUR_STYLES.length))];
         }
     }
