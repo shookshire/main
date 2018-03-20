@@ -16,6 +16,8 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow" , "orange"};
 
+    private static final String URGENT_PATTERN_REGREX = "Urgent";
+
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -71,7 +73,11 @@ public class PersonCard extends UiPart<Region> {
      * @return String colour
      */
     private String getColour(String name) {
-        return TAGS_COLOUR_STYLES[(Math.abs(name.hashCode() % TAGS_COLOUR_STYLES.length))];
+        if(name.equalsIgnoreCase(URGENT_PATTERN_REGREX)) {
+            return TAGS_COLOUR_STYLES[0];
+        }else {
+            return TAGS_COLOUR_STYLES[(Math.abs(name.hashCode() % TAGS_COLOUR_STYLES.length))];
+        }
     }
 
     @Override
