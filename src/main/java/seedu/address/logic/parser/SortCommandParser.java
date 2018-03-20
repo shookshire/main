@@ -18,6 +18,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     private final int sortTypeIndex = 1;
     private final int tutorIndex = 0;
     private final int studentIndex = 1;
+
     /**
      * Parse the given {@code String} of arguments in the context of SortCommand
      * @throws ParseException if the user input does not conform the expected format
@@ -32,10 +33,10 @@ public class SortCommandParser implements Parser<SortCommand> {
         String[] commandArgs = trimmedArgs.split("");
 
         switch (commandArgs[listIndex]) {
-        case SortCommand.COMMAND_WORD_TUTORS:
+        case SortCommand.COMMAND_WORD_TUTOR:
             return parseSortType(commandArgs[sortTypeIndex], tutorIndex);
 
-        case SortCommand.COMMAND_WORD_STUDENTS:
+        case SortCommand.COMMAND_WORD_STUDENT:
             return parseSortType(commandArgs[sortTypeIndex], studentIndex);
 
         default:

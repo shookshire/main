@@ -25,7 +25,7 @@ public class SortByLevelCommand extends SortCommand {
 
         case tutorIndex:
             model.sortByLevelFilteredPersonList();
-            return new CommandResult(MESSAGE_SUCCESS + MESSAGE_SORT_DESC);
+            return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
 
         default:
             return new CommandResult(MESSAGE_FAILURE);
