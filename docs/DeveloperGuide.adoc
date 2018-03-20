@@ -891,31 +891,29 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Sort by locality
+=== Use case: Sort student's list by locality
 
 *MSS*
 
-1.  User types “/sortl” in to the command line.
-2.  TuitionCor will prompt user to select whether they would like to sort the list for students or tutors.
-3.  User will enter either “s” for students or “t” for tutors or "e" for exit.
-4.  TuitionCor will return a list of students or tutors based sorted by their locality.
+1.  User types “/sort sl” in to the command line.
+2.  TuitionCor will return a list of students or tutors based sorted by their locality.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. System detects an invalid input.
+* 1a. System detects an invalid input.
 +
 [none]
-** 3a1. TuitionCor request for either "s" or "t" or "e" to be inputted.
-** 3a2. User enter required information.
-** 3a3. Steps 3a1 and 3a2 are repeated until valid input is entered.
+** 1a1. TuitionCor will display invalid command or display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 3a1 and 3a2 are repeated until valid input is entered.
 +
-Use case resumes at step 4.
+Use case resumes at step 2.
 
 [none]
-* 3b. System detects "e".
+* 1b. System detects no further input.
 +
 Use case ends.
 
