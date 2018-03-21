@@ -2,7 +2,6 @@ package seedu.address.model.person;
 
 import seedu.address.model.tag.Tag;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,14 +13,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class Client extends Person {
 
-    private final ArrayList<Location> location;
-    private final ArrayList<Level> level;
-    private final ArrayList<Subject> subject;
+    private final Location location;
+    private final Level level;
+    private final Subject subject;
 
     /**
      * Every field must be present and not null.
      */
-    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, ArrayList<Location> location, ArrayList<Level> level, ArrayList<Subject> subject) {
+    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Location location, Level level, Subject subject) {
         super(name, phone, email, address, tags);
         requireAllNonNull(location, level, subject);
         this.location = location;
@@ -29,16 +28,16 @@ public class Client extends Person {
         this.subject = subject;
     }
 
-    public boolean hasLocation(Location toCheck) {
-        return location.contains(toCheck);
+    public Location getLocation() {
+        return location;
     }
 
-    public boolean hasLevel(Level toCheck) {
-        return level.contains(toCheck);
+    public Level getLevel() {
+        return level;
     }
 
-    public boolean hasSubject(Subject toCheck) {
-        return subject.contains(toCheck);
+    public Subject getSubject() {
+        return subject;
     }
 
     @Override
