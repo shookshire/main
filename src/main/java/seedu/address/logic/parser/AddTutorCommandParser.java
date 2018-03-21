@@ -17,11 +17,12 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddTutorCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Client;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Grade;
+import seedu.address.model.person.Location;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Location;
-import seedu.address.model.person.Grade;
 import seedu.address.model.person.Subject;
 import seedu.address.model.tag.Tag;
 
