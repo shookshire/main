@@ -8,6 +8,10 @@ import java.util.Set;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Represents a Client in tuitionCor.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Client extends Person {
 
     private final ArrayList<Location> location;
@@ -16,7 +20,6 @@ public class Client extends Person {
 
     /**
      * Every field must be present and not null.
-     * @TODO: include location, subject and level field when add method is updated
      */
     public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, ArrayList<Location> location, ArrayList<Level> level, ArrayList<Subject> subject) {
         super(name, phone, email, address, tags);
@@ -43,5 +46,5 @@ public class Client extends Person {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(), this.getTags(), location, level, subject);
     }
-    
+
 }
