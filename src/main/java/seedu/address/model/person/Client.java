@@ -16,17 +16,19 @@ public class Client extends Person {
     private final Location location;
     private final Grade grade;
     private final Subject subject;
+    private final Type type;
 
     /**
      * Every field must be present and not null.
      */
     public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Location location,
-                  Grade grade, Subject subject) {
+                  Grade grade, Subject subject, Type type) {
         super(name, phone, email, address, tags);
         requireAllNonNull(location, grade, subject);
         this.location = location;
         this.grade = grade;
         this.subject = subject;
+        this.type = type;
     }
 
     public Location getLocation() {
@@ -39,6 +41,10 @@ public class Client extends Person {
 
     public Subject getSubject() {
         return subject;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     @Override
