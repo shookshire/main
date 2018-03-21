@@ -97,6 +97,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(person);
     }
 
+
+    /**
+     * Adds a tutor to TuitionCor.
+     * Also checks the new tutor's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the tutor to point to those in {@link #tags}.
+     *
+     * @throws DuplicatePersonException if an equivalent person already exists.
+     */
+    public void addTutor(Client t) throws DuplicatePersonException {
+        Client tutor = syncWithMasterTagList(t);
+        // TODO: the tags master list will be updated even though the below line fails.
+        // This can cause the tags master list to have additional tags that are not tagged to any person
+        // in the person list.
+        tutors.add(tutor);
+    }
+
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedPerson}.
@@ -140,35 +156,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
-     */
-    public boolean removePerson(Person key) throws PersonNotFoundException {
-        if (persons.remove(key)) {
-            return true;
-        } else {
-            throw new PersonNotFoundException();
-        }
-    }
-
-    //// client-level operations
-
-    /**
-     * Adds a tutor to TuitionCor.
-     * Also checks the new tutor's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the tutor to point to those in {@link #tags}.
-     *
-     * @throws DuplicatePersonException if an equivalent person already exists.
-     */
-    public void addTutor(Client t) throws DuplicatePersonException {
-        Client tutor = syncWithMasterTagList(t);
-        // TODO: the tags master list will be updated even though the below line fails.
-        // This can cause the tags master list to have additional tags that are not tagged to any person
-        // in the person list.
-        tutors.add(tutor);
-    }
-
-    /**
      *  Updates the master tag list to include tags in {@code client} that are not in the list.
      *  @return a copy of this {@code client} such that every tag in this person points to a Tag object in the master
      *  list.
@@ -186,7 +173,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         final Set<Tag> correctTagReferences = new HashSet<>();
         clientTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
         return new Client(
-                client.getName(), client.getPhone(), client.getEmail(), client.getAddress(), correctTagReferences, client.getLocation(), client.getGrade(), client.getSubject());
+                client.getName(), client.getPhone(), client.getEmail(), client.getAddress(), correctTagReferences,
+                client.getLocation(), client.getGrade(), client.getSubject());
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public boolean removePerson(Person key) throws PersonNotFoundException {
+        if (persons.remove(key)) {
+            return true;
+        } else {
+            throw new PersonNotFoundException();
+        }
     }
 
     //// tag-level operations

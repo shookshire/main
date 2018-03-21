@@ -20,7 +20,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * @see Client#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueClientList implements Iterable<Client>{
+public class UniqueClientList implements Iterable<Client> {
 
     private final ObservableList<Client> internalList = FXCollections.observableArrayList();
 

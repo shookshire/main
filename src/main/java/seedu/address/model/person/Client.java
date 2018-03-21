@@ -1,11 +1,11 @@
 package seedu.address.model.person;
 
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 import java.util.Set;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Client in tuitionCor.
@@ -20,7 +20,8 @@ public class Client extends Person {
     /**
      * Every field must be present and not null.
      */
-    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Location location, Grade grade, Subject subject) {
+    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Location location,
+                  Grade grade, Subject subject) {
         super(name, phone, email, address, tags);
         requireAllNonNull(location, grade, subject);
         this.location = location;
@@ -43,7 +44,8 @@ public class Client extends Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(), this.getTags(), location, grade, subject);
+        return Objects.hash(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(),
+                this.getTags(), location, grade, subject);
     }
 
 }
