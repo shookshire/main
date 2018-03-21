@@ -61,7 +61,7 @@ public class AddClientCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
         try {
-            if(toAdd.getCategory().isStudent()) {
+            if (toAdd.getCategory().isStudent()) {
                 model.addStudent(toAdd);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_STUDENT, toAdd));
             } else {
