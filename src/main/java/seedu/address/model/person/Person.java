@@ -19,9 +19,6 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final Address address;
-    //private final Location location;
-    //private final Subject subject;
-    //private final Level level;
 
     private final UniqueTagList tags;
 
@@ -54,21 +51,6 @@ public class Person {
     public Address getAddress() {
         return address;
     }
-
-
-    /*
-    public Location getLocation() {
-        return location;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public Level getLevel() {
-        return level;
-    }
-    */
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
