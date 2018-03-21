@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's related Level in the TuitionCor.
+ * Represents a Person's related Level (the year of study eg. pri4, sec3) in the TuitionCor.
  * Guarantees: immutable; is valid as declared in {@link #isValidLevel(String)}
  */
 public class Level {
