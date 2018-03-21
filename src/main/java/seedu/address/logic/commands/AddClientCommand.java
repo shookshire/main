@@ -17,10 +17,10 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 /**
  * Adds a tutor to TuitionCor.
  */
-public class AddTutorCommand extends UndoableCommand {
+public class AddClientCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "addtutor";
-    public static final String COMMAND_ALIAS = "at";
+    public static final String COMMAND_WORD = "addclient";
+    public static final String COMMAND_ALIAS = "ac";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tutor to TuitionCor. "
             + "Parameters: "
@@ -43,15 +43,16 @@ public class AddTutorCommand extends UndoableCommand {
             + PREFIX_GRADE + "pri6 "
             + PREFIX_SUBJECT + "physics";
 
-    public static final String MESSAGE_SUCCESS = "New tutor added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This tutor already exists in the address book";
+    public static final String MESSAGE_SUCCESS_STUDENT = "New student added: %1$s";
+    public static final String MESSAGE_SUCCESS_TUTOR = "New tutor added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This student/tutor already exists in the address book";
 
     private final Client toAdd;
 
     /**
-     * Creates an AddTutorCommand to add the specified {@code Client}
+     * Creates an AddClientCommand to add the specified {@code Client}
      */
-    public AddTutorCommand(Client client) {
+    public AddClientCommand(Client client) {
         requireNonNull(client);
         toAdd = client;
     }
@@ -60,8 +61,14 @@ public class AddTutorCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
         try {
-            model.addTutor(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            if(toAdd.getCategory().isStudent()) {
+                model.addStudent(toAdd);
+                return new CommandResult(String.format(MESSAGE_SUCCESS_STUDENT, toAdd));
+            } else {
+                model.addTutor(toAdd);
+                return new CommandResult(String.format(MESSAGE_SUCCESS_TUTOR, toAdd));
+            }
+
         } catch (DuplicatePersonException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
@@ -71,7 +78,7 @@ public class AddTutorCommand extends UndoableCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddTutorCommand // instanceof handles nulls
-                && toAdd.equals(((AddTutorCommand) other).toAdd));
+                || (other instanceof AddClientCommand // instanceof handles nulls
+                && toAdd.equals(((AddClientCommand) other).toAdd));
     }
 }

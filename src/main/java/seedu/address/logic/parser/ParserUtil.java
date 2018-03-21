@@ -17,6 +17,7 @@ import seedu.address.model.person.Location;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Subject;
+import seedu.address.model.person.Category;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -240,5 +241,29 @@ public class ParserUtil {
     public static Optional<Subject> parseSubject(Optional<String> subject) throws IllegalValueException {
         requireNonNull(subject);
         return subject.isPresent() ? Optional.of(parseSubject(subject.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String category} into an {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code type} is invalid.
+     */
+    public static Category parseCategory(String category) throws IllegalValueException {
+        requireNonNull(category);
+        String trimmedCategory = category.trim();
+        if (!Category.isValidCategory(trimmedCategory)) {
+            throw new IllegalValueException(Category.MESSAGE_CATEGORY_CONSTRAINTS);
+        }
+        return new Category(trimmedCategory);
+    }
+
+    /**
+     * Parses a {@code Optional<String> category} into an {@code Optional<Category>} if {@code category} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Category> parseCategory(Optional<String> category) throws IllegalValueException {
+        requireNonNull(category);
+        return category.isPresent() ? Optional.of(parseCategory(category.get())) : Optional.empty();
     }
 }

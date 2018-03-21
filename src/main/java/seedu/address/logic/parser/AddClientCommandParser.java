@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
@@ -14,9 +15,10 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddTutorCommand;
+import seedu.address.logic.commands.AddClientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Grade;
@@ -27,24 +29,24 @@ import seedu.address.model.person.Subject;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddTutorCommand object
+ * Parses input arguments and creates a new AddClientCommand object
  */
-public class AddTutorCommandParser {
+public class AddClientCommandParser {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddTutorCommand
-     * and returns an AddTutorCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddClientCommand
+     * and returns an AddClientCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddTutorCommand parse(String args) throws ParseException {
+    public AddClientCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_TAG, PREFIX_LOCATION, PREFIX_GRADE, PREFIX_SUBJECT);
+                        PREFIX_TAG, PREFIX_LOCATION, PREFIX_GRADE, PREFIX_SUBJECT, PREFIX_CATEGORY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_LOCATION, PREFIX_GRADE, PREFIX_SUBJECT)
+                PREFIX_LOCATION, PREFIX_GRADE, PREFIX_SUBJECT, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTutorCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClientCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -56,10 +58,11 @@ public class AddTutorCommandParser {
             Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION)).get();
             Grade grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE)).get();
             Subject subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT)).get();
+            Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY)).get();
 
-            Client client = new Client(name, phone, email, address, tagList, location, grade, subject);
+            Client client = new Client(name, phone, email, address, tagList, location, grade, subject, category);
 
-            return new AddTutorCommand(client);
+            return new AddClientCommand(client);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

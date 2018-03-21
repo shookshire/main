@@ -16,19 +16,19 @@ public class Client extends Person {
     private final Location location;
     private final Grade grade;
     private final Subject subject;
-    private final Type type;
+    private final Category category;
 
     /**
      * Every field must be present and not null.
      */
     public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Location location,
-                  Grade grade, Subject subject, Type type) {
+                  Grade grade, Subject subject, Category category) {
         super(name, phone, email, address, tags);
         requireAllNonNull(location, grade, subject);
         this.location = location;
         this.grade = grade;
         this.subject = subject;
-        this.type = type;
+        this.category = category;
     }
 
     public Location getLocation() {
@@ -43,15 +43,15 @@ public class Client extends Person {
         return subject;
     }
 
-    public Type getType() {
-        return type;
+    public Category getCategory() {
+        return category;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(),
-                this.getTags(), location, grade, subject);
+                this.getTags(), location, grade, subject, category);
     }
 
 }

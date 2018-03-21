@@ -15,5 +15,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_LOCATION = new Prefix("l/");
     public static final Prefix PREFIX_GRADE = new Prefix("g/");
     public static final Prefix PREFIX_SUBJECT = new Prefix("s/");
+    public static final Prefix PREFIX_CATEGORY = new Prefix("c/");
 
 }

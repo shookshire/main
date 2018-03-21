@@ -27,6 +27,7 @@ import seedu.address.model.tag.UniqueTagList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueClientList students;
     private final UniqueClientList tutors;
     private final UniqueTagList tags;
 
@@ -39,6 +40,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        students = new UniqueClientList();
         tutors = new UniqueClientList();
         tags = new UniqueTagList();
     }
@@ -114,6 +116,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a student to TuitionCor.
+     * Also checks the new student's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the tutor to point to those in {@link #tags}.
+     *
+     * @throws DuplicatePersonException if an equivalent person already exists.
+     */
+    public void addStudent(Client t) throws DuplicatePersonException {
+        Client student = syncWithMasterTagList(t);
+        // TODO: the tags master list will be updated even though the below line fails.
+        // This can cause the tags master list to have additional tags that are not tagged to any person
+        // in the person list.
+        students.add(student);
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedPerson}.
      *
@@ -174,7 +191,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         clientTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
         return new Client(
                 client.getName(), client.getPhone(), client.getEmail(), client.getAddress(), correctTagReferences,
-                client.getLocation(), client.getGrade(), client.getSubject());
+                client.getLocation(), client.getGrade(), client.getSubject(), client.getCategory());
     }
 
     /**

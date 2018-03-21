@@ -40,6 +40,9 @@ public interface Model {
     /** Adds the given tutor */
     void addTutor(Client tutor) throws DuplicatePersonException;
 
+    /** Adds the given student */
+    void addStudent(Client student) throws DuplicatePersonException;
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 

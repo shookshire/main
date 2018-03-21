@@ -5,12 +5,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents if a Client is a student or tutor in TuitionCor.
- * Guarantees: immutable; is valid as declared in {@link #isValidType(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
-public class Type {
+public class Category {
 
-    public static final String MESSAGE_TYPE_CONSTRAINTS =
-            "Client Type can only be s or t, representing student or tutor respectively";
+    public static final String MESSAGE_CATEGORY_CONSTRAINTS =
+            "Client Category can only be s or t, representing student or tutor respectively";
 
     /*
      * Must be either s or t
@@ -20,20 +20,20 @@ public class Type {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Category}.
      *
-     * @param type A valid address.
+     * @param category A valid category.
      */
-    public Type(String type) {
-        requireNonNull(type);
-        checkArgument(isValidType(type), MESSAGE_TYPE_CONSTRAINTS);
-        this.value = type;
+    public Category(String category) {
+        requireNonNull(category);
+        checkArgument(isValidCategory(category), MESSAGE_CATEGORY_CONSTRAINTS);
+        this.value = category;
     }
 
     /**
-     * Returns true if a given string is a valid client type.
+     * Returns true if a given string is a valid client category.
      */
-    public static boolean isValidType(String test) {
+    public static boolean isValidCategory(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
@@ -53,8 +53,8 @@ public class Type {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Type // instanceof handles nulls
-                && this.value.equals(((Type) other).value)); // state check
+                || (other instanceof Category // instanceof handles nulls
+                && this.value.equals(((Category) other).value)); // state check
     }
 
     @Override

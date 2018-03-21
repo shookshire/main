@@ -87,6 +87,11 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.addTutor(tutor);
     }
 
+    @Override
+    public synchronized void addStudent(Client student) throws DuplicatePersonException {
+        addressBook.addStudent(student);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
