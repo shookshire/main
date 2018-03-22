@@ -26,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Client> filteredTutors;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTutors = new FilteredList<>(this.addressBook.getTutorList());
     }
 
     public ModelManager() {
@@ -85,6 +87,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTutor(Client tutor) throws DuplicatePersonException {
         addressBook.addTutor(tutor);
+        updateFilteredTutorList(PREDICATE_SHOW_ALL_TUTORS);
+        indicateAddressBookChanged();
     }
 
     @Override
@@ -107,6 +111,21 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
+     * {@code addressBook}
+     */
+    @Override
+    public ObservableList<Client> getFilteredTutorList() {
+        return FXCollections.unmodifiableObservableList(filteredTutors);
+    }
+
+    @Override
+    public void updateFilteredTutorList(Predicate<Client> predicate) {
+        requireNonNull(predicate);
+        filteredTutors.setPredicate(predicate);
     }
 
     @Override
