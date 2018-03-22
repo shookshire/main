@@ -21,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -124,6 +125,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addTutor(Client tutor) throws DuplicatePersonException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void addStudent(Client student) throws DuplicatePersonException {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             fail("This method should not be called.");
             return null;
@@ -131,6 +142,17 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Client> getFilteredTutorList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void updateFilteredTutorList(Predicate<Client> predicate) {
             fail("This method should not be called.");
         }
     }
