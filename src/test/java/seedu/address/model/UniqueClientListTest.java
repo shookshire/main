@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.UniqueClientList;
-import seedu.address.model.person.UniquePersonList;
 
 public class UniqueClientListTest {
     @Rule
