@@ -359,6 +359,63 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
+// tag::match[]
+=== Match Function
+==== Current Implementation
+The match function is a function that behaves like a multi-layer find function. It helps to match clients that share same attributes.
+
+For example, John is a Tutor client that is staying in the WEST of Singapore, and is looking for students that requires help in sec4 math. Keying in `match John` will return a list of students that are registered in TuitionCor, which also stay in the WEST, and are looking for sec4 math tutors.
+
+Step 1:
+
+match function behaves like at double-layered find function. When a user enters `match John`, the system will first need to locate John from the list of tutors stored in TuitionCor. This is done by `MatchContainsKeywordsPredicate.java` method.
+The detailed code is shown below:
+[source,java]
+----
+public boolean test(Person person) {
+return keywords.stream()
+        .anyMatch(keyword ->
+StringUtil.contailsWordIgnoreCase(person.getName().fullName, keyword));
+}
+----
+Step 2:
+
+When the `John` is located, his data (location, grade, subject and category) are then retrieved into `MatchCommand.java`
+The detailed code is shown below:
+----
+public CommandResult execute() {
+    model.updateFilteredPersonList(predicate);
+    model.updateFilteredPersonList(new MatchContainsPersonsPredicate(
+        Arrays.asList(model.getFilteredPersonList().get(0).toString().split("\\s+"))));
+}
+----
+[NOTE]
+Currently match function can only match client one at a time, as the code is only retrieving the first person’s data from the `getFilteredPersonList()`. Hence, even though a user can key in many names at one search, the search result is only corresponding to the first name entered.
+
+Step 3:
+
+The data(location, grade, subject and category) of `John` will then passed into `MatchContainsPersonPredicate.java`, this method will then look through all the students and return all the students that have same data as `John`.
+The detailed code is shown below:
+----
+public boolean test(Person person) {
+    return keywords.stream()
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword))
+            && keywords.stream()
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword))
+            && keywords.stream()
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword));
+}
+----
+[NOTE]
+If a `KEYWORD` that is not a name, or a name that is not registered in TuitionCor is entered, TuitionCor will return an empty list.
+
+==== Future Improvements
+
+* Currently, match can only be done one client at a time. future implementations could be updating it to match all the possible combinations.
+* Currently, when matching a name or a word that is not stored in TuitionCor, an empty list is returned. This could be misleading since the user would not know its a typo or there is simply no match. Future implementation could help to resolve such issue.
+* Currently, a match only takes place when all the data of another client fits the data of the client entered. Future implementation could return a list of clients that ranks from highest match to lowest match. This provide more flexible choices to our clients.
+// end::match[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
