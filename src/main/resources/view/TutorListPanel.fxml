@@ -6,5 +6,5 @@
 
 <VBox xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <Label text="Tutors" styleClass="list-header"/>
-    <ListView fx:id="tutorListView" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="tutorListView" prefWidth="247.0" VBox.vgrow="ALWAYS" />
 </VBox>

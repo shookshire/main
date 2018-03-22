@@ -16,7 +16,13 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow" , "orange"};
 
-    private static final String URGENT_PATTERN_REGREX = "Urgent";
+
+    private static final String URGENT_PATTERN_REGEX = "Urgent";
+    private static final String DUMMY_LEVEL_TEXT = "P1,P2,P3,S1,J1";
+    private static final String DUMMY_LOCALE_TEXT = "NORTH,SOUTH,EAST,WEST";
+    private static final String[] DUMMY_SUBJECTS_TEXT = {"Chem" , "Chemistry" , "Physics" , "Geography" ,
+        "Chem" , "Chemistry" , "Physics" , "Geography" , "Chem" , "Chemistry" , "Physics" , "Geography" ,
+        "Chem" , "Chemistry" , "Physics" , "Geography" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -33,25 +39,34 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label level;
+    @FXML
     private Label id;
     @FXML
     private Label phone;
+    @FXML
+    private Label locale;
     @FXML
     private Label address;
     @FXML
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane subjects;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
+        level.setText(DUMMY_LEVEL_TEXT);
         phone.setText(person.getPhone().value);
+        locale.setText(DUMMY_LOCALE_TEXT);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         intTags(person);
+        intSubjects(person);
     }
 
     /**
@@ -69,11 +84,22 @@ public class PersonCard extends UiPart<Region> {
     }
 
     /**
+     * Initialises subjects
+     * @param person
+     */
+    private void intSubjects(Person person) {
+        for (String s : DUMMY_SUBJECTS_TEXT) {
+            Label newLabel = new Label(s);
+            subjects.getChildren().add(newLabel);
+        }
+    }
+
+    /**
      * @param name
      * @return String colour
      */
     private String getColour(String name) {
-        if (name.equalsIgnoreCase(URGENT_PATTERN_REGREX)) {
+        if (name.equalsIgnoreCase(URGENT_PATTERN_REGEX)) {
             return TAGS_COLOUR_STYLES[0];
         } else {
             return TAGS_COLOUR_STYLES[(Math.abs(name.hashCode() % TAGS_COLOUR_STYLES.length))];
