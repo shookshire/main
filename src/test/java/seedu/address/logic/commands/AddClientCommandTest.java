@@ -25,53 +25,53 @@ import seedu.address.model.person.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
 
-public class AddCommandTest {
+public class AddClientCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullClient_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddClientCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_clientAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingClientAdded modelStub = new ModelStubAcceptingClientAdded();
+        Client validClient = new ClientBuilder().build();
 
-        CommandResult commandResult = getAddCommandForPerson(validPerson, modelStub).execute();
+        CommandResult commandResult = getAddClientCommandForPerson(validClient, modelStub).execute();
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddClientCommand.MESSAGE_SUCCESS_TUTOR, validClient), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validClient), modelStub.tutorsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
-        Person validPerson = new PersonBuilder().build();
+        ModelStub modelStub = new ModelStubThrowingDuplicateClientException();
+        Client validClient = new ClientBuilder().build();
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddClientCommand.MESSAGE_DUPLICATE_PERSON);
 
-        getAddCommandForPerson(validPerson, modelStub).execute();
+        getAddClientCommandForPerson(validClient, modelStub).execute();
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Client alice = new ClientBuilder().withName("Alice").build();
+        Client bob = new ClientBuilder().withName("Bob").build();
+        AddClientCommand addAliceCommand = new AddClientCommand(alice);
+        AddClientCommand addBobCommand = new AddClientCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddClientCommand addAliceCommandCopy = new AddClientCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -85,10 +85,10 @@ public class AddCommandTest {
     }
 
     /**
-     * Generates a new AddCommand with the details of the given person.
+     * Generates a new AddClientCommand with the details of the given person.
      */
-    private AddCommand getAddCommandForPerson(Person person, Model model) {
-        AddCommand command = new AddCommand(person);
+    private AddClientCommand getAddClientCommandForPerson(Client client, Model model) {
+        AddClientCommand command = new AddClientCommand(client);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
@@ -160,9 +160,14 @@ public class AddCommandTest {
     /**
      * A Model stub that always throw a DuplicatePersonException when trying to add a person.
      */
-    private class ModelStubThrowingDuplicatePersonException extends ModelStub {
+    private class ModelStubThrowingDuplicateClientException extends AddClientCommandTest.ModelStub {
         @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
+        public void addTutor(Client tutor) throws DuplicatePersonException {
+            throw new DuplicatePersonException();
+        }
+
+        @Override
+        public void addStudent(Client student) throws DuplicatePersonException {
             throw new DuplicatePersonException();
         }
 
@@ -173,15 +178,22 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the client being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingClientAdded extends AddClientCommandTest.ModelStub {
+        final ArrayList<Client> tutorsAdded = new ArrayList<>();
+        final ArrayList<Client> studentsAdded = new ArrayList<>();
 
         @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addTutor(Client tutor) throws DuplicatePersonException {
+            requireNonNull(tutor);
+            tutorsAdded.add(tutor);
+        }
+
+        @Override
+        public void addStudent(Client student) throws DuplicatePersonException {
+            requireNonNull(student);
+            studentsAdded.add(student);
         }
 
         @Override

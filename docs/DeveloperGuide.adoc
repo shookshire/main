@@ -11,8 +11,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/CS2103JAN2018-F11-B2/main forked from Team SE-EDU
+:Team SE-EDU: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F11-B2`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -781,17 +782,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 == Product Scope
 
 *Target user profile*:
-
-<<<<<<< Updated upstream
-* Tuition coordinators who are comfortable with CLI applications
-=======
-* A tuition service agent that receive calls from both tutor and students asking for assignments.
-* has a need to manage a significant number of clients.
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
->>>>>>> Stashed changes
+* Tuition coordinators who handle significant number of contacts and are comfortable with CLI applications.
 
 *Value proposition*:
 TuitionCor is targeted at tuition coordinators who have to manage a large amount of contacts.
@@ -824,15 +815,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |tag tutors and students with multiple fields |do multi-layer searching to better match tutors and students
 
-|`* * *` |user |categorise contacts between students and tutors |reduce the number of tagging required and make searching more convenience
+|`* * *` |user |categorise contacts between students and tutors |reduce the number of tagging required and make searching more convenient
 
 |`* * *` |user |group clients based on the subject they wish to study/teach (Math, Eng, Phy, Chem...) |find and match client easily by the subjects registered
 
 |`* * *` |user |record the gender preference the students/tutors have (male/female) |find and match client easily by the gender preference registered
 
 |`* * *` |user |see and compare the price that students/tutors are willing to pay/accept|match them based on pricing
-
-|`* * *` |user |have an auto-save function |changes will be saved once user exit the application
 
 |`* * *` |user |search by tags added to client |generate a list of clients that have the same tags
 
@@ -873,7 +862,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TuitionCor` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -881,9 +870,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  TuitionCor shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  TuitionCor deletes the person
 +
 Use case ends.
 
@@ -897,33 +886,37 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TuitionCor shows an error message.
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Sort by locality
+=== Use case: Sort student's list by locality
 
 *MSS*
 
-1.  User types “/sortl” in to the command line.
-2.  Addressbook will prompt user to select whether they would like to view the list for students or tutors.
-3.  User will enter either “s” for students or “t” for tutors.
-4.  Addressbook will return a list of students or tutors based sorted by their locality.
+1.  User types “/sort sl” in to the command line.
+2.  TuitionCor will return a list of students or tutors based sorted by their locality.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. System detects an invalid input.
+* 1a. System detects an invalid input.
 +
 [none]
-** 3a1. Addressbook request for either "s" or "t" to be inputted.
-** 3a2. User enter required information.
-** 3a3. Steps 3a1 and 3a2 are repeated until valid input is entered.
+** 1a1. TuitionCor will display invalid command or display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 3a1 and 3a2 are repeated until valid input is entered.
 +
-Use case resumes at step 4.
+Use case resumes at step 2.
+
+[none]
+* 1b. System detects no further input.
++
+Use case ends.
+
 
 [discrete]
 === Use case: Match
@@ -931,8 +924,8 @@ Use case resumes at step 4.
 *MSS*
 
 1.  User enter match followed by a person name.
-2.  Addressbook displays information of client in the respective list (either tutor list or student list)
-4.  Addressbook returns a list of potential matches in the respective list.
+2.  TuitionCor displays information of client in the respective list (either tutor list or student list)
+4.  TuitionCor returns a list of potential matches in the respective list.
 +
 Use case ends.
 
@@ -946,7 +939,7 @@ Use case ends.
 * 3a. There is no match found.
 +
 [none]
-** 3a1. Addressbook returns an empty list.
+** 3a1. TuitionCor returns an empty list.
 +
 Use case ends.
 
@@ -961,6 +954,7 @@ Use case ends.
 .  Application should have a self-explanatory installation process.
 .  Application should be less than 5mb in size.
 .  Application is expected to allow printing.
+.  Application should have an auto-save function upon exiting the application.
 
 
 [appendix]
@@ -1034,3 +1028,44 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+[appendix]
+== Feature Contribution
+
+Given below are the minor and major feature contributions for each of our team member.
+
+=== Ngeow Shan Yong Destin
+
+. Major Contribution
+
+.. Extending of Person class to Client class +
+   Client class includes fields that are specific to TuitionCor such as subject, which is not available in person.
+
+. Minor Contribution
+
+.. Splitting storage of UniquePersonList into 2 List, 1 for Student and 1 for Tutor +
+   In TuitionCor all Client added would be either a student or a tutor, hence this would allow for easier organization of added entries. Also, this would remove the need to have to search through the entire list to see who are student or tutor at every command.
+
+=== Zhu Jiahui
+
+. Major Contribution
+
+.. Match Function +
+   This function matches a Student to any Tutor in TuitionCor that meets the requirements of the Student (or vice versa).This acts as the main purpose of TuitionCor, which is to help coordinate Students and Tutors.
+
+. Minor Contribution
+
+.. Enhancement of Find function to be able to find all fields and not only the person name +
+   This allows the user be able to search for anything related to the person he wishes to find in TuitionCor. For example, he can now search the address or phone number and be able to find the person.
+
+=== Lim Hong Cho
+
+. Major Contribution
+
+.. UI Changes +
+   The UI would be edited to suit TuitionCor's purpose by showing the Student and Tutor separately
+
+. Minor Contribution
+
+.. Sort +
+   This would allow the user to view the sorted list of Students and Tutors separately allowing for easier viewing of a specific category.

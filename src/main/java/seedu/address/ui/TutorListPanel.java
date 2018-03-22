@@ -13,9 +13,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ClientPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Client;
 
 /**
  * Panel containing the list of tutors.
@@ -25,17 +25,17 @@ public class TutorListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(TutorListPanel.class);
 
     @FXML
-    private ListView<PersonCard> tutorListView;
+    private ListView<ClientCard> tutorListView;
 
-    public TutorListPanel(ObservableList<Person> tutorList) {
+    public TutorListPanel(ObservableList<Client> tutorList) {
         super(FXML);
         setConnections(tutorList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Person> tutorList) {
-        ObservableList<PersonCard> mappedList = EasyBind.map(
-                tutorList, (person) -> new PersonCard(person, tutorList.indexOf(person) + 1));
+    private void setConnections(ObservableList<Client> tutorList) {
+        ObservableList<ClientCard> mappedList = EasyBind.map(
+                tutorList, (client) -> new ClientCard(client, tutorList.indexOf(client) + 1));
         tutorListView.setItems(mappedList);
         tutorListView.setCellFactory(listView -> new StudentListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -46,13 +46,13 @@ public class TutorListPanel extends UiPart<Region> {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                        raise(new ClientPanelSelectionChangedEvent(newValue));
                     }
                 });
     }
 
     /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     * Scrolls to the {@code ClientCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
@@ -68,12 +68,12 @@ public class TutorListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code ClientCard}.
      */
-    class StudentListViewCell extends ListCell<PersonCard> {
+    class StudentListViewCell extends ListCell<ClientCard> {
 
         @Override
-        protected void updateItem(PersonCard person, boolean empty) {
+        protected void updateItem(ClientCard person, boolean empty) {
             super.updateItem(person, empty);
 
             if (empty || person == null) {
