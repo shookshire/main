@@ -8,30 +8,28 @@ import seedu.address.commons.util.StringUtil;
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
-public class SearchContainsKeywordsPredicate implements Predicate<Person> {
+public class MatchContainsPersonsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
-    public SearchContainsKeywordsPredicate(List<String> keywords) {
+    public MatchContainsPersonsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword))
-                || keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword))
-                || keywords.stream()
+                && keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword))
-                || keywords.stream()
+                && keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SearchContainsKeywordsPredicate // instanceof handles nulls
-                && this.keywords.equals(((SearchContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof MatchContainsPersonsPredicate // instanceof handles nulls
+                && this.keywords.equals(((MatchContainsPersonsPredicate) other).keywords)); // state check
     }
 
 }
