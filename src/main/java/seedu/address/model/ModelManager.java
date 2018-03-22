@@ -14,6 +14,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.person.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -27,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Client> filteredTutors;
 
     private SortedList<Person> sortedFilteredPersons;
 
@@ -41,7 +43,11 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
         sortedFilteredPersons = new SortedList<>(filteredPersons);
+
+        filteredTutors = new FilteredList<>(this.addressBook.getTutorList());
+
     }
 
     public ModelManager() {
@@ -84,6 +90,18 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void addTutor(Client tutor) throws DuplicatePersonException {
+        addressBook.addTutor(tutor);
+        updateFilteredTutorList(PREDICATE_SHOW_ALL_TUTORS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void addStudent(Client student) throws DuplicatePersonException {
+        addressBook.addStudent(student);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -145,6 +163,21 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
+     * {@code addressBook}
+     */
+    @Override
+    public ObservableList<Client> getFilteredTutorList() {
+        return FXCollections.unmodifiableObservableList(filteredTutors);
+    }
+
+    @Override
+    public void updateFilteredTutorList(Predicate<Client> predicate) {
+        requireNonNull(predicate);
+        filteredTutors.setPredicate(predicate);
     }
 
     @Override

@@ -5,22 +5,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Client;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Client}.
  */
-public class PersonCard extends UiPart<Region> {
+public class ClientCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "ClientListCard.fxml";
 
     private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow" , "orange"};
-
-    private static final String DUMMY_LEVEL_TEXT = "P1,P2,P3,S1,J1";
-    private static final String DUMMY_LOCALE_TEXT = "NORTH,SOUTH,EAST,WEST";
-    private static final String[] DUMMY_SUBJECTS_TEXT = {"Chem" , "Chemistry" , "Physics" , "Geography" ,
-        "Chem" , "Chemistry" , "Physics" , "Geography" , "Chem" , "Chemistry" , "Physics" , "Geography" ,
-        "Chem" , "Chemistry" , "Physics" , "Geography" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -30,66 +24,56 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Client client;
 
     @FXML
     private HBox cardPane;
     @FXML
     private Label name;
     @FXML
-    private Label level;
-    @FXML
     private Label id;
     @FXML
     private Label phone;
-    @FXML
-    private Label locale;
     @FXML
     private Label address;
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private Label place;
     @FXML
-    private FlowPane subjects;
+    private Label grade;
+    @FXML
+    private Label subject;
+    @FXML
+    private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+
+    public ClientCard(Client client, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.client = client;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        level.setText(DUMMY_LEVEL_TEXT);
-        phone.setText(person.getPhone().value);
-        locale.setText(DUMMY_LOCALE_TEXT);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        intTags(person);
-        intSubjects(person);
+        name.setText(client.getName().fullName);
+        phone.setText(client.getPhone().value);
+        address.setText(client.getAddress().value);
+        email.setText(client.getEmail().value);
+        place.setText(client.getLocation().value);
+        grade.setText(client.getGrade().value);
+        subject.setText(client.getSubject().value);
+        intTags(client);
     }
 
     /**
      *@author olimhc-reused
      *Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits with minor modification
      * Initialises tags
-     * @param person
+     * @param client
      */
-    private void intTags(Person person) {
-        person.getTags().forEach(tag -> {
+    private void intTags(Client client) {
+        client.getTags().forEach(tag -> {
             Label newLabel = new Label(tag.tagName);
             newLabel.getStyleClass().add(getColour(tag.tagName));
             tags.getChildren().add(newLabel);
         });
-    }
-
-    /**
-     * Initialises subjects
-     * @param person
-     */
-    private void intSubjects(Person person) {
-        for (String s : DUMMY_SUBJECTS_TEXT) {
-            Label newLabel = new Label(s);
-            subjects.getChildren().add(newLabel);
-        }
     }
 
     /**
@@ -108,13 +92,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof ClientCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        ClientCard card = (ClientCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && client.equals(card.client);
     }
 }
