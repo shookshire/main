@@ -35,9 +35,7 @@ public class ClientUtil {
         sb.append(PREFIX_PHONE + client.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + client.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + client.getAddress().value + " ");
-        client.getTags().stream().forEach(
-                s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+        client.getTags().stream().forEach(s -> sb.append(PREFIX_TAG + s.tagName + " "));
         sb.append(PREFIX_LOCATION + client.getLocation().value + " ");
         sb.append(PREFIX_GRADE + client.getGrade().value + " ");
         sb.append(PREFIX_SUBJECT + client.getSubject().value + " ");
