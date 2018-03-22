@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.AddClientCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -29,8 +30,11 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.SearchContainsKeywordsPredicate;
+import seedu.address.testutil.ClientBuilder;
+import seedu.address.testutil.ClientUtil;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -54,6 +58,21 @@ public class AddressBookParserTest {
         AddCommand command = (AddCommand) parser.parseCommand(AddCommand.COMMAND_ALIAS + " "
                 + PersonUtil.getPersonDetails(person));
         assertEquals(new AddCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_addClient() throws Exception {
+        Client client = new ClientBuilder().build();
+        AddClientCommand command = (AddClientCommand) parser.parseCommand(ClientUtil.getAddClientCommand(client));
+        assertEquals(new AddClientCommand(client), command);
+    }
+
+    @Test
+    public void parseCommand_addClientAlias() throws Exception {
+        Client client = new ClientBuilder().build();
+        AddClientCommand command = (AddClientCommand) parser.parseCommand(AddClientCommand.COMMAND_ALIAS + " "
+                + ClientUtil.getClientDetails(client));
+        assertEquals(new AddClientCommand(client), command);
     }
 
     @Test
