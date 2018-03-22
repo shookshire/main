@@ -87,6 +87,15 @@ public class GuiTestAssert {
         case "family":
             return "orange";
 
+        case "urgent":
+            return "red";
+
+        case "Urgent":
+            return "red";
+
+        case "UrGEnT":
+            return "red";
+
         default:
             return "";
         }
