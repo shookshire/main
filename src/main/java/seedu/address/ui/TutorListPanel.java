@@ -15,6 +15,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.person.Client;
 import seedu.address.model.person.Person;
 
 /**
@@ -27,13 +28,13 @@ public class TutorListPanel extends UiPart<Region> {
     @FXML
     private ListView<PersonCard> tutorListView;
 
-    public TutorListPanel(ObservableList<Person> tutorList) {
+    public TutorListPanel(ObservableList<Client> tutorList) {
         super(FXML);
         setConnections(tutorList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Person> tutorList) {
+    private void setConnections(ObservableList<Client> tutorList) {
         ObservableList<PersonCard> mappedList = EasyBind.map(
                 tutorList, (person) -> new PersonCard(person, tutorList.indexOf(person) + 1));
         tutorListView.setItems(mappedList);
