@@ -982,7 +982,7 @@ Use case ends.
 
 1.  User enter match followed by a person name.
 2.  TuitionCor displays information of client in the respective list (either tutor list or student list)
-4.  TuitionCor returns a list of potential matches in the respective list.
+3.  TuitionCor returns a list of potential matches in the respective list.
 +
 Use case ends.
 
