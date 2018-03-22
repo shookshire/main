@@ -16,11 +16,9 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow" , "orange"};
 
-    private static final String DUMMY_LEVEL_TEXT = "P1,P2,P3,S1,J1";
-    private static final String DUMMY_LOCALE_TEXT = "NORTH,SOUTH,EAST,WEST";
-    private static final String[] DUMMY_SUBJECTS_TEXT = {"Chem" , "Chemistry" , "Physics" , "Geography" ,
-        "Chem" , "Chemistry" , "Physics" , "Geography" , "Chem" , "Chemistry" , "Physics" , "Geography" ,
-        "Chem" , "Chemistry" , "Physics" , "Geography" };
+    private static final String DUMMY_LEVEL_TEXT = "-";
+    private static final String DUMMY_LOCALE_TEXT = "-";
+    private static final String[] DUMMY_SUBJECTS_TEXT = {"-"};
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -37,7 +35,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label level;
+    private Label grade;
     @FXML
     private Label id;
     @FXML
@@ -58,7 +56,7 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        level.setText(DUMMY_LEVEL_TEXT);
+        grade.setText(DUMMY_LEVEL_TEXT);
         phone.setText(person.getPhone().value);
         locale.setText(DUMMY_LOCALE_TEXT);
         address.setText(person.getAddress().value);
