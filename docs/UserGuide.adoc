@@ -142,6 +142,24 @@ Returns any person having phone number `96528541`
 * `f blk` +
 Returns any person having keyword `blk`
 
+=== Matching potential clients: `match`
+
+Matches any potential clients according to data input +
+Format: `match NAME`
+
+Alias Format: `m NAME`
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* Only the first name entered will be matched. if 2 names are entered only the first name will be matched. e.g. `Hans Bo` will return result based on `Hans`
+* Only the name can be used for match function.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only clients that fit all the data fields will be listed. (i.e. `AND` search).
+****
+
+Examples:
+
+* `match John` +
+If John is a tutor finding students that are staying in WEST and is looking for sec4 chemistry, then `match John` will return a list of students that are staying in the WEST and is currently looking for sec4 chemistry tutor.
 
 === Deleting a person : `delete`
 
