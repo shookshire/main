@@ -16,7 +16,7 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow" , "orange"};
 
-    private static final String DUMMY_LEVEL_TEXT = "-";
+    private static final String DUMMY_GRADE_TEXT = "-";
     private static final String DUMMY_LOCALE_TEXT = "-";
     private static final String[] DUMMY_SUBJECTS_TEXT = {"-"};
 
@@ -58,7 +58,7 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        grade.setText(DUMMY_LEVEL_TEXT);
+        grade.setText(DUMMY_GRADE_TEXT);
         phone.setText(person.getPhone().value);
         locale.setText(DUMMY_LOCALE_TEXT);
         address.setText(person.getAddress().value);
