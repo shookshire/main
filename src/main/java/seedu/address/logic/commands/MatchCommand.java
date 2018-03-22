@@ -27,8 +27,8 @@ public class MatchCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredPersonList(predicate);
-        model.updateFilteredPersonList(new MatchContainsPersonsPredicate
-                (Arrays.asList(model.getFilteredPersonList().get(0).toString().split("\\s+"))));
+        model.updateFilteredPersonList(new MatchContainsPersonsPredicate(
+        Arrays.asList(model.getFilteredPersonList().get(0).toString().split("\\s+"))));
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
 
