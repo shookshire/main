@@ -407,6 +407,10 @@ An example of the input required "sort tl" which sorts tutor's list by location.
 [NOTE]
 If the user input format is invalid, an exception will be thrown
 
+A sequence diagram is shown below to show the current design when user input "sort tl".
+
+image::SortSequenceDiagram.png[width="800']
+
 ===== Design Considerations
 
 ====== Aspect: Implementation of the different sort commands
