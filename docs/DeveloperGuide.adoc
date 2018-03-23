@@ -424,7 +424,7 @@ The sort command is facilitated by a SortCommandParser which implements Parser<S
 
 Different types of sorting methods extends abstract class SortCommand which extends Command resides in Logic as shown in the model below.
 
-image::SortCommandClassDiagram.png[width="800"]
+image::SortCommandClassDiagram.PNG[width="800"]
 
 The different type of sort command are implemented this way:
 [source,java]
@@ -466,7 +466,7 @@ If the user input format is invalid, an exception will be thrown
 
 A sequence diagram is shown below to show the current design when user input "sort tl".
 
-image::SortSequenceDiagram.png[width="800']
+image::SortSequenceDiagram.PNG[width="800']
 
 ===== Design Considerations
 
