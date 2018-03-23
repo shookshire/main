@@ -417,8 +417,8 @@ If a `KEYWORD` that is not a name, or a name that is not registered in TuitionCo
 // end::match[]
 
 // tag::sorting[]
-== Sort feature
-=== Current Implementation
+=== Sort feature
+==== Current Implementation
 
 The sort command is facilitated by a SortCommandParser which implements Parser<SortCommand>. The sort function supports sorting of different fields, namely location, grade, subject and name, which updates the list according to the sorting method.
 
