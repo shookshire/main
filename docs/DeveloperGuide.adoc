@@ -416,6 +416,81 @@ If a `KEYWORD` that is not a name, or a name that is not registered in TuitionCo
 * Currently, a match only takes place when all the data of another client fits the data of the client entered. Future implementation could return a list of clients that ranks from highest match to lowest match. This provide more flexible choices to our clients.
 // end::match[]
 
+// tag::sorting[]
+== Sort feature
+=== Current Implementation
+
+The sort command is facilitated by a SortCommandParser which implements Parser<SortCommand>. The sort function supports sorting of different fields, namely location, grade, subject and name, which updates the list according to the sorting method.
+
+Different types of sorting methods extends abstract class SortCommand which extends Command resides in Logic as shown in the model below.
+
+image::SortCommandClassDiagram.png[width="800"]
+
+The different type of sort command are implemented this way:
+[source,java]
+----
+public class SortByNameCommand extends SortCommand {
+     @Override
+     public CommandResult execute() {
+         // ... list logic ...
+     }
+}
+
+public class SortByLocationCommand extends SortCommand {
+    @Override
+    public CommandResult execute() {
+        // ... list logic ...
+    }
+}
+
+public class SortByGradeCommand extends SortCommand {
+    @Override
+    public CommandResult execute() {
+        // ... list logic ...
+    }
+}
+
+public class SortBySubjectCommand extends SortCommand {
+    @Override
+    public CommandResult execute() {
+        // ... list logic ...
+    }
+}
+----
+
+When the user wants to sort the specific list according to his/her needs, SortCommandParser will parse the user input and decide which type of SortCommand to invoke.
+An example of the input required "sort tl" which sorts tutor's list by location.
+
+[NOTE]
+If the user input format is invalid, an exception will be thrown
+
+A sequence diagram is shown below to show the current design when user input "sort tl".
+
+image::SortSequenceDiagram.png[width="800']
+
+===== Design Considerations
+
+====== Aspect: Implementation of the different sort commands
+
+* **Alternative 1 (current choice):** Make SortCommand an abstract method and allow the different sort commands to inherit from it.
+** Pros: Able to reuse constants from SortCommand
+** Cons: SortCommand might be redundant
+* **Alternative 2:** Implement multiple sort commands which extends command directly
+** Pros: Might be easier to implement
+** Cons: Messy
+
+====== Aspect: Parsing of user input for sort command
+
+* **Alternative 1 (current choice):** SortCommandParser parse one single string user input. Eg. 'sort tl' which sort tutor list by location.
+** Pros: Able to utilise the current Logic and Model Component for command inputs
+** Cons: Less intuitive to user.
+* **Alternative 2:** Allow multiple user input of before parsing to a command. Eg. User input sort and system will prompts for user to input which list to sort.
+** Pros: This is much more intuitive for user and allows further enhancements which require multiple command inputs.
+** Cons: This will require to overhaul of Logic and Model Component.
+
+
+// end::sorting[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
