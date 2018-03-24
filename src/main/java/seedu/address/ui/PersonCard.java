@@ -16,11 +16,11 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow" , "orange"};
 
-    private static final String DUMMY_LEVEL_TEXT = "P1,P2,P3,S1,J1";
-    private static final String DUMMY_LOCALE_TEXT = "NORTH,SOUTH,EAST,WEST";
-    private static final String[] DUMMY_SUBJECTS_TEXT = {"Chem" , "Chemistry" , "Physics" , "Geography" ,
-        "Chem" , "Chemistry" , "Physics" , "Geography" , "Chem" , "Chemistry" , "Physics" , "Geography" ,
-        "Chem" , "Chemistry" , "Physics" , "Geography" };
+    private static final String DUMMY_GRADE_TEXT = "-";
+    private static final String DUMMY_LOCALE_TEXT = "-";
+    private static final String[] DUMMY_SUBJECTS_TEXT = {"-"};
+
+    private static final String URGENT_PATTERN_REGEX = "Urgent";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -37,7 +37,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label level;
+    private Label grade;
     @FXML
     private Label id;
     @FXML
@@ -58,7 +58,7 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        level.setText(DUMMY_LEVEL_TEXT);
+        grade.setText(DUMMY_GRADE_TEXT);
         phone.setText(person.getPhone().value);
         locale.setText(DUMMY_LOCALE_TEXT);
         address.setText(person.getAddress().value);
@@ -97,7 +97,11 @@ public class PersonCard extends UiPart<Region> {
      * @return String colour
      */
     private String getColour(String name) {
-        return TAGS_COLOUR_STYLES[(Math.abs(name.hashCode() % TAGS_COLOUR_STYLES.length))];
+        if (name.equalsIgnoreCase(URGENT_PATTERN_REGEX)) {
+            return TAGS_COLOUR_STYLES[0];
+        } else {
+            return TAGS_COLOUR_STYLES[(Math.abs(name.hashCode() % TAGS_COLOUR_STYLES.length))];
+        }
     }
 
     @Override

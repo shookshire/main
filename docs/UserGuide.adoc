@@ -75,6 +75,20 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
+=== Adding a client: `addclient`
+
+Adds a client to TuitionCor +
+Format: `addclient c/CATEGORY n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... l/LOCATION g/GRADE s/SUBJECT`
+
+Alias Format: `ac c/CATEGORY n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... l/LOCATION g/GRADE s/SUBJECT`
+[TIP]
+A person can have any number of tags (including 0)
+
+Examples:
+
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+
 === Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
@@ -128,6 +142,24 @@ Returns any person having phone number `96528541`
 * `f blk` +
 Returns any person having keyword `blk`
 
+=== Matching potential clients: `match`
+
+Matches any potential clients according to data input +
+Format: `match NAME`
+
+Alias Format: `m NAME`
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* Only the first name entered will be matched. if 2 names are entered only the first name will be matched. e.g. `Hans Bo` will return result based on `Hans`
+* Only the name can be used for match function.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only clients that fit all the data fields will be listed. (i.e. `AND` search).
+****
+
+Examples:
+
+* `match John` +
+If John is a tutor finding students that are staying in WEST and is looking for sec4 chemistry, then `match John` will return a list of students that are staying in the WEST and is currently looking for sec4 chemistry tutor.
 
 === Deleting a person : `delete`
 
@@ -268,9 +300,11 @@ _{explain how the user can enable/disable data encryption}_
 == Command Summary
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-<<<<<<< Updated upstream
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
 Alias: `a`
+* *AddClient* `addclient c/CATEGORY n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... l/LOCATION g/GRADE s/SUBJECT` +
+e.g. `addclient c/t n/Tutor1 p/98765432 a/Blk 10 Singapore, #01-239 e/testing@example.com t/family l/north g/pri3 s/physics` +
+Alias: `ac`
 * *Clear* : `clear` +
 Alias: `c`
 * *Delete* : `delete INDEX` +
@@ -282,6 +316,9 @@ Alias: `e`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake` +
 Alias: `f`
+* *Match* : `match NAME` +
+e.g. `match James` +
+Alias: `m`
 * *List* : `list` +
 Alias: `l`
 * *Help* : `help`
@@ -294,54 +331,3 @@ Alias: `h`
 Alias: `u`
 * *Redo* : `redo` +
 Alias: `r`
-=======
-
- Alias : a
-
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-
-* *Clear* : `clear`
-
- Alias : c
-
-* *Delete* : `delete INDEX` +
-
- Alias : d
-
-e.g. `delete 3`
-
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-
- Alias : e
-
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-
- Alias : f
-
-e.g. `find James Jake`
-
-* *List* : `list`
-
- Alias : l
-
-* *Help* : `help`
-* *Select* : `select INDEX` +
-
- Alias : s
-
-e.g.`select 2`
-
-* *History* : `history`
-
- Alias : h
-
-* *Undo* : `undo`
-
- Alias : u
-
-* *Redo* : `redo`
-
- Alias : r
->>>>>>> Stashed changes
