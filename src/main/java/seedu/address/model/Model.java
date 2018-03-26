@@ -49,14 +49,14 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
-    /**@TODO Update Comments */
-    void sortByNameFilteredPersonList();
-    /**@TODO Update Comments */
-    void sortByLocationFilteredPersonList();
-    /**@TODO Update Comments */
-    void sortByLevelFilteredPersonList();
-    /**@TODO Update Comments */
-    void sortBySubjectFilteredPersonList();
+    /**Sorts selected list by name in alphabetical order*/
+    void sortByNameFilteredClientTutorList();
+    /**Sorts selected list by location in alphabetical order*/
+    void sortByLocationFilteredClientTutorList();
+    /**Sorts selected list by grade in ascending order*/
+    void sortByGradeFilteredClientTutorList();
+    /**Sorts selected list by subject in alphabetical order*/
+    void sortBySubjectFilteredClientTutorList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

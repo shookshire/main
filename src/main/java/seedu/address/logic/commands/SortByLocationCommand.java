@@ -24,7 +24,7 @@ public class SortByLocationCommand extends SortCommand {
         switch (index) {
 
         case tutorIndex:
-            model.sortByLocationFilteredPersonList();
+            model.sortByLocationFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
 
         default:

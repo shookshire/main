@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.SortByLevelCommand;
+import seedu.address.logic.commands.SortByGradeCommand;
 import seedu.address.logic.commands.SortByLocationCommand;
 import seedu.address.logic.commands.SortByNameCommand;
 import seedu.address.logic.commands.SortBySubjectCommand;
@@ -50,7 +50,7 @@ public class SortCommandParser implements Parser<SortCommand> {
      * Parse the given {@code String} of arguments further in the context of SortCommand
      * @param args type of sort
      * @param listIndex indicating whether to sort tutor's or student's list
-     * @return either SortByLevelCommand, SortByNameCommand, SortByLevelCommand, SortBySubjectCommand
+     * @return either SortByGradeCommand, SortByNameCommand, SortByGradeCommand, SortBySubjectCommand
      * object for execution.
      * @throws ParseException
      */
@@ -71,7 +71,7 @@ public class SortCommandParser implements Parser<SortCommand> {
             return new SortByLocationCommand(listIndex);
 
         case SortCommand.COMMAND_WORD_LEVEL:
-            return new SortByLevelCommand(listIndex);
+            return new SortByGradeCommand(listIndex);
 
         default:
             throw new ParseException(

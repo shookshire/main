@@ -24,7 +24,7 @@ public class SortBySubjectCommand extends SortCommand {
         switch (index) {
 
         case tutorIndex:
-            model.sortBySubjectFilteredPersonList();
+            model.sortBySubjectFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
 
         default:

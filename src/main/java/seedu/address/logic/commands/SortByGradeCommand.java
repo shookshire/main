@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 /**
  *Sort the selected list according to their level in ascending order
  */
-public class SortByLevelCommand extends SortCommand {
+public class SortByGradeCommand extends SortCommand {
 
     private static final String MESSAGE_SORT_DESC = " their level in ascending order.";
 
@@ -11,7 +11,7 @@ public class SortByLevelCommand extends SortCommand {
     private final int tutorIndex = 0;
     //private final int studentIndex = 1;
 
-    public SortByLevelCommand(int index) {
+    public SortByGradeCommand(int index) {
         this.index = index;
     }
 
@@ -24,7 +24,7 @@ public class SortByLevelCommand extends SortCommand {
         switch (index) {
 
         case tutorIndex:
-            model.sortByLevelFilteredPersonList();
+            model.sortByGradeFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
 
         default:

@@ -30,7 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Client> filteredTutors;
 
-    private SortedList<Person> sortedFilteredPersons;
+    private SortedList<Client> sortedFilteredTutors;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -44,10 +44,8 @@ public class ModelManager extends ComponentManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
-        sortedFilteredPersons = new SortedList<>(filteredPersons);
-
         filteredTutors = new FilteredList<>(this.addressBook.getTutorList());
-
+        sortedFilteredTutors = new SortedList<>(filteredTutors);
     }
 
     public ModelManager() {
@@ -112,17 +110,27 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(sortedFilteredPersons);
+        return FXCollections.unmodifiableObservableList(filteredPersons);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Tutor} backed by the internal list of
+     * {@code addressBook}
+     */
+
+    @Override
+    public ObservableList<Client> getFilteredClientTutorList() {
+        return FXCollections.unmodifiableObservableList(filteredTutors);
     }
 
     /**
      * @// TODO: 19/3/2018 Update when tutor and student class and specific field is available
      */
     @Override
-    public void sortByNameFilteredPersonList() {
-        Comparator<Person> sortByName = (person1, person2)-> (person1.getName().fullName)
-                .compareToIgnoreCase(person2.getName().fullName);
-        sortedFilteredPersons.setComparator(sortByName);
+    public void sortByNameFilteredClientTutorList() {
+        Comparator<Client> sortByName = (tutor1, tutor2)-> (tutor1.getName().fullName)
+                .compareToIgnoreCase(tutor1.getName().fullName);
+        sortedFilteredTutors.setComparator(sortByName);
         indicateAddressBookChanged();
     }
 
@@ -130,10 +138,10 @@ public class ModelManager extends ComponentManager implements Model {
      * @// TODO: 19/3/2018 Update when tutor and student class and specific field is available
      */
     @Override
-    public void sortByLocationFilteredPersonList() {
-        Comparator<Person> sortByLocation = (person1, person2)-> (person1.getName().fullName)
-                .compareToIgnoreCase(person2.getName().fullName);
-        sortedFilteredPersons.setComparator(sortByLocation);
+    public void sortByLocationFilteredClientTutorList() {
+        Comparator<Client> sortByLocation = (tutor1, tutor2)-> (tutor1.getLocation().value)
+                .compareToIgnoreCase(tutor2.getLocation().value);
+        sortedFilteredTutors.setComparator(sortByLocation);
         indicateAddressBookChanged();
     }
 
@@ -141,10 +149,10 @@ public class ModelManager extends ComponentManager implements Model {
      * @// TODO: 19/3/2018 Update when tutor and student class and specific field available
      */
     @Override
-    public void sortByLevelFilteredPersonList() {
-        Comparator<Person> sortByLocation = (person1, person2)-> (person1.getName().fullName)
-                .compareToIgnoreCase(person2.getName().fullName);
-        sortedFilteredPersons.setComparator(sortByLocation);
+    public void sortByGradeFilteredClientTutorList() {
+        Comparator<Client> sortByGrade = (tutor1, tutor2)-> (tutor1.getGrade().value)
+                .compareToIgnoreCase(tutor2.getGrade().value);
+        sortedFilteredTutors.setComparator(sortByGrade);
         indicateAddressBookChanged();
     }
 
@@ -152,10 +160,10 @@ public class ModelManager extends ComponentManager implements Model {
      * @// TODO: 19/3/2018 Update when tutor and student class and specific field available
      */
     @Override
-    public void sortBySubjectFilteredPersonList() {
-        Comparator<Person> sortByLocation = (person1, person2)-> (person1.getName().fullName)
-                .compareToIgnoreCase(person2.getName().fullName);
-        sortedFilteredPersons.setComparator(sortByLocation);
+    public void sortBySubjectFilteredClientTutorList() {
+        Comparator<Client> sortBySubject = (tutor1, tutor2)-> (tutor1.getSubject().value)
+                .compareToIgnoreCase(tutor2.getSubject().value);
+        sortedFilteredTutors.setComparator(sortBySubject);
         indicateAddressBookChanged();
     }
 
