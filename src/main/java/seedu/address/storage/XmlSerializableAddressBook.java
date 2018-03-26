@@ -18,8 +18,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 public class XmlSerializableAddressBook {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
-    @XmlElement
     private List<XmlAdaptedClient> students;
     @XmlElement
     private List<XmlAdaptedClient> tutors;
@@ -31,7 +29,6 @@ public class XmlSerializableAddressBook {
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableAddressBook() {
-        persons = new ArrayList<>();
         tutors = new ArrayList<>();
         students = new ArrayList<>();
         tags = new ArrayList<>();
@@ -42,7 +39,6 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         students.addAll(src.getStudentList().stream().map(XmlAdaptedClient::new).collect(Collectors.toList()));
         tutors.addAll(src.getTutorList().stream().map(XmlAdaptedClient::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
@@ -59,8 +55,8 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedTag t : tags) {
             addressBook.addTag(t.toModelType());
         }
-        for (XmlAdaptedPerson p : persons) {
-            addressBook.addPerson(p.toModelType());
+        for (XmlAdaptedClient s : students) {
+            addressBook.addStudent(s.toModelType());
         }
         for (XmlAdaptedClient t : tutors) {
             addressBook.addTutor(t.toModelType());
@@ -79,6 +75,6 @@ public class XmlSerializableAddressBook {
         }
 
         XmlSerializableAddressBook otherAb = (XmlSerializableAddressBook) other;
-        return persons.equals(otherAb.persons) && tags.equals(otherAb.tags);
+        return students.equals(otherAb.students) && tutors.equals(otherAb.tutors) && tags.equals(otherAb.tags);
     }
 }
