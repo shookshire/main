@@ -61,7 +61,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
-    public void setStudenst(List<Client> students) throws DuplicatePersonException {
+    public void setStudents(List<Client> students) throws DuplicatePersonException {
         this.students.setClients(students);
     }
 
@@ -79,7 +79,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
         setTags(new HashSet<>(newData.getTagList()));
-        List<Person> syncedPersonList = newData.getPersonList().stream()
+        List<Client> syncedStudentList = newData.getStudentList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
         List<Client> syncedTutorList = newData.getTutorList().stream()
@@ -87,14 +87,14 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .collect(Collectors.toList());
 
         try {
-            setPersons(syncedPersonList);
+            setStudents(syncedStudentList);
         } catch (DuplicatePersonException e) {
-            throw new AssertionError("AddressBooks should not have duplicate persons");
+            throw new AssertionError("AddressBooks should not have duplicate students");
         }
         try {
             setTutors(syncedTutorList);
         } catch (DuplicatePersonException e) {
-            throw new AssertionError("AddressBooks should not have duplicate persons");
+            throw new AssertionError("AddressBooks should not have duplicate tutors");
         }
     }
 
