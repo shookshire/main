@@ -81,17 +81,17 @@ public class UniqueClientList implements Iterable<Client> {
         return clientFoundAndDeleted;
     }
 
-    public void setClients(UniqueClientList replacement) {
+    public void setPersons(UniqueClientList replacement) {
         this.internalList.setAll(replacement.internalList);
     }
 
-    public void setClients(List<Client> clients) throws DuplicatePersonException {
+    public void setPersons(List<Client> clients) throws DuplicatePersonException {
         requireAllNonNull(clients);
         final UniqueClientList replacement = new UniqueClientList();
         for (final Client client : clients) {
             replacement.add(client);
         }
-        setClients(replacement);
+        setPersons(replacement);
     }
 
     /**
