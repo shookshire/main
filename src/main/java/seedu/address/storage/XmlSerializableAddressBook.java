@@ -20,6 +20,10 @@ public class XmlSerializableAddressBook {
     @XmlElement
     private List<XmlAdaptedPerson> persons;
     @XmlElement
+    private List<XmlAdaptedClient> students;
+    @XmlElement
+    private List<XmlAdaptedClient> tutors;
+    @XmlElement
     private List<XmlAdaptedTag> tags;
 
     /**
@@ -28,6 +32,8 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
+        tutors = new ArrayList<>();
+        students = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -37,6 +43,8 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        students.addAll(src.getStudentList().stream().map(XmlAdaptedClient::new).collect(Collectors.toList()));
+        tutors.addAll(src.getTutorList().stream().map(XmlAdaptedClient::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
 
@@ -53,6 +61,9 @@ public class XmlSerializableAddressBook {
         }
         for (XmlAdaptedPerson p : persons) {
             addressBook.addPerson(p.toModelType());
+        }
+        for (XmlAdaptedClient t : tutors) {
+            addressBook.addTutor(t.toModelType());
         }
         return addressBook;
     }
