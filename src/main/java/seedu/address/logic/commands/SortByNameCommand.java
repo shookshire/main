@@ -9,16 +9,12 @@ public class SortByNameCommand extends SortCommand {
 
     private int index;
     private final int tutorIndex = 0;
-    //private final int studentIndex = 1;
+    private final int studentIndex = 1;
 
     public SortByNameCommand(int index) {
         this.index = index;
     }
 
-    /**
-     * @// TODO: 19/3/2018 Update to sort by different list
-     * @return
-     */
     @Override
     public CommandResult execute() {
         switch (index) {
@@ -26,6 +22,10 @@ public class SortByNameCommand extends SortCommand {
         case tutorIndex:
             model.sortByNameFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
+
+        case studentIndex:
+            model.sortByNameFilteredClientStudentList();
+            return new CommandResult(MESSAGE_SUCCESS_STUDENT + MESSAGE_SORT_DESC);
 
         default:
             return new CommandResult(MESSAGE_FAILURE);

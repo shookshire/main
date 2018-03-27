@@ -32,6 +32,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Client> filteredTutors;
 
     private SortedList<Client> sortedFilteredTutors;
+    private SortedList<Client> sortedFilteredStudents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -47,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredTutors = new FilteredList<>(this.addressBook.getTutorList());
         sortedFilteredTutors = new SortedList<>(filteredTutors);
+        sortedFilteredStudents = new SortedList<>(filteredStudents);
     }
 
     public ModelManager() {
@@ -122,24 +124,21 @@ public class ModelManager extends ComponentManager implements Model {
      */
 
     @Override
-    public ObservableList<Client> getFilteredClientTutorList() {
-        return FXCollections.unmodifiableObservableList(filteredTutors);
-    }
-
-    /**
-     * @// TODO: 19/3/2018 Update when tutor and student class and specific field is available
-     */
-    @Override
     public void sortByNameFilteredClientTutorList() {
         Comparator<Client> sortByName = (tutor1, tutor2)-> (tutor1.getName().fullName)
-                .compareToIgnoreCase(tutor1.getName().fullName);
+                .compareToIgnoreCase(tutor2.getName().fullName);
         sortedFilteredTutors.setComparator(sortByName);
         indicateAddressBookChanged();
     }
 
-    /**
-     * @// TODO: 19/3/2018 Update when tutor and student class and specific field is available
-     */
+    @Override
+    public void sortByNameFilteredClientStudentList() {
+        Comparator<Client> sortByName = (student1, student2)-> (student1.getName().fullName)
+                .compareToIgnoreCase(student2.getName().fullName);
+        sortedFilteredStudents.setComparator(sortByName);
+        indicateAddressBookChanged();
+    }
+
     @Override
     public void sortByLocationFilteredClientTutorList() {
         Comparator<Client> sortByLocation = (tutor1, tutor2)-> (tutor1.getLocation().value)
@@ -148,9 +147,15 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    /**
-     * @// TODO: 19/3/2018 Update when tutor and student class and specific field available
-     */
+    @Override
+    public void sortByLocationFilteredClientStudentList() {
+        Comparator<Client> sortByLocation = (student1, student2)-> (student1.getLocation().value)
+                .compareToIgnoreCase(student2.getLocation().value);
+        sortedFilteredStudents.setComparator(sortByLocation);
+        indicateAddressBookChanged();
+    }
+
+
     @Override
     public void sortByGradeFilteredClientTutorList() {
         Comparator<Client> sortByGrade = (tutor1, tutor2)-> (tutor1.getGrade().value)
@@ -159,14 +164,27 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    /**
-     * @// TODO: 19/3/2018 Update when tutor and student class and specific field available
-     */
+    @Override
+    public void sortByGradeFilteredClientStudentList() {
+        Comparator<Client> sortByGrade = (student1, student2)-> (student1.getGrade().value)
+                .compareToIgnoreCase(student2.getGrade().value);
+        sortedFilteredStudents.setComparator(sortByGrade);
+        indicateAddressBookChanged();
+    }
+
     @Override
     public void sortBySubjectFilteredClientTutorList() {
         Comparator<Client> sortBySubject = (tutor1, tutor2)-> (tutor1.getSubject().value)
                 .compareToIgnoreCase(tutor2.getSubject().value);
         sortedFilteredTutors.setComparator(sortBySubject);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void sortBySubjectFilteredClientStudentList() {
+        Comparator<Client> sortBySubject = (student1, student2)-> (student1.getSubject().value)
+                .compareToIgnoreCase(student2.getSubject().value);
+        sortedFilteredStudents.setComparator(sortBySubject);
         indicateAddressBookChanged();
     }
 
@@ -182,7 +200,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Client> getFilteredStudentList() {
-        return FXCollections.unmodifiableObservableList(filteredStudents);
+        return FXCollections.unmodifiableObservableList(sortedFilteredStudents);
     }
 
     @Override
@@ -197,7 +215,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Client> getFilteredTutorList() {
-        return FXCollections.unmodifiableObservableList(filteredTutors);
+        return FXCollections.unmodifiableObservableList(sortedFilteredTutors);
     }
 
     @Override
