@@ -146,6 +146,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Client> getFilteredStudentList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void updateFilteredStudentList(Predicate<Client> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Client> getFilteredTutorList() {
             fail("This method should not be called.");
             return null;
