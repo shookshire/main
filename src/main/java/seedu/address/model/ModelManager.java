@@ -79,11 +79,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson)
+    public void updateClient(Client target, Client editedPerson, Category category)
             throws DuplicatePersonException, PersonNotFoundException {
-        requireAllNonNull(target, editedPerson);
+        requireAllNonNull(target, editedPerson, category);
 
-        addressBook.updatePerson(target, editedPerson);
+        addressBook.updatePerson(target, editedPerson, category);
         indicateAddressBookChanged();
     }
 

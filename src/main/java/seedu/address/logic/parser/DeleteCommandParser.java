@@ -33,10 +33,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
 
         Index index;
+        Category category;
 
         try {
             index = ParserUtil.parseIndex(argumentMultimap.getPreamble());
-            Category category = ParserUtil.parseCategory(argumentMultimap.getValue(PREFIX_CATEGORY)).get();
+            category = ParserUtil.parseCategory(argumentMultimap.getValue(PREFIX_CATEGORY)).get();
             return new DeleteCommand(index, category);
         } catch (IllegalValueException ive) {
             throw new ParseException(

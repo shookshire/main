@@ -28,7 +28,7 @@ public class DeleteCommand extends UndoableCommand {
             + PREFIX_CATEGORY + "CATEGORY\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_CATEGORY + "s";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Client: %1$s";
+    public static final String MESSAGE_DELETE_CLIENT_SUCCESS = "Deleted Client: %1$s";
 
     private final Index targetIndex;
     private final Category category;
@@ -50,7 +50,7 @@ public class DeleteCommand extends UndoableCommand {
             throw new AssertionError("The target person cannot be missing");
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, clientToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_CLIENT_SUCCESS, clientToDelete));
     }
 
     @Override

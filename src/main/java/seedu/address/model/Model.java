@@ -35,13 +35,13 @@ public interface Model {
     void addPerson(Person person) throws DuplicatePersonException;
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given person {@code target} with {@code editedClient}.
      *
-     * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
+     * @throws DuplicatePersonException if updating the client's details causes the client to be equivalent to
+     *      another existing client in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      */
-    void updatePerson(Person target, Person editedPerson)
+    void updateClient(Client target, Client editedPerson, Category category)
             throws DuplicatePersonException, PersonNotFoundException;
 
     /** Adds the given tutor */

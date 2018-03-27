@@ -144,24 +144,28 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code AddressBook}'s tag list will be updated with the tags of {@code editedPerson}.
+     * Replaces the given client {@code target} in the list with {@code editedClient}.
+     * {@code AddressBook}'s tag list will be updated with the tags of {@code editedClient}.
      *
-     * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
+     * @throws DuplicatePersonException if updating the client's details causes the client to be equivalent to
+     *      another existing client in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      *
-     * @see #syncWithMasterTagList(Person)
+     * @see #syncWithMasterTagList(Client)
      */
-    public void updatePerson(Person target, Person editedPerson)
+    public void updatePerson(Client target, Client editedCleint, Category category)
             throws DuplicatePersonException, PersonNotFoundException {
-        requireNonNull(editedPerson);
+        requireNonNull(editedCleint);
 
-        Person syncedEditedPerson = syncWithMasterTagList(editedPerson);
+        Client syncedEditedPerson = syncWithMasterTagList(editedCleint);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        persons.setPerson(target, syncedEditedPerson);
+        if (category.isStudent()) {
+            students.setClient(target, syncedEditedPerson);
+        } else {
+            tutors.setClient(target, syncedEditedPerson);
+        }
     }
 
     /**
