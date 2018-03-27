@@ -28,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Client> filteredStudents;
     private final FilteredList<Client> filteredTutors;
 
     private SortedList<Client> sortedFilteredTutors;
@@ -43,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
+        filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredTutors = new FilteredList<>(this.addressBook.getTutorList());
         sortedFilteredTutors = new SortedList<>(filteredTutors);
     }
@@ -100,6 +101,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addStudent(Client student) throws DuplicatePersonException {
         addressBook.addStudent(student);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+        indicateAddressBookChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -178,6 +181,21 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code addressBook}
      */
     @Override
+    public ObservableList<Client> getFilteredStudentList() {
+        return FXCollections.unmodifiableObservableList(filteredStudents);
+    }
+
+    @Override
+    public void updateFilteredStudentList(Predicate<Client> predicate) {
+        requireNonNull(predicate);
+        filteredStudents.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
+     * {@code addressBook}
+     */
+    @Override
     public ObservableList<Client> getFilteredTutorList() {
         return FXCollections.unmodifiableObservableList(filteredTutors);
     }
@@ -203,7 +221,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredStudents.equals(other.filteredStudents)
+                && filteredTutors.equals(other.filteredTutors);
     }
 
 }
