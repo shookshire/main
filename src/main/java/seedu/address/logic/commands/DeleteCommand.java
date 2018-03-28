@@ -40,7 +40,6 @@ public class DeleteCommand extends UndoableCommand {
         this.category = category;
     }
 
-
     @Override
     public CommandResult executeUndoableCommand() {
         requireNonNull(clientToDelete);

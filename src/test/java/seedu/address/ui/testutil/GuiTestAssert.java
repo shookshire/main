@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import seedu.address.model.person.Client;
 import seedu.address.model.person.Person;
 
 /**
@@ -27,17 +28,25 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
+        assertEquals(expectedCard.getLocation(), actualCard.getLocation());
+        assertEquals(expectedCard.getGrade(), actualCard.getGrade());
+        assertEquals(expectedCard.getSubject(), actualCard.getSubject());
+        assertEquals(expectedCard.getCategory(), actualCard.getCategory());
     }
 
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
      */
-    public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
+    public static void assertCardDisplaysPerson(Client expectedPerson, PersonCardHandle actualCard) {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
         assertTagEquals(expectedPerson, actualCard);
+        assertEquals(expectedPerson.getLocation().value, actualCard.getLocation());
+        assertEquals(expectedPerson.getGrade().value, actualCard.getGrade());
+        assertEquals(expectedPerson.getSubject().value, actualCard.getSubject());
+        assertEquals(expectedPerson.getCategory().value, actualCard.getCategory());
     }
 
     /**
@@ -45,7 +54,7 @@ public class GuiTestAssert {
      * @param expectedPerson
      * @param actualCard
      */
-    private static void assertTagEquals(Person expectedPerson, PersonCardHandle actualCard) {
+    private static void assertTagEquals(Client expectedPerson, PersonCardHandle actualCard) {
         List<String> expectedTags = expectedPerson.getTags()
                 .stream().map(tag -> tag.tagName)
                 .collect(Collectors.toList());
@@ -106,7 +115,7 @@ public class GuiTestAssert {
      * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Person... persons) {
+    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Client... persons) {
         for (int i = 0; i < persons.length; i++) {
             assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
         }
@@ -116,8 +125,8 @@ public class GuiTestAssert {
      * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
-        assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
+    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Client> persons) {
+        assertListMatching(personListPanelHandle, persons.toArray(new Client[0]));
     }
 
     /**

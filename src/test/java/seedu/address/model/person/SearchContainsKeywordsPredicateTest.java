@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ClientBuilder;
 
 public class SearchContainsKeywordsPredicateTest {
 
@@ -46,23 +46,23 @@ public class SearchContainsKeywordsPredicateTest {
         // One keyword
         SearchContainsKeywordsPredicate predicate =
                 new SearchContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        assertTrue(predicate.test(new ClientBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords
         predicate = new SearchContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        assertTrue(predicate.test(new ClientBuilder().withName("Alice Bob").build()));
 
         // Only one matching keyword
         predicate = new SearchContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
+        assertTrue(predicate.test(new ClientBuilder().withName("Alice Carol").build()));
 
         // Mixed-case keywords
         predicate = new SearchContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        assertTrue(predicate.test(new ClientBuilder().withName("Alice Bob").build()));
 
         // Keywords match phone, email and address, but does not match name
         predicate = new SearchContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
+        assertTrue(predicate.test(new ClientBuilder().withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").build()));
     }
 
@@ -70,10 +70,10 @@ public class SearchContainsKeywordsPredicateTest {
     public void test_searchDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         SearchContainsKeywordsPredicate predicate = new SearchContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new ClientBuilder().withName("Alice").build()));
 
         // Non-matching keyword
         predicate = new SearchContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        assertFalse(predicate.test(new ClientBuilder().withName("Alice Bob").build()));
     }
 }

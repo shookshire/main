@@ -42,7 +42,7 @@ public class PersonListPanelTest extends GuiUnitTest {
     public void display() {
         for (int i = 0; i < TYPICAL_CLIENTS.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_CLIENTS.get(i));
-            Person expectedPerson = TYPICAL_CLIENTS.get(i);
+            Client expectedPerson = TYPICAL_CLIENTS.get(i);
             PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
 
             assertCardDisplaysPerson(expectedPerson, actualCard);
