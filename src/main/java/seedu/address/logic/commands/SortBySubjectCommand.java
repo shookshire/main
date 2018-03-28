@@ -9,22 +9,22 @@ public class SortBySubjectCommand extends SortCommand {
 
     private int index;
     private final int tutorIndex = 0;
-    //private final int studentIndex = 1;
+    private final int studentIndex = 1;
 
     public SortBySubjectCommand(int index) {
         this.index = index;
     }
 
-    /**
-     * @// TODO: 19/3/2018 Update to sort by different list
-     * @return
-     */
     @Override
     public CommandResult execute() {
         switch (index) {
 
         case tutorIndex:
             model.sortBySubjectFilteredClientTutorList();
+            return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
+
+        case studentIndex:
+            model.sortBySubjectFilteredClientStudentList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
 
         default:

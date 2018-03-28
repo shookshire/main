@@ -158,16 +158,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void sortByGradeFilteredClientTutorList() {
-        Comparator<Client> sortByGrade = (tutor1, tutor2)-> (tutor1.getGrade().value)
-                .compareToIgnoreCase(tutor2.getGrade().value);
+        Comparator<Client> sortByGrade = new SortByGradeComparator();
         sortedFilteredTutors.setComparator(sortByGrade);
         indicateAddressBookChanged();
     }
 
     @Override
     public void sortByGradeFilteredClientStudentList() {
-        Comparator<Client> sortByGrade = (student1, student2)-> (student1.getGrade().value)
-                .compareToIgnoreCase(student2.getGrade().value);
+        Comparator<Client> sortByGrade = new SortByGradeComparator();
         sortedFilteredStudents.setComparator(sortByGrade);
         indicateAddressBookChanged();
     }

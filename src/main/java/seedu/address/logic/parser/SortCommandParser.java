@@ -70,7 +70,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         case SortCommand.COMMAND_WORD_LOCATION:
             return new SortByLocationCommand(listIndex);
 
-        case SortCommand.COMMAND_WORD_LEVEL:
+        case SortCommand.COMMAND_WORD_GRADE:
             return new SortByGradeCommand(listIndex);
 
         default:
