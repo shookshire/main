@@ -13,8 +13,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Client> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
@@ -31,9 +29,6 @@ public interface Model {
     /** Deletes the given client. */
     void deleteClient(Client target, Category category) throws PersonNotFoundException;
 
-    /** Adds the given person */
-    void addPerson(Person person) throws DuplicatePersonException;
-
     /**
      * Replaces the given person {@code target} with {@code editedClient}.
      *
@@ -49,15 +44,6 @@ public interface Model {
 
     /** Adds the given student */
     void addStudent(Client student) throws DuplicatePersonException;
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
 
     /** Returns an unmodifiable view of the filtered students list */
     ObservableList<Client> getFilteredStudentList();
