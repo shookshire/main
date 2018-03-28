@@ -50,8 +50,10 @@ public class UniqueClientList implements Iterable<Client> {
      *
      * @throws DuplicatePersonException if the replacement is equivalent to another existing client in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
+     *
+     * Returns true if success.
      */
-    public void setClient(Client target, Client editedClient)
+    public Boolean setClient(Client target, Client editedClient)
             throws DuplicatePersonException, PersonNotFoundException {
         requireNonNull(editedClient);
 
@@ -65,6 +67,7 @@ public class UniqueClientList implements Iterable<Client> {
         }
 
         internalList.set(index, editedClient);
+        return true;
     }
 
     /**

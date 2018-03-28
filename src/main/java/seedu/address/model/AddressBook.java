@@ -11,10 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Client;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniqueClientList;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.*;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -26,7 +23,6 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
     private final UniqueClientList students;
     private final UniqueClientList tutors;
     private final UniqueTagList tags;
@@ -39,7 +35,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
         students = new UniqueClientList();
         tutors = new UniqueClientList();
         tags = new UniqueTagList();
@@ -56,10 +51,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// list overwrite operations
-
-    public void setPersons(List<Person> persons) throws DuplicatePersonException {
-        this.persons.setPersons(persons);
-    }
 
     public void setStudents(List<Client> students) throws DuplicatePersonException {
         this.students.setClients(students);
@@ -101,22 +92,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operations
 
     /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
-     *
-     * @throws DuplicatePersonException if an equivalent person already exists.
-     */
-    public void addPerson(Person p) throws DuplicatePersonException {
-        Person person = syncWithMasterTagList(p);
-        // TODO: the tags master list will be updated even though the below line fails.
-        // This can cause the tags master list to have additional tags that are not tagged to any person
-        // in the person list.
-        persons.add(person);
-    }
-
-
-    /**
      * Adds a tutor to TuitionCor.
      * Also checks the new tutor's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the tutor to point to those in {@link #tags}.
@@ -147,45 +122,28 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code AddressBook}'s tag list will be updated with the tags of {@code editedPerson}.
+     * Replaces the given client {@code target} in the list with {@code editedClient}.
+     * {@code AddressBook}'s tag list will be updated with the tags of {@code editedClient}.
      *
-     * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
+     * @throws DuplicatePersonException if updating the client's details causes the client to be equivalent to
+     *      another existing client in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      *
-     * @see #syncWithMasterTagList(Person)
+     * @see #syncWithMasterTagList(Client)
      */
-    public void updatePerson(Person target, Person editedPerson)
+    public void updatePerson(Client target, Client editedClient, Category category)
             throws DuplicatePersonException, PersonNotFoundException {
-        requireNonNull(editedPerson);
+        requireNonNull(editedClient);
 
-        Person syncedEditedPerson = syncWithMasterTagList(editedPerson);
+        Client syncedEditedPerson = syncWithMasterTagList(editedClient);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        persons.setPerson(target, syncedEditedPerson);
-    }
-
-    /**
-     *  Updates the master tag list to include tags in {@code person} that are not in the list.
-     *  @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
-     *  list.
-     */
-    private Person syncWithMasterTagList(Person person) {
-        final UniqueTagList personTags = new UniqueTagList(person.getTags());
-        tags.mergeFrom(personTags);
-
-        // Create map with values = tag object references in the master list
-        // used for checking person tag references
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        tags.forEach(tag -> masterTagObjects.put(tag, tag));
-
-        // Rebuild the list of person tags to point to the relevant tags in the master tag list.
-        final Set<Tag> correctTagReferences = new HashSet<>();
-        personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-        return new Person(
-                person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
+        if (category.isStudent()) {
+            students.setClient(target, syncedEditedPerson);
+        } else {
+            tutors.setClient(target, syncedEditedPerson);
+        }
     }
 
     /**
@@ -214,8 +172,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
-    public boolean removePerson(Person key) throws PersonNotFoundException {
-        if (persons.remove(key)) {
+    public boolean removeClient(Client key, Category category) throws PersonNotFoundException {
+        Boolean isSuccess;
+
+        if (category.isStudent()) {
+            isSuccess = students.remove(key);
+        } else {
+            isSuccess = tutors.remove(key);
+        }
+
+        if (isSuccess) {
             return true;
         } else {
             throw new PersonNotFoundException();
@@ -232,13 +198,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() +  " tags";
+        return students.asObservableList().size() + " students, "
+                + tutors.asObservableList().size() + " tutors, "
+                + tags.asObservableList().size() +  " tags";
         // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asObservableList();
     }
 
     @Override
@@ -260,13 +223,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
+                && this.students.equals(((AddressBook) other).students)
+                && this.tutors.equals(((AddressBook) other).tutors)
                 && this.tags.equalsOrderInsensitive(((AddressBook) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(students, tutors, tags);
     }
 }

@@ -8,24 +8,25 @@ import seedu.address.commons.util.StringUtil;
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
-public class MatchContainsKeywordsPredicate implements Predicate<Person> {
-    private final List<String> keywords;
+public class MatchContainsKeywordsPredicate implements Predicate<Client> {
+    private final Client client;
 
-    public MatchContainsKeywordsPredicate(List<String> keywords) {
-        this.keywords = keywords;
+    public MatchContainsKeywordsPredicate(Client client) {
+        this.client = client;
     }
 
     @Override
-    public boolean test(Person person) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+    public boolean test(Client other) {
+        return other.getLocation().equals(client.getLocation())
+                || other.getGrade().equals(client.getGrade())
+                || other.getSubject().equals(client.getSubject());
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MatchContainsKeywordsPredicate // instanceof handles nulls
-                && this.keywords.equals(((MatchContainsKeywordsPredicate) other).keywords)); // state check
+                && this.client.equals(((MatchContainsKeywordsPredicate) other).client)); // state check
     }
 
 }

@@ -28,7 +28,7 @@ public class ClientBuilder {
     public static final String DEFAULT_LOCATION = "north";
     public static final String DEFAULT_GRADE = "pri3";
     public static final String DEFAULT_SUBJECT = "physics";
-    public static final String DEFAULT_CATEGORY = "t";
+    public static final String DEFAULT_CATEGORY = "s";
 
     private Name name;
     private Phone phone;

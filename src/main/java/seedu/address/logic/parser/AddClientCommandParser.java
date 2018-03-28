@@ -31,7 +31,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new AddClientCommand object
  */
-public class AddClientCommandParser {
+public class AddClientCommandParser implements Parser<AddClientCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddClientCommand

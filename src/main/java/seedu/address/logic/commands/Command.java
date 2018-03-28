@@ -17,11 +17,11 @@ public abstract class Command {
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
      *
-     * @param displaySize used to generate summary
+     * @param displayStudentSize and displayTutorSize used to generate summary
      * @return summary message for persons displayed
      */
-    public static String getMessageForPersonListShownSummary(int displaySize) {
-        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displaySize);
+    public static String getMessageForPersonListShownSummary(int displayStudentSize, int displayTutorSize) {
+        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displayStudentSize, displayTutorSize);
     }
 
     /**
