@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddClientCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.CloseCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -98,6 +99,9 @@ public class AddressBookParser {
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommand();
+
+        case CloseCommand.COMMAND_WORD:
+            return new CloseCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
