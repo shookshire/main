@@ -39,8 +39,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_LOCATION_AMY = "north";
     public static final String VALID_LOCATION_BOB = "south";
-    public static final String VALID_GRADE_AMY = "pri1";
-    public static final String VALID_GRADE_BOB = "sec1";
+    public static final String VALID_GRADE_AMY = "p1";
+    public static final String VALID_GRADE_BOB = "s1";
     public static final String VALID_SUBJECT_AMY = "math";
     public static final String VALID_SUBJECT_BOB = "physics";
     public static final String VALID_CATEGORY_AMY = "s";
