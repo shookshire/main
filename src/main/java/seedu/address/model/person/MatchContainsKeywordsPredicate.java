@@ -3,7 +3,7 @@ package seedu.address.model.person;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Client}'s {@code Location, Grade and Subject} matches the entered {@code Client}'s {@code Location, Grade and Subject}.
  */
 public class MatchContainsKeywordsPredicate implements Predicate<Client> {
     private final Client client;

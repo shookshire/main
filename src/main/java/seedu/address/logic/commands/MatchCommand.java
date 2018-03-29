@@ -12,8 +12,7 @@ import seedu.address.model.person.MatchContainsPersonsPredicate;
 
 
 /**
- * Finds and lists all persons in address book that contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Match the entered client and lists all clients in address book that has similar attributes to the matched client.
  */
 public class MatchCommand extends Command {
 
