@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a client card in the person list panel.
  */
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
@@ -17,6 +17,12 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
+    private static final String LOCATION_FIELD_ID = "#location";
+    private static final String GRADE_FIELD_ID = "#grade";
+    private static final String SUBJECT_FIELD_ID = "#subject";
+    private static final String CATEGORY_FIELD_ID = "#category";
+
+
 
     private final Label idLabel;
     private final Label nameLabel;
@@ -24,6 +30,13 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label phoneLabel;
     private final Label emailLabel;
     private final List<Label> tagLabels;
+    private final Label locationLabel;
+    private final Label gradeLabel;
+    private final Label subjectLabel;
+    private final Label categoryLabel;
+
+
+
 
     public PersonCardHandle(Node cardNode) {
         super(cardNode);
@@ -33,6 +46,10 @@ public class PersonCardHandle extends NodeHandle<Node> {
         this.addressLabel = getChildNode(ADDRESS_FIELD_ID);
         this.phoneLabel = getChildNode(PHONE_FIELD_ID);
         this.emailLabel = getChildNode(EMAIL_FIELD_ID);
+        this.locationLabel = getChildNode(LOCATION_FIELD_ID);
+        this.gradeLabel = getChildNode(GRADE_FIELD_ID);
+        this.subjectLabel = getChildNode(SUBJECT_FIELD_ID);
+        this.categoryLabel = getChildNode(CATEGORY_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         this.tagLabels = tagsContainer
@@ -68,6 +85,23 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .map(Label::getText)
                 .collect(Collectors.toList());
     }
+
+    public String getLocation() {
+        return locationLabel.getText();
+    }
+
+    public String getGrade() {
+        return gradeLabel.getText();
+    }
+
+    public String getSubject() {
+        return subjectLabel.getText();
+    }
+
+    public String getCategory() {
+        return categoryLabel.getText();
+    }
+
 
     public List<String> getTagStyleClasses(String tag) {
         return tagLabels.stream()
