@@ -31,7 +31,6 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getLocation(), actualCard.getLocation());
         assertEquals(expectedCard.getGrade(), actualCard.getGrade());
         assertEquals(expectedCard.getSubject(), actualCard.getSubject());
-        assertEquals(expectedCard.getCategory(), actualCard.getCategory());
     }
 
     /**
@@ -46,7 +45,6 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getLocation().value, actualCard.getLocation());
         assertEquals(expectedPerson.getGrade().value, actualCard.getGrade());
         assertEquals(expectedPerson.getSubject().value, actualCard.getSubject());
-        assertEquals(expectedPerson.getCategory().value, actualCard.getCategory());
     }
 
     /**
