@@ -5,9 +5,7 @@ import java.util.Optional;
 
 import javafx.scene.control.ListView;
 import seedu.address.model.person.Client;
-import seedu.address.model.person.Person;
 import seedu.address.ui.ClientCard;
-import seedu.address.ui.PersonCard;
 
 /**
  * @// TODO: 14/3/2018 Implement StudentListPanelHandle and PersonListPanelHandle upon

@@ -45,7 +45,8 @@ public class AddClientCommandTest {
 
         CommandResult commandResult = getAddClientCommandForPerson(validClient, modelStub).execute();
 
-        assertEquals(String.format(AddClientCommand.MESSAGE_SUCCESS_STUDENT, validClient), commandResult.feedbackToUser);
+        assertEquals(String.format(AddClientCommand.MESSAGE_SUCCESS_STUDENT, validClient),
+                commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validClient), modelStub.studentsAdded);
     }
 
