@@ -159,7 +159,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         for (int i = 3; i > 0; i--){
             for (int j = 0; j < filteredTutors.size(); j++) {
-                System.out.println("filteredTutors name: " + filteredTutors.get(j).getName().fullName + "filteredTutors ranking: " + filteredTutors.get(j).getRank());
                 if (filteredTutors.get(j).getRank() == i) {
                     rankedFilteredTutors.add(filteredTutors.get(j));
                 }

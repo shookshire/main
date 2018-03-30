@@ -15,26 +15,16 @@ public class MatchContainsKeywordsPredicate implements Predicate<Client> {
     @Override
     public boolean test(Client other) {
         boolean isMatch = false;
-        int count = 0;
 
-        System.out.println("0th: " + count);
         if(other.getLocation().equals(client.getLocation())) {
-            count++;
             isMatch = true;
-            System.out.println("1st: " + count);
         }
         if(other.getGrade().equals(client.getGrade())) {
-            count++;
             isMatch = true;
-            System.out.println("2nd: " + count);
         }
         if(other.getSubject().equals(client.getSubject())) {
-            count++;
             isMatch = true;
-            System.out.println("3rd: " + count);
         }
-        client.setRank(count);
-        System.out.println(client.getName().fullName + client.getRank() );
         return isMatch;
     }
 
