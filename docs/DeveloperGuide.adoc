@@ -957,6 +957,20 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |search by tags added to client |generate a list of clients that have the same tags
 
+|`* * *` |user |differentiate "location" "subject" and "grade" by colours |identify "location", "subject" and "grade" attributes easily
+
+|`* * *` |user |sort the clients name |better organise my clients
+
+|`* * *` |new user |sort contacts based on clients subjects |better organise my clients
+
+|`* * *` |new user |sort contacts based on clients grade |better organise my clients
+
+|`* * *` |user |sort the clients based on a particular field |better organise my clients
+
+|`* * *` |user |match a given client and app will show a list of clients sorted from the most suitable to the least suitable |give my clients more choices
+
+|`* * *` |user |match clients that only fit certain requirements |clients will have more choice to choose from
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`* *` |user |search multiple tags |narrow down the search to clients that fit all the different tags searched.
