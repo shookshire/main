@@ -4,11 +4,11 @@
     <students>
         <name>Han!s Mus!ter</name>
         <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">4th street</address>
-        <location isPrivate="false">north</location>
-        <grade isPrivate="false">p1</grade>
-        <subject isPrivate="false">math</subject>
-        <category isPrivate="false">s</category>
+        <email isPrivate="false">hansexample.com</email>
+        <address isPrivate="false">4th st@#reet</address>
+        <location isPrivate="false">nor!@th</location>
+        <grade isPrivate="false">pri1</grade>
+        <subject isPrivate="false">ma!%#th</subject>
+        <category isPrivate="false">saa</category>
     </students>
 </addressbook>
