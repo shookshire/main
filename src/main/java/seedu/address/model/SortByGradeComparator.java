@@ -1,8 +1,8 @@
 package seedu.address.model;
 
-import seedu.address.model.person.Client;
-
 import java.util.Comparator;
+
+import seedu.address.model.person.Client;
 
 /**
  * Comparator to sort by int base on valueWeight

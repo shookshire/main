@@ -7,15 +7,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Client's related Grade (the year of study eg. Primary 4, Secondary 3) in the TuitionCor.
  * Guarantees: immutable; is valid as declared in {@link #isValidGrade(String)}
  */
-public class Grade
-{
+public class Grade {
     public static final String MESSAGE_WORD_KINDERGARTEN = "Kindergarten";
     public static final String MESSAGE_WORD_KINDERGARTEN_ALIAS = "K";
     public static final String MESSAGE_WORD_PRIMARY = "Primary";
     public static final String MESSAGE_WORD_PRIMARY_ALIAS = "P";
     public static final String MESSAGE_WORD_SECONDARY = "Secondary";
     public static final String MESSAGE_WORD_SECONDARY_ALIAS = "S";
-    public static final String MESSAGE_WORD_TERTIARY = "Junior College";
+    public static final String MESSAGE_WORD_TERTIARY = "Tertiary";
     public static final String MESSAGE_WORD_TERTIARY_ALIAS = "J";
     public static final String MESSAGE_WORD_UNIVERSITY = "University";
     public static final String MESSAGE_WORD_UNIVERSITY_ALIAS = "U";
@@ -26,7 +25,7 @@ public class Grade
     private static final String PRIMARY_ALIAS_REGEX = "p";
     private static final String SECONDARY_REGEX = "secondary";
     private static final String SECONDARY_ALIAS_REGEX = "s";
-    private static final String TERTIARY_REGEX = "junior college";
+    private static final String TERTIARY_REGEX = "tertiary";
     private static final String TERTIARY_ALIAS_REGEX = "j";
     private static final String UNIVERSITY_REGEX = "university";
     private static final String UNIVERSITY_ALIAS_REGEX = "u";
@@ -64,7 +63,7 @@ public class Grade
                     + ", " + MESSAGE_WORD_PRIMARY_ALIAS + " for " + MESSAGE_WORD_PRIMARY
                     + ", " + MESSAGE_WORD_SECONDARY_ALIAS + " for " + MESSAGE_WORD_SECONDARY
                     + ", " + MESSAGE_WORD_TERTIARY_ALIAS + " for " + MESSAGE_WORD_TERTIARY
-                    + ", " + MESSAGE_WORD_UNIVERSITY_ALIAS + " for " + MESSAGE_WORD_UNIVERSITY +".\n"
+                    + ", " + MESSAGE_WORD_UNIVERSITY_ALIAS + " for " + MESSAGE_WORD_UNIVERSITY + ".\n"
                     + "Examples of valid input for grade: " + MESSAGE_WORD_KINDERGARTEN + INPUT_SPACE_REGEX + "1"
                     + " or " + MESSAGE_WORD_KINDERGARTEN_ALIAS + "1" + ", "
                     + MESSAGE_WORD_TERTIARY + INPUT_SPACE_REGEX + "2"
@@ -98,49 +97,49 @@ public class Grade
         int tempIndex = 0;
 
         switch (levelField) {
-            case KINDERGARTEN_REGEX:
-                tempIndex+=1;
-                break;
+        case KINDERGARTEN_REGEX:
+            tempIndex += 1;
+            break;
 
-            case KINDERGARTEN_ALIAS_REGEX:
-                tempIndex+=1;
-                break;
+        case KINDERGARTEN_ALIAS_REGEX:
+            tempIndex += 1;
+            break;
 
-            case PRIMARY_REGEX:
-                tempIndex+=4;
-                break;
+        case PRIMARY_REGEX:
+            tempIndex += 4;
+            break;
 
-            case PRIMARY_ALIAS_REGEX:
-                tempIndex+=4;
-                break;
+        case PRIMARY_ALIAS_REGEX:
+            tempIndex += 4;
+            break;
 
-            case SECONDARY_REGEX:
-                tempIndex+=10;
-                break;
+        case SECONDARY_REGEX:
+            tempIndex += 10;
+            break;
 
-            case SECONDARY_ALIAS_REGEX:
-                tempIndex+=10;
-                break;
+        case SECONDARY_ALIAS_REGEX:
+            tempIndex += 10;
+            break;
 
-            case TERTIARY_REGEX:
-                tempIndex+=15;
-                break;
+        case TERTIARY_REGEX:
+            tempIndex += 15;
+            break;
 
-            case TERTIARY_ALIAS_REGEX:
-                tempIndex+=15;
-                break;
+        case TERTIARY_ALIAS_REGEX:
+            tempIndex += 15;
+            break;
 
-            case UNIVERSITY_REGEX:
-                tempIndex+=17;
-                break;
+        case UNIVERSITY_REGEX:
+            tempIndex += 17;
+            break;
 
-            case UNIVERSITY_ALIAS_REGEX:
-                tempIndex+=17;
-                break;
+        case UNIVERSITY_ALIAS_REGEX:
+            tempIndex += 17;
+            break;
 
-            default:
-                tempIndex = -1;
-    }
+        default:
+            tempIndex = -1;
+        }
 
         tempIndex += (Integer.parseInt(getGradeFields()[yearIndex]) - 1);
 
@@ -167,9 +166,10 @@ public class Grade
     /**
      * @return Grade in terms of an array containing Level(Primary,Secondary..) and Year(1,2..)
      */
-    public String[] getGradeFields() {
+    private String[] getGradeFields() {
         String[] gradeFields =  value.split("(?=[\\d])");
-        gradeFields[levelIndex].trim();
+        String temp = gradeFields[levelIndex];
+        gradeFields[levelIndex] = temp.trim();
         gradeFields[yearIndex].trim();
 
         return gradeFields;
