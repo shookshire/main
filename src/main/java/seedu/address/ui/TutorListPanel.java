@@ -45,7 +45,7 @@ public class TutorListPanel extends UiPart<Region> {
         tutorListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                        logger.fine("Selection in tutor list panel changed to : '" + newValue + "'");
                         raise(new ClientPanelSelectionChangedEvent(newValue));
                     }
                 });
@@ -73,14 +73,14 @@ public class TutorListPanel extends UiPart<Region> {
     class StudentListViewCell extends ListCell<ClientCard> {
 
         @Override
-        protected void updateItem(ClientCard person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(ClientCard client, boolean empty) {
+            super.updateItem(client, empty);
 
-            if (empty || person == null) {
+            if (empty || client == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(person.getRoot());
+                setGraphic(client.getRoot());
             }
         }
     }

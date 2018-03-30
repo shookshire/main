@@ -10,12 +10,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Location {
 
     public static final String MESSAGE_LOCATION_CONSTRAINTS =
-            "Location should only be north, south, east, west, central but can take any value if necessary";
-    /*
-     * The first character of the Location must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
+            "Location should only be north, south, east, west, central and only one location should be entered";
+
+    private static final String LOCATION_VALIDATION_REGEX_NORTH = "(?i)North";
+    private static final String LOCATION_VALIDATION_REGEX_SOUTH = "(?i)South";
+    private static final String LOCATION_VALIDATION_REGEX_EAST = "(?i)East";
+    private static final String LOCATION_VALIDATION_REGEX_WEST = "(?i)West";
+    private static final String LOCATION_VALIDATION_REGEX_CENTRAL = "(?i)Central";
+
     public final String value;
 
     /**
@@ -33,7 +35,10 @@ public class Location {
      * Returns true if a given string is a valid person Location.
      */
     public static boolean isValidLocation(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+        return test.matches(LOCATION_VALIDATION_REGEX_NORTH) || test.matches(LOCATION_VALIDATION_REGEX_EAST)
+                || test.matches(LOCATION_VALIDATION_REGEX_SOUTH)
+                || test.matches(LOCATION_VALIDATION_REGEX_WEST)
+                || test.matches(LOCATION_VALIDATION_REGEX_CENTRAL);
     }
 
     @Override

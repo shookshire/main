@@ -13,29 +13,29 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ClientPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Client;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of students.
  */
 public class StudentListPanel extends UiPart<Region> {
     private static final String FXML = "StudentListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
 
     @FXML
-    private ListView<PersonCard> studentListView;
+    private ListView<ClientCard> studentListView;
 
-    public StudentListPanel(ObservableList<Person> studentList) {
+    public StudentListPanel(ObservableList<Client> studentList) {
         super(FXML);
         setConnections(studentList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Person> studentList) {
-        ObservableList<PersonCard> mappedList = EasyBind.map(
-                studentList, (person) -> new PersonCard(person, studentList.indexOf(person) + 1));
+    private void setConnections(ObservableList<Client> studentList) {
+        ObservableList<ClientCard> mappedList = EasyBind.map(
+                studentList, (client) -> new ClientCard(client, studentList.indexOf(client) + 1));
         studentListView.setItems(mappedList);
         studentListView.setCellFactory(listView -> new StudentListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -45,14 +45,14 @@ public class StudentListPanel extends UiPart<Region> {
         studentListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                        logger.fine("Selection in student list panel changed to : '" + newValue + "'");
+                        raise(new ClientPanelSelectionChangedEvent(newValue));
                     }
                 });
     }
 
     /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     * Scrolls to the {@code ClientCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
@@ -68,19 +68,19 @@ public class StudentListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code ClientCard}.
      */
-    class StudentListViewCell extends ListCell<PersonCard> {
+    class StudentListViewCell extends ListCell<ClientCard> {
 
         @Override
-        protected void updateItem(PersonCard person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(ClientCard client, boolean empty) {
+            super.updateItem(client, empty);
 
-            if (empty || person == null) {
+            if (empty || client == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(person.getRoot());
+                setGraphic(client.getRoot());
             }
         }
     }
