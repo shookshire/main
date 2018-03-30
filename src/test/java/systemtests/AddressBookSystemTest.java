@@ -238,7 +238,6 @@ public abstract class AddressBookSystemTest {
             assertEquals("", getResultDisplay().getText());
             assertListMatching(getStudentListPanel(), getModel().getFilteredStudentList());
             assertEquals("./" + testApp.getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
-            //assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
         } catch (Exception e) {
             throw new AssertionError("Starting state is wrong.", e);
         }
