@@ -69,7 +69,7 @@ public interface Model {
     void updateRankedTutorList();
 
     /**
-     * Updates the filter of the filtered tutor list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateRankedStudentList();
