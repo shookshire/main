@@ -16,7 +16,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -30,6 +29,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final AddressBook addressBook;
     private final FilteredList<Client> filteredStudents;
     private final FilteredList<Client> filteredTutors;
+    private SortedList<Client> rankedFilteredTutors;
+    private SortedList<Client> rankedFilteredStudents;
 
     private SortedList<Client> sortedFilteredTutors;
     private SortedList<Client> sortedFilteredStudents;
@@ -48,6 +49,9 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTutors = new FilteredList<>(this.addressBook.getTutorList());
         sortedFilteredTutors = new SortedList<>(filteredTutors);
         sortedFilteredStudents = new SortedList<>(filteredStudents);
+        rankedFilteredStudents = new SortedList<>(filteredStudents);
+        rankedFilteredStudents = new SortedList<>(filteredTutors);
+
     }
 
     public ModelManager() {
@@ -198,6 +202,46 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTutorList(Predicate<Client> predicate) {
         requireNonNull(predicate);
         filteredTutors.setPredicate(predicate);
+        indicateAddressBookChanged();
+    }
+    //=========== Ranked Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
+     * {@code addressBook}
+     */
+
+    @Override
+    public void updateRankedStudentList() {
+
+        for (int i = 53; i > 50; i--) {
+            for (int j = 0; j < filteredStudents.size(); j++) {
+                System.out.println("filteredStudents ranking: " + filteredStudents.get(j).getRank());
+                if (filteredStudents.get(j).getRank() == i) {
+                    rankedFilteredStudents.add(filteredStudents.get(j));
+                }
+            }
+        }
+        filteredStudents.setAll(rankedFilteredStudents);
+        indicateAddressBookChanged();
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
+     * {@code addressBook}
+     */
+
+    @Override
+    public void updateRankedTutorList() {
+
+        for (int i = 3; i > 0; i--) {
+            for (int j = 0; j < filteredTutors.size(); j++) {
+                if (filteredTutors.get(j).getRank() == i) {
+                    rankedFilteredTutors.add(filteredTutors.get(j));
+                }
+            }
+        }
+        filteredTutors.setAll(rankedFilteredTutors);
         indicateAddressBookChanged();
     }
 

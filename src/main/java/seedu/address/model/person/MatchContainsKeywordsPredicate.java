@@ -1,12 +1,10 @@
 package seedu.address.model.person;
 
-import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Client}'s {@code Location, Grade and Subject} matches the entered {@code Client}'s
+ * {@code Location, Grade and Subject}.
  */
 public class MatchContainsKeywordsPredicate implements Predicate<Client> {
     private final Client client;
@@ -17,9 +15,18 @@ public class MatchContainsKeywordsPredicate implements Predicate<Client> {
 
     @Override
     public boolean test(Client other) {
-        return other.getLocation().equals(client.getLocation())
-                || other.getGrade().equals(client.getGrade())
-                || other.getSubject().equals(client.getSubject());
+        boolean isMatch = false;
+
+        if (other.getLocation().equals(client.getLocation())) {
+            isMatch = true;
+        }
+        if (other.getGrade().equals(client.getGrade())) {
+            isMatch = true;
+        }
+        if (other.getSubject().equals(client.getSubject())) {
+            isMatch = true;
+        }
+        return isMatch;
     }
 
     @Override
