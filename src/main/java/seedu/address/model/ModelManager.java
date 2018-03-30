@@ -14,6 +14,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -27,7 +28,6 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Client> filteredStudents;
     private final FilteredList<Client> filteredTutors;
 
@@ -44,7 +44,6 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredTutors = new FilteredList<>(this.addressBook.getTutorList());
         sortedFilteredTutors = new SortedList<>(filteredTutors);
@@ -72,24 +71,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(Person target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
+    public synchronized void deleteClient(Client target, Category category) throws PersonNotFoundException {
+        addressBook.removeClient(target, category);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addPerson(Person person) throws DuplicatePersonException {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void updatePerson(Person target, Person editedPerson)
+    public void updateClient(Client target, Client editedPerson, Category category)
             throws DuplicatePersonException, PersonNotFoundException {
-        requireAllNonNull(target, editedPerson);
+        requireAllNonNull(target, editedPerson, category);
 
-        addressBook.updatePerson(target, editedPerson);
+        addressBook.updatePerson(target, editedPerson, category);
         indicateAddressBookChanged();
     }
 
@@ -107,16 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code addressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
-    }
+    //=========== Filtered Client List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Tutor} backed by the internal list of
@@ -186,12 +169,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
     /**
      * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
      * {@code addressBook}
@@ -205,7 +182,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredStudentList(Predicate<Client> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
-        sortedFilteredStudents = new SortedList<>(filteredStudents);
+        indicateAddressBookChanged();
     }
 
     /**
@@ -221,7 +198,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTutorList(Predicate<Client> predicate) {
         requireNonNull(predicate);
         filteredTutors.setPredicate(predicate);
-        sortedFilteredTutors = new SortedList<>(filteredTutors);
+        indicateAddressBookChanged();
     }
 
     @Override

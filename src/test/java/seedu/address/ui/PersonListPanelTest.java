@@ -15,13 +15,14 @@ import guitests.guihandles.PersonListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.model.person.Client;
 import seedu.address.model.person.Person;
 
 /**
  * @// TODO: 14/3/2018 Implement StudentListPanelTest and TutorListPanelTest upon creation of person and student class
  */
 public class PersonListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Person> TYPICAL_PERSONS =
+    private static final ObservableList<Client> TYPICAL_CLIENTS =
             FXCollections.observableList(getTypicalPersons());
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
@@ -30,7 +31,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        StudentListPanel studentListPanel = new StudentListPanel(TYPICAL_PERSONS);
+        StudentListPanel studentListPanel = new StudentListPanel(TYPICAL_CLIENTS);
         uiPartRule.setUiPart(studentListPanel);
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(studentListPanel.getRoot(),
@@ -39,9 +40,9 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
-            personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-            Person expectedPerson = TYPICAL_PERSONS.get(i);
+        for (int i = 0; i < TYPICAL_CLIENTS.size(); i++) {
+            personListPanelHandle.navigateToCard(TYPICAL_CLIENTS.get(i));
+            Client expectedPerson = TYPICAL_CLIENTS.get(i);
             PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
 
             assertCardDisplaysPerson(expectedPerson, actualCard);

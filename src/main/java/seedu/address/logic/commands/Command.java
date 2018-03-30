@@ -17,12 +17,9 @@ public abstract class Command {
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tutors.
      *
-     * @param displaySize used to generate summary
+     * @param displayStudentSize and displayTutorSize used to generate summary
      * @return summary message for persons displayed
      */
-    public static String getMessageForTutorListShownSummary(int displaySize) {
-        return String.format(Messages.MESSAGE_TUTOR_LISTED_OVERVIEW, displaySize);
-    }
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of students.
@@ -30,8 +27,8 @@ public abstract class Command {
      * @param displaySize used to generate summary
      * @return summary message for persons displayed
      */
-    public static String getMessageForStudentListShownSummary(int displaySize) {
-        return String.format(Messages.MESSAGE_STUDENT_LISTED_OVERVIEW, displaySize);
+    public static String getMessageForClientListShownSummary(int displayStudentSize, int displayTutorSize) {
+        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displayStudentSize, displayTutorSize);
     }
 
     /**
