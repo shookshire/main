@@ -45,12 +45,48 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+*Breakdown of features*
+
+*  In v1.2:
+*****
+* Supports addition of client, either tutor or students.
+*****
+
+*  In v1.3:
+*****
+* All commands are working and integrated with client.
+* Clients information are saved.
+* New match feature which allowing matching of student to tutors or tutor to students.
+* Sort feature which allows tutor's and student's list to be sorted by name, subject, location and grade.
+*****
+
+*  Coming in v1.4:
+*****
+* Match function now includes a ranking system.
+**  The ranking system works according to the number of matched attributes.
+* Close function and switch function which allows user to close a particular student or tutor.
+** This allows user to close a tutor of student upon successful matching which will be stored in a closed tutor's or student's list for future reference.
+* Enhance grade, subject and location to support mutiple field.
+*****
+
+*  Coming in v1.5:
+*****
+* Integrate all features together.
+*****
+
+*  Coming in v2.0:
+*****
+* Auto match function where.
+** Whenever a new client either student or tutor is added, a list of tutor or student who fits the criteria of the tutor or student will be displayed to the user.
+* Integrate it with an online platform.
+** Whenever a user or student sign up on the online platform, their information will automatically be added into TuitionCor database.
+*****
 
 ====
 *Command Format*
 
 
-* there are alias for some of the commands, which helps users to save some time. e.g. for add command, you can use add n/... or a n/...
+* There are alias for some of the commands, which helps users to save some time. e.g. for add command, you can use add n/... or a n/...
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -61,33 +97,36 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-Alias Format: `a n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Adding a client: `addclient`
+=== Adding a client: `addclient` {Since v1.2}
 
 Adds a client to TuitionCor +
 Format: `addclient c/CATEGORY n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... l/LOCATION g/GRADE s/SUBJECT`
 
 Alias Format: `ac c/CATEGORY n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... l/LOCATION g/GRADE s/SUBJECT`
 [TIP]
-A person can have any number of tags (including 0)
+A client can have any number of tags (including 0)
+
+[NOTE]
+User can only enter only a specific location and a specific grade for each client. The type of location and grade accepted can be found below.
+
+****
+* It's required to indicate the category the particular client belongs to.
+* Accepted case-insensitive location available for user input are {North,South,East,West,Central}. Any other type of location will be invalid.
+* Accepted case-insensitive grade available for user input are as follows:
+** Format of grade are in this particular format 'LEVEL YEAR' or alias format 'ALIASLEVEL YEAR' without any spacing in-between. Example: 'Primary 1' or 'P1'.
+** LEVEL available are {Kindergarten, Primary, Secondary, Tertiary, University}. Alias LEVEL are {K,P,S,J,U} respectively.
+** INDEX available varies differently for each Level.
+*** For Kindergarten INDEX available are {1,2,3}.
+*** For Primary INDEX available are {1,2,3,4,5,6}.
+*** For Secondary INDEX available are {1,2,3,4,5}.
+*** For Tertiary INDEX available are {1,2}.
+*** For University INDEX available are {1,2,3,4}
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addclient c/t n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` t/urgent l/north g/p1 s/math
+* `ac c/s n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/urgent l/south g/primary 1 s/math
 
 === Listing all persons : `list`
 
@@ -96,14 +135,76 @@ Format: `list`
 
 Alias Format: `l`
 
-=== Editing a person : `edit`
+=== Sorting a client: 'sort' {Since v1.3}
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Sorting tutor's list based on name +
+Format: 'sort tn'
+Alias Format: 'so tn'
 
-Alias Format: `e INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Sorting tutor's list based on location +
+Format: 'sort tl'
+Alias Format: 'so tl'
+
+Sorting tutor's list based on grade +
+Format: 'sort tg'
+Alias Format: 'so tg'
+
+Sorting tutor's list based on subject +
+Format: 'sort ts'
+Alias Format: 'so ts'
+
+Sorting student's list based on name +
+Format: 'sort sn'
+Alias Format: 'so sn'
+
+Sorting student's list based on location +
+Format: 'sort sl'
+Alias Format: 'so sl'
+
+Sorting student's list based on grade +
+Format: 'sort sg'
+Alias Format: 'so sg'
+
+Sorting student's list based on subject +
+Format: 'sort ss'
+Alias Format: 'so ss'
+
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
+*Sorts the client based on the selected list, either 't' for tutors or 's' for students based on a chosen criteria 'n' for name, 'g' for grade, 's' for subject and 'l' for location.
+*Sorting by name, grade and subjects are based on alphabetical order.
+*Sorting by grade are based on ascending order of seniority (Kindergarten->Primary->Secondary->Junior College->University)
+****
+Examples:
+* 'sort tl' +
+Tutor's list displayed will be sorted base on location.
+* 'sort ts' +
+Tutor's list displayed will be sorted base on subject.
+* 'sort tn' +
+Tutor's list displayed will be sorted base on name.
+* 'sort tg' +
+Tutor's list displayed will be sorted base on grade.
+
+* 'sort sl' +
+Student's list displayed will be sorted base on location.
+* 'sort ss' +
+Student's list displayed will be sorted base on subject.
+* 'sort sn' +
+Student's list displayed will be sorted base on name.
+* 'sort sg' +
+Student's list displayed will be sorted base on grade.
+
+=== Editing a client : `edit` {Since v1.3}
+
+Edits an existing student in the address book. +
+Format: `edit INDEX c/s [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Alias Format: `e INDEX c/s  [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+Edits an existing tutor in the address book. +
+Format: `edit INDEX c/t [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Alias Format: `e INDEX c/t  [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the client based on selected category either c/s for students or c/t for tutors at the specified `INDEX`. The index refers to the index number shown in the last tutors or students listing. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -112,23 +213,27 @@ Alias Format: `e INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `e 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 c/s  p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@example.com` respectively.
+* `e 2 c/s n/Betsy Crower t/` +
+Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
+* `edit 1 c/t  p/93213456 e/doe@example.com` +
+Edits the phone number and email address of the 1st tutor to be `93213456` and `doe@example.com` respectively.
+* `e 2 c/t n/Beatty Crower t/` +
+Edits the name of the 2nd tutor to be `Beatty Crower` and clears all existing tags.
 
-=== Locating persons: `find`
+=== Locating persons: `find` {Since v1.3}
 
-Finds persons that contain any of the given keywords. +
+Finds clients that contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Alias Format: `f KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Not only the name is searched, but all the fields of a person is searched.
+* Not only the name is searched, but all the fields of a client is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Clients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
@@ -136,39 +241,51 @@ Examples:
 * `find John` +
 Returns `john` and `John Doe`
 * `f Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Returns any client having names `Betsy`, `Tim`, or `John`
 * `f 96528541` +
-Returns any person having phone number `96528541`
+Returns any client having phone number `96528541`
 * `f blk` +
-Returns any person having keyword `blk`
+Returns any client having keyword `blk`
 
-=== Matching potential clients: `match`
+=== Matching potential clients: `match` {Since v1.3}
 
-Matches any potential clients according to data input +
-Format: `match NAME`
+Matches potential tutors to selected student based on INDEX +
+Format: `match INDEX c/s`
+Alias Format: `m INDEX c/s`
 
-Alias Format: `m NAME`
+Matches potential students to selected tutor based on INDEX+
+Format: `match INDEX c/t`
+Alias Format: `m INDEX c/t`
+
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* Only the first name entered will be matched. if 2 names are entered only the first name will be matched. e.g. `Hans Bo` will return result based on `Hans`
-* Only the name can be used for match function.
+* Matches the client based on selected category either c/s for students or c/t for tutors at the specified `INDEX`. The index refers to the index number shown in the last tutors or students listing. The index *must be a positive integer* 1, 2, 3, ...
+* The match is case insensitive. e.g `hans` will match `Hans`
+* Clients will be matched based on subject, grade or location.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Only clients that fit all the data fields will be listed. (i.e. `AND` search).
+* Only clients that have any matches based on subject, grade or location will be displayed.
 ****
 
 Examples:
 
-* `match John` +
-If John is a tutor finding students that are staying in WEST and is looking for sec4 chemistry, then `match John` will return a list of students that are staying in the WEST and is currently looking for sec4 chemistry tutor.
+* `match 1 c/t +
+At index 1 of tutor's list, John is a tutor finding students that are staying in west and is looking for s4 chemistry. This command will return a list of students that are staying in the west or s4 or Chemistry.
 
-=== Deleting a person : `delete`
+* `match 1 c/s +
+At index 1 of student's list, Jim is a student who requires tutors that are staying in west and teaching s4 chemistry. This command will return a list of tutors that are staying in the west or teaching s4 or teaching Chemistry.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+=== Deleting a client : `delete` {Since v1.3}
 
-Alias Format: `d INDEX`
+Deletes the specified tutor from the address book. +
+Format: `delete INDEX c/t`
+Alias Format: `d INDEX c/t`
+
+Deletes the specified student from the address book. +
+Format: `delete INDEX c/s`
+Alias Format: `d INDEX c/s`
+
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the client at the specified `INDEX`.
+* 'c/t' and 'c/s' refers to tutor's category respectively.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -176,32 +293,14 @@ Alias Format: `d INDEX`
 Examples:
 
 * `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`d 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the last person listing. +
-Format: `select INDEX`
-
-Alias Format: `s INDEX`
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
+`delete 2 c/s` +
+Deletes the 2nd student in the student's list from TuitionCor.
 * `list` +
-`select 2` +
-Selects the 2nd person in the address book.
+`delete 2 c/t` +
+Deletes the 2nd tutor in the tutor's list from TuitionCor.
 * `find Betsy` +
-`s 1` +
-Selects the 1st person in the results of the `find` command.
+`d 1 c/t` +
+Deletes the 1st person in the tutor's list based the results of the `find` command.
 
 === Listing entered commands : `history`
 
@@ -267,14 +366,14 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+=== Clearing all entries : `clear` {Since v1.0}
 
 Clears all entries from the address book. +
 Format: `clear`
 
 Alias Format: `c`
 
-=== Exiting the program : `exit`
+=== Exiting the program : `exit` {Since v1.0}
 
 Exits the program. +
 Format: `exit`
@@ -331,3 +430,5 @@ Alias: `h`
 Alias: `u`
 * *Redo* : `redo` +
 Alias: `r`
+* *Sort* : `sort` +
+Alias: `so`

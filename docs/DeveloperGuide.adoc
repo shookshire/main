@@ -500,8 +500,18 @@ public class SortBySubjectCommand extends SortCommand {
 When the user wants to sort the specific list according to his/her needs, SortCommandParser will parse the user input and decide which type of SortCommand to invoke.
 An example of the input required "sort tl" which sorts tutor's list by location.
 
+[source,java]
+----
+public SortCommand parse(String args) throws ParseException {
+    String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
+----
+
 [NOTE]
-If the user input format is invalid, an exception will be thrown
+If the user input format is invalid, an ParseException will be thrown and an error message will be displayed to user.
 
 A sequence diagram is shown below to show the current design when user input "sort tl".
 
@@ -1076,12 +1086,12 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Sort student's list by locality
+=== Use case: Sort student's or tutor's list by locality
 
 *MSS*
 
-1.  User types “/sort sl” in to the command line.
-2.  TuitionCor will return a list of students or tutors based sorted by their locality.
+1.  User types “/sort sl” or “/sort tl” in to the command line.
+2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their locality in alphabetical order.
 +
 Use case ends.
 
@@ -1091,9 +1101,9 @@ Use case ends.
 * 1a. System detects an invalid input.
 +
 [none]
-** 1a1. TuitionCor will display invalid command or display sort message usage.
+** 1a1. TuitionCor will display invalid command and display sort message usage.
 ** 1a2. User enter required information.
-** 1a3. Steps 3a1 and 3a2 are repeated until valid input is entered.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
 +
 Use case resumes at step 2.
 
@@ -1102,32 +1112,145 @@ Use case resumes at step 2.
 +
 Use case ends.
 
-
 [discrete]
-=== Use case: Match
+=== Use case: Sort student's or tutor's list by grade
 
 *MSS*
 
-1.  User enter match followed by a person name.
-2.  TuitionCor displays information of client in the respective list (either tutor list or student list)
-3.  TuitionCor returns a list of potential matches in the respective list.
+1.  User types “/sort sg” or “/sort tg” in to the command line.
+2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their grade in ascending order of seniority.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Client cannot be found.
-+
-Use case ends.
-
-* 3a. There is no match found.
+* 1a. System detects an invalid input.
 +
 [none]
-** 3a1. TuitionCor returns an empty list.
+** 1a1. TuitionCor will display invalid command and display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. System detects no further input.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Sort student's or tutor's list by name
+
+*MSS*
+
+1.  User types “/sort sn” or “/sort tn” in to the command line.
+2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their name in alphabetical order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. System detects an invalid input.
++
+[none]
+** 1a1. TuitionCor will display invalid command and display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. System detects no further input.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort student's or tutor's list by subject
+
+*MSS*
+
+1.  User types “/sort ss” or “/sort ts” in to the command line.
+2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their subject in alphabetical order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. System detects an invalid input.
++
+[none]
+** 1a1. TuitionCor will display invalid command and display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. System detects no further input.
++
+Use case ends.
+
+[discrete]
+=== Use case: Matching a student
+
+*MSS*
+
+1.  User enters "match 1 c/s".
+2.  TuitionCor displays information of the selected student in the student's list and all the relevant tutors which matches the student's needs in tutor's list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. System detects an invalid input.
++
+[none]
+** 1a1. TuitionCor will display invalid command and display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1a. System is unable to match any tutor to this student.
++
+[none]
+** 1a1. An empty tutor's list will be displayed to the user
++
+Use case ends.
+
+=== Use case: Matching a tutor
+
+*MSS*
+
+1.  User enters "match 1 c/t".
+2.  TuitionCor displays information of the selected tutor in the tutor's list and all the relevant students which matches the tutor's credentials in student's list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. System detects an invalid input.
++
+[none]
+** 1a1. TuitionCor will display invalid command and display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1a. System is unable to match any student to this tutor.
++
+[none]
+** 1a1. An empty tutor's list will be displayed to the user
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
