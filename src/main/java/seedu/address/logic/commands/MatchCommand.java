@@ -53,11 +53,12 @@ public class MatchCommand extends Command {
         if (category.isStudent()) {
             model.updateFilteredTutorList(predicate);
             model.updateFilteredStudentList(new MatchContainsPersonsPredicate(clientToMatch));
+            model.updateRankedTutorList();
         } else {
             model.updateFilteredStudentList(predicate);
             model.updateFilteredTutorList(new MatchContainsPersonsPredicate(clientToMatch));
+            model.updateRankedStudentList();
         }
-
 
         return new CommandResult(getMessageForPersonListShownSummary(
                 model.getFilteredStudentList().size(), model.getFilteredTutorList().size()));

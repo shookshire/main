@@ -62,4 +62,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTutorList(Predicate<Client> predicate);
+
+    /**
+     * Updates the filter of the filtered tutor list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateRankedTutorList();
+
+    /**
+     * Updates the filter of the filtered tutor list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateRankedStudentList();
 }

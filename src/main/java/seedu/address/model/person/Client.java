@@ -17,6 +17,7 @@ public class Client extends Person {
     private final Grade grade;
     private final Subject subject;
     private final Category category;
+    private int rank = 0;
 
     /**
      * Every field must be present and not null.
@@ -45,6 +46,12 @@ public class Client extends Person {
 
     public Category getCategory() {
         return category;
+    }
+
+    public int getRank() { return rank; }
+
+    public void setRank(int value) {
+        this.rank = value;
     }
 
     @Override
