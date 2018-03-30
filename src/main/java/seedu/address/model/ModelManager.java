@@ -205,6 +205,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredStudentList(Predicate<Client> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
+        sortedFilteredStudents = new SortedList<>(filteredStudents);
     }
 
     /**
@@ -220,6 +221,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTutorList(Predicate<Client> predicate) {
         requireNonNull(predicate);
         filteredTutors.setPredicate(predicate);
+        sortedFilteredTutors = new SortedList<>(filteredTutors);
     }
 
     @Override

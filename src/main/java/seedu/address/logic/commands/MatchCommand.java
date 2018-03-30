@@ -29,7 +29,7 @@ public class MatchCommand extends Command {
         model.updateFilteredPersonList(predicate);
         model.updateFilteredPersonList(new MatchContainsPersonsPredicate(
             Arrays.asList(model.getFilteredPersonList().get(0).toString().split("\\s+"))));
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
+        return new CommandResult(getMessageForTutorListShownSummary(model.getFilteredPersonList().size()));
     }
 
     @Override

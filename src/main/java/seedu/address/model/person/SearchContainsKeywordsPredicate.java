@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Client}'s {@code Name, email, address, phone} matches any of the keywords given.
  */
-public class SearchContainsKeywordsPredicate implements Predicate<Person> {
+public class SearchContainsKeywordsPredicate implements Predicate<Client> {
     private final List<String> keywords;
 
     public SearchContainsKeywordsPredicate(List<String> keywords) {
@@ -16,15 +16,15 @@ public class SearchContainsKeywordsPredicate implements Predicate<Person> {
     }
 
     @Override
-    public boolean test(Person person) {
+    public boolean test(Client client) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword))
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getName().fullName, keyword))
                 || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword))
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getEmail().value, keyword))
                 || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword))
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getAddress().value, keyword))
                 || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getPhone().value, keyword));
     }
 
     @Override
