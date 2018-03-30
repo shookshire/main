@@ -64,7 +64,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).withLocation(VALID_LOCATION_AMY)
                 .withGrade(VALID_GRADE_AMY).withSubject(VALID_SUBJECT_AMY).withCategory(VALID_CATEGORY_AMY).build();
         command = AddClientCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
+                + TAG_DESC_FRIEND + LOCATION_DESC_AMY + GRADE_DESC_AMY + SUBJECT_DESC_AMY + CATEGORY_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person with all fields same as another person in the address book except email -> added */
@@ -72,7 +72,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).withLocation(VALID_LOCATION_AMY)
                 .withGrade(VALID_GRADE_AMY).withSubject(VALID_SUBJECT_AMY).withCategory(VALID_CATEGORY_AMY).build();
         command = AddClientCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
+                + TAG_DESC_FRIEND + LOCATION_DESC_AMY + GRADE_DESC_AMY + SUBJECT_DESC_AMY + CATEGORY_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person with all fields same as another person in the address book except address -> added */
@@ -80,7 +80,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND).withLocation(VALID_LOCATION_AMY)
                 .withGrade(VALID_GRADE_AMY).withSubject(VALID_SUBJECT_AMY).withCategory(VALID_CATEGORY_AMY).build();
         command = AddClientCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_BOB
-                + TAG_DESC_FRIEND;
+                + TAG_DESC_FRIEND + LOCATION_DESC_AMY + GRADE_DESC_AMY + SUBJECT_DESC_AMY + CATEGORY_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
