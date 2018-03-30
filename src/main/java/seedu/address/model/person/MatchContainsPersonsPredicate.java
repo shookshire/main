@@ -1,35 +1,27 @@
 package seedu.address.model.person;
 
-import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Client}'s attributes matches all of the attributes of the entered {@code Client}'s.
  */
-public class MatchContainsPersonsPredicate implements Predicate<Person> {
-    private final List<String> keywords;
+public class MatchContainsPersonsPredicate implements Predicate<Client> {
+    private final Client client;
 
-    public MatchContainsPersonsPredicate(List<String> keywords) {
-        this.keywords = keywords;
+    public MatchContainsPersonsPredicate(Client client) {
+        this.client = client;
     }
 
     @Override
-    public boolean test(Person person) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword))
-                && keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword))
-                && keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword));
+    public boolean test(Client other) {
+        return other.toString().equals(client.toString());
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MatchContainsPersonsPredicate // instanceof handles nulls
-                && this.keywords.equals(((MatchContainsPersonsPredicate) other).keywords)); // state check
+                && this.client.equals(((MatchContainsPersonsPredicate) other).client)); // state check
     }
 
 }
