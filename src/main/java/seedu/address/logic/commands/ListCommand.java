@@ -16,8 +16,10 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+
         model.updateFilteredTutorList(PREDICATE_SHOW_ALL_TUTORS);
+        model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

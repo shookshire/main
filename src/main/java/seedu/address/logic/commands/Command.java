@@ -15,12 +15,19 @@ public abstract class Command {
     protected UndoRedoStack undoRedoStack;
 
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     * Constructs a feedback message to summarise an operation that displayed a listing of tutors.
      *
      * @param displayStudentSize and displayTutorSize used to generate summary
      * @return summary message for persons displayed
      */
-    public static String getMessageForPersonListShownSummary(int displayStudentSize, int displayTutorSize) {
+
+    /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of students.
+     *
+     * @param displaySize used to generate summary
+     * @return summary message for persons displayed
+     */
+    public static String getMessageForClientListShownSummary(int displayStudentSize, int displayTutorSize) {
         return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displayStudentSize, displayTutorSize);
     }
 

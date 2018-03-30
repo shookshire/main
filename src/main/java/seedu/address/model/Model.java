@@ -44,6 +44,23 @@ public interface Model {
     /** Adds the given student */
     void addStudent(Client student) throws DuplicatePersonException;
 
+    /**Sorts tutor list by name in alphabetical order*/
+    void sortByNameFilteredClientTutorList();
+    /**Sorts tutor list by location in alphabetical order*/
+    void sortByLocationFilteredClientTutorList();
+    /**Sorts tutor list by grade in ascending order*/
+    void sortByGradeFilteredClientTutorList();
+    /**Sorts tutor list by subject in alphabetical order*/
+    void sortBySubjectFilteredClientTutorList();
+    /**Sorts student list by name in alphabetical order*/
+    void sortByNameFilteredClientStudentList();
+    /**Sorts student list by location in alphabetical order*/
+    void sortByLocationFilteredClientStudentList();
+    /**Sorts student list by grade in ascending order*/
+    void sortByGradeFilteredClientStudentList();
+    /**Sorts student list by subject in alphabetical order*/
+    void sortBySubjectFilteredClientStudentList();
+
     /** Returns an unmodifiable view of the filtered students list */
     ObservableList<Client> getFilteredStudentList();
 
