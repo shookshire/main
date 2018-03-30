@@ -6,7 +6,7 @@
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
         <location isPrivate="false">north</location>
-        <grade isPrivate="false">pri1</grade>
+        <grade isPrivate="false">p1</grade>
         <subject isPrivate="false">math</subject>
         <category isPrivate="false">s</category>
     </students>
@@ -16,7 +16,7 @@
         <email isPrivate="false">ruth@example.com</email>
         <address isPrivate="false">81th street</address>
         <location isPrivate="false">north</location>
-        <grade isPrivate="false">pri1</grade>
+        <grade isPrivate="false">p1</grade>
         <subject isPrivate="false">math</subject>
         <category isPrivate="false">s</category>
     </students>
@@ -26,7 +26,7 @@
         <email isPrivate="false">heinz@example.com</email>
         <address isPrivate="false">wall street</address>
         <location isPrivate="false">north</location>
-        <grade isPrivate="false">pri1</grade>
+        <grade isPrivate="false">p1</grade>
         <subject isPrivate="false">math</subject>
         <category isPrivate="false">s</category>
     </students>
@@ -36,7 +36,7 @@
         <email isPrivate="false">cornelia@example.com</email>
         <address isPrivate="false">10th street</address>
         <location isPrivate="false">north</location>
-        <grade isPrivate="false">pri1</grade>
+        <grade isPrivate="false">p1</grade>
         <subject isPrivate="false">math</subject>
         <category isPrivate="false">s</category>
     </students>
@@ -46,7 +46,7 @@
         <email isPrivate="false">werner@example.com</email>
         <address isPrivate="false">michegan ave</address>
         <location isPrivate="false">north</location>
-        <grade isPrivate="false">pri1</grade>
+        <grade isPrivate="false">p1</grade>
         <subject isPrivate="false">math</subject>
         <category isPrivate="false">s</category>
     </students>
@@ -56,7 +56,7 @@
         <email isPrivate="false">lydia@example.com</email>
         <address isPrivate="false">little tokyo</address>
         <location isPrivate="false">north</location>
-        <grade isPrivate="false">pri1</grade>
+        <grade isPrivate="false">p1</grade>
         <subject isPrivate="false">math</subject>
         <category isPrivate="false">s</category>
     </students>
@@ -66,7 +66,7 @@
         <email isPrivate="false">anna@example.com</email>
         <address isPrivate="false">4th street</address>
         <location isPrivate="false">north</location>
-        <grade isPrivate="false">pri1</grade>
+        <grade isPrivate="false">p1</grade>
         <subject isPrivate="false">math</subject>
         <category isPrivate="false">s</category>
     </students>
@@ -76,7 +76,7 @@
         <email isPrivate="false">stefan@example.com</email>
         <address isPrivate="false">little india</address>
         <location isPrivate="false">north</location>
-        <grade isPrivate="false">pri1</grade>
+        <grade isPrivate="false">p1</grade>
         <subject isPrivate="false">math</subject>
         <category isPrivate="false">s</category>
     </students>
@@ -86,7 +86,7 @@
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">chicago ave</address>
         <location isPrivate="false">north</location>
-        <grade isPrivate="false">pri1</grade>
+        <grade isPrivate="false">p1</grade>
         <subject isPrivate="false">math</subject>
         <category isPrivate="false">s</category>
     </students>

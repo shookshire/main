@@ -60,7 +60,7 @@ public class MatchCommand extends Command {
             model.updateRankedStudentList();
         }
 
-        return new CommandResult(getMessageForPersonListShownSummary(
+        return new CommandResult(getMessageForClientListShownSummary(
                 model.getFilteredStudentList().size(), model.getFilteredTutorList().size()));
     }
 
