@@ -31,7 +31,9 @@ public class LocationTest {
 
         // valid location
         assertTrue(Location.isValidLocation("north"));
-        assertTrue(Location.isValidLocation("-")); // one character
-        assertTrue(Location.isValidLocation("north, south, east, west, central")); // long location
+        assertTrue(Location.isValidLocation("south"));
+        assertTrue(Location.isValidLocation("west"));
+        assertTrue(Location.isValidLocation("east"));
+        assertTrue(Location.isValidLocation("central"));
     }
 }
