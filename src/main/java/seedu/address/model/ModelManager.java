@@ -137,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateRankedStudentList() {
 
-        for (int i = 53; i > 50; i--){
+        for (int i = 53; i > 50; i--) {
             for (int j = 0; j < filteredStudents.size(); j++) {
                 System.out.println("filteredStudents ranking: " + filteredStudents.get(j).getRank());
                 if (filteredStudents.get(j).getRank() == i) {
@@ -157,7 +157,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateRankedTutorList() {
 
-        for (int i = 3; i > 0; i--){
+        for (int i = 3; i > 0; i--) {
             for (int j = 0; j < filteredTutors.size(); j++) {
                 if (filteredTutors.get(j).getRank() == i) {
                     rankedFilteredTutors.add(filteredTutors.get(j));

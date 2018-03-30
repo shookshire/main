@@ -36,7 +36,7 @@ public class AddClientCommand extends UndoableCommand {
             + PREFIX_SUBJECT + "SUBJECT\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_CATEGORY +"t "
+            + PREFIX_CATEGORY + "t "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "

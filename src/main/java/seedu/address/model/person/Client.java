@@ -48,7 +48,9 @@ public class Client extends Person {
         return category;
     }
 
-    public int getRank() { return rank; }
+    public int getRank() {
+        return rank;
+    }
 
     public void setRank(int value) {
         this.rank = value;
