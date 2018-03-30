@@ -3,7 +3,15 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +25,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.SearchContainsKeywordsPredicate;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -74,7 +81,8 @@ public class CommandTestUtil {
     public static final String INVALID_LOCATION_DESC = " " + PREFIX_LOCATION; // empty string not allowed for location
     public static final String INVALID_GRADE_DESC = " " + PREFIX_GRADE; // empty string not allowed for grade
     public static final String INVALID_SUBJECT_DESC = " " + PREFIX_SUBJECT; // empty string not allowed for subject
-    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "a"; // only "s" and "t" should be allowed in category
+    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY
+            + "a"; // only "s" and "t" should be allowed in category
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

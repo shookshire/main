@@ -16,7 +16,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.person.Client;
-import seedu.address.model.person.Person;
 
 /**
  * @// TODO: 14/3/2018 Implement StudentListPanelTest and TutorListPanelTest upon creation of person and student class

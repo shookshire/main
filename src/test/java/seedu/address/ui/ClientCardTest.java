@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.person.Client;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.ClientBuilder;
 
 public class ClientCardTest extends GuiUnitTest {
