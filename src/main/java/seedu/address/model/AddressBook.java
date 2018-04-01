@@ -156,9 +156,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Also checks the closed student's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the closed student to point to those in {@link #tags}.
      *
-     * @throws DuplicatePersonException if an equivalent person already exists.
+     * @throws AssertionError if an equivalent person already exists.
      */
-    public void addClosedStudent(Client t) throws DuplicatePersonException {
+    public void addClosedStudent(Client t) throws AssertionError {
         Client closedStudent = syncWithMasterTagList(t);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
@@ -171,9 +171,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Also checks the closed tutor's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the closed tutor to point to those in {@link #tags}.
      *
-     * @throws DuplicatePersonException if an equivalent person already exists.
+     * @throws AssertionError if an equivalent person already exists.
      */
-    public void addClosedTutor(Client t) throws DuplicatePersonException {
+    public void addClosedTutor(Client t) throws AssertionError {
         Client closedTutor = syncWithMasterTagList(t);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
@@ -200,9 +200,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
         if (category.isStudent()) {
-            students.setClient(target, syncedEditedPerson);
+            students.setClient(target, syncedEditedPerson, closedStudents);
         } else {
-            tutors.setClient(target, syncedEditedPerson);
+            tutors.setClient(target, syncedEditedPerson, closedTutors);
         }
     }
 

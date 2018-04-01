@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.person.SearchContainsKeywordsPredicate;
+import seedu.address.ui.util.ListPanelController;
 
 /**
  * Finds and lists all persons in address book that contains any of the argument keywords.
@@ -24,11 +25,17 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
-        model.updateFilteredStudentList(predicate);
-        model.updateFilteredTutorList(predicate);
-        return new CommandResult(getMessageForClientListShownSummary(
-                model.getFilteredStudentList().size(), model.getFilteredTutorList().size()));
+        if(ListPanelController.isCurrentDisplayActiveList()) {
+            model.updateFilteredStudentList(predicate);
+            model.updateFilteredTutorList(predicate);
+            return new CommandResult(getMessageForClientListShownSummary(
+                    model.getFilteredStudentList().size(), model.getFilteredTutorList().size()));
+        } else {
+            model.updateFilteredClosedStudentList(predicate);
+            model.updateFilteredClosedTutorList(predicate);
+            return new CommandResult(getMessageForClientListShownSummary(
+                    model.getFilteredClosedStudentList().size(), model.getFilteredClosedTutorList().size()));
+        }
     }
 
     @Override

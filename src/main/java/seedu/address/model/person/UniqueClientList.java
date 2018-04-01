@@ -67,7 +67,7 @@ public class UniqueClientList implements Iterable<Client> {
      *
      * Returns true if success.
      */
-    public Boolean setClient(Client target, Client editedClient)
+    public Boolean setClient(Client target, Client editedClient, UniqueClientList closedList)
             throws DuplicatePersonException, PersonNotFoundException {
         requireNonNull(editedClient);
 
@@ -76,7 +76,8 @@ public class UniqueClientList implements Iterable<Client> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.equals(editedClient) && internalList.contains(editedClient)) {
+        if (!target.equals(editedClient) && (internalList.contains(editedClient)
+                || closedList.contains(editedClient))) {
             throw new DuplicatePersonException();
         }
 
