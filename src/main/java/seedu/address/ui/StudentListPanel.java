@@ -13,6 +13,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ClientListSwitchEvent;
 import seedu.address.commons.events.ui.ClientPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.person.Client;
@@ -21,24 +22,63 @@ import seedu.address.model.person.Client;
  * Panel containing the list of students.
  */
 public class StudentListPanel extends UiPart<Region> {
+
+    /**
+     * An enum to store which the type of list displayed
+     */
+    private enum Type {
+        closedStudentList, studentList
+    }
+
     private static final String FXML = "StudentListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
 
     @FXML
     private ListView<ClientCard> studentListView;
 
-    public StudentListPanel(ObservableList<Client> studentList) {
+    private Type currentlyDisplayed = Type.studentList;
+    private final ObservableList<Client> studentList;
+    private final ObservableList<Client> closedStudentList;
+
+    public StudentListPanel(ObservableList<Client> studentList, ObservableList<Client> closedStudentList) {
         super(FXML);
-        setConnections(studentList);
+        this.studentList = studentList;
+        this.closedStudentList = closedStudentList;
+        setConnectionsForStudents();
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Client> studentList) {
+    private void setConnectionsForStudents() {
         ObservableList<ClientCard> mappedList = EasyBind.map(
                 studentList, (client) -> new ClientCard(client, studentList.indexOf(client) + 1));
         studentListView.setItems(mappedList);
         studentListView.setCellFactory(listView -> new StudentListViewCell());
         setEventHandlerForSelectionChangeEvent();
+    }
+
+    private void setConnectionsForClosedStudents() {
+        ObservableList<ClientCard> mappedList = EasyBind.map(
+                closedStudentList, (client) -> new ClientCard(client, closedStudentList.indexOf(client) + 1));
+        studentListView.setItems(mappedList);
+        studentListView.setCellFactory(listView -> new StudentListViewCell());
+        setEventHandlerForSelectionChangeEvent();
+    }
+
+    private void switchListDisplay() {
+        switch (currentlyDisplayed) {
+            case studentList:
+                setConnectionsForClosedStudents();
+                currentlyDisplayed = Type.closedStudentList;
+                break;
+
+            case closedStudentList:
+                setConnectionsForStudents();
+                currentlyDisplayed = Type.studentList;
+                break;
+
+            default:
+                throw new AssertionError("This should not be possible.");
+        }
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
@@ -65,6 +105,12 @@ public class StudentListPanel extends UiPart<Region> {
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
+    }
+
+    @Subscribe
+    private void handleClientListSwitchEvent(ClientListSwitchEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        switchListDisplay();
     }
 
     /**
