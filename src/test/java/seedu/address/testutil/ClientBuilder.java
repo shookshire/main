@@ -26,7 +26,7 @@ public class ClientBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_TAGS = "friends";
     public static final String DEFAULT_LOCATION = "north";
-    public static final String DEFAULT_GRADE = "pri3";
+    public static final String DEFAULT_GRADE = "p3";
     public static final String DEFAULT_SUBJECT = "physics";
     public static final String DEFAULT_CATEGORY = "s";
 

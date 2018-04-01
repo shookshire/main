@@ -30,8 +30,8 @@ public class GradeTest {
         assertFalse(Grade.isValidGrade(" ")); // spaces only
 
         // valid subject
-        assertTrue(Grade.isValidGrade("pri3"));
-        assertTrue(Grade.isValidGrade("-")); // one character
-        assertTrue(Grade.isValidGrade("pri3 pri5 pri6 sec3")); // long subject
+        assertTrue(Grade.isValidGrade("p3")); //alias
+        assertTrue(Grade.isValidGrade("primary 3")); // full grade
+        assertTrue(Grade.isValidGrade("secondary 3")); // full grade
     }
 }

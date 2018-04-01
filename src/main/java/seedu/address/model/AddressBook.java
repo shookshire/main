@@ -11,7 +11,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Category;
+import seedu.address.model.person.Client;
+import seedu.address.model.person.UniqueClientList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -89,10 +91,10 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
 
-        List<Client> syncedClosedStudentList = newData.getStudentList().stream()
+        List<Client> syncedClosedStudentList = newData.getClosedStudentList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
-        List<Client> syncedClosedTutorList = newData.getTutorList().stream()
+        List<Client> syncedClosedTutorList = newData.getClosedTutorList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
 

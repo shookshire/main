@@ -2,7 +2,15 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -56,10 +64,12 @@ public class EditCommandParser implements Parser<EditCommand> {
             ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)).ifPresent(editPersonDescriptor::setEmail);
             ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).ifPresent(editPersonDescriptor::setAddress);
             parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
-            ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION)).ifPresent(editPersonDescriptor::setLocation);
+            ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION))
+                    .ifPresent(editPersonDescriptor::setLocation);
             ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT)).ifPresent(editPersonDescriptor::setSubject);
             ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE)).ifPresent(editPersonDescriptor::setGrade);
-            ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY)).ifPresent(editPersonDescriptor::setCategory);
+            ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY))
+                    .ifPresent(editPersonDescriptor::setCategory);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

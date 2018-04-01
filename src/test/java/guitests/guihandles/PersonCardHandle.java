@@ -17,10 +17,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
-    private static final String LOCATION_FIELD_ID = "#location";
+    private static final String LOCATION_FIELD_ID = "#place";
     private static final String GRADE_FIELD_ID = "#grade";
     private static final String SUBJECT_FIELD_ID = "#subject";
-    private static final String CATEGORY_FIELD_ID = "#category";
 
 
 
@@ -33,7 +32,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label locationLabel;
     private final Label gradeLabel;
     private final Label subjectLabel;
-    private final Label categoryLabel;
 
 
 
@@ -49,7 +47,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
         this.locationLabel = getChildNode(LOCATION_FIELD_ID);
         this.gradeLabel = getChildNode(GRADE_FIELD_ID);
         this.subjectLabel = getChildNode(SUBJECT_FIELD_ID);
-        this.categoryLabel = getChildNode(CATEGORY_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         this.tagLabels = tagsContainer
@@ -97,11 +94,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
     public String getSubject() {
         return subjectLabel.getText();
     }
-
-    public String getCategory() {
-        return categoryLabel.getText();
-    }
-
 
     public List<String> getTagStyleClasses(String tag) {
         return tagLabels.stream()

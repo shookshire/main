@@ -161,7 +161,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StudentListPanel`, `TutorListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -186,12 +186,12 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a client) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1 c/s")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete 1 c/s` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
@@ -206,8 +206,51 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+==== Current Implementation
+
+The AddressBook currently stores two UniqueClientList (students and tutors) and clients that are stored in either one of them depending on whether the client's Category is "s" for students or "t" for tutors. This is done under the consideration that a client should never be both a student and tutor.
+
+image::StudentTutorList.png[width="800"]
+
+Commands that work only on either students or tutors would have to declare which Category they wish to work on in the command input. For example for the delete command would have to input `delete 1 c/s` to represent that they wish to delete from students.
+
+Hence, commands that work only on either students or tutors have to either be split into 2 functions or take in an additional argument stating which UniqueClientList to work on as shown below.
+
+.Example of splitting call into 2 functions
+image::SeparateFunctionForStudentTutor.png[width="800"]
+
+----
+public class updateClient(Client target, Client editedClient, Category category) {
+    if (category.isStudent) {
+        // ... work on students ...
+    } else if (category.isTutor) {
+        // ... work on tutors ...
+    }
+}
+----
+Example of function that takes in additional argument to determine whether to work on students or tutors
+
+==== Design Considerations
+
+===== Aspect: Keeping students and tutors in 1 or 2 list
+
+* **Alternative 1 (current choice):** Keep students and tutors separated in 2 UniqueClientList
+** Pros: Does not have to do an additional search through the list to differentiate students and tutors
+** Cons: Calls that work on only one of the 2 list would have to be separated.
+* **Alternative 2:** Keep all clients in the same UniqueClientList and differentiate them using the clients' Category value
+** Pros: Easy to implement.
+** Cons: Have to run an additional search through the list to differentiate students and tutors which could be slow when database is large.
+
+===== Aspect: Whether to have different commands for students and tutors
+* **Alternative 1 (current choice):** Make the Category prefix compulsory for any command that work on only 1 list
+** Pros: Minimises number of commands and use already existing prefix instead.
+** Cons: Needs to parse an additional prefix
+* **Alternative 2:** Have separate commands (eg. deleteStudent and deleteTutor instead of just delete)
+** Pros: Easy to implement.
+** Cons: Large number of duplicated commands.
 
 [[Design-Storage]]
 === Storage component
@@ -362,58 +405,97 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::match[]
 === Match Function
 ==== Current Implementation
-The match function is a function that behaves like a multi-layer find function. It helps to match clients that share same attributes.
+The match function behaves like a multi-layer find function. It helps to match clients that share one or more similar attributes.
 
-For example, John is a Tutor client that is staying in the WEST of Singapore, and is looking for students that requires help in sec4 math. Keying in `match John` will return a list of students that are registered in TuitionCor, which also stay in the WEST, and are looking for sec4 math tutors.
+For example, John is a Tutor client that is staying in the WEST of Singapore, and is looking for students that requires help in sec4 math.
 
-Step 1:
+first, locate John by either using `find John` or finding him in the tutor list. Observe John's Index number.
 
-match function behaves like at double-layered find function. When a user enters `match John`, the system will first need to locate John from the list of tutors stored in TuitionCor. This is done by `MatchContainsKeywordsPredicate.java` method.
+Lets say John's Index number if 1.
+
+
+Keying in `match 1 c/t` will return a list of students that are registered in TuitionCor, which stays in the WEST, and are looking for sec4 math tutors.
+
+==== Step by Step breakdown
+
+match function behaves like at double-layered find function. When a user enters `match 1 c/t`, the system will first need to extract the first tutor from the tutor's list.
+
+To do this, first we need to identify the client is a tutor or a student.
+
 The detailed code is shown below:
 [source,java]
 ----
-public boolean test(Person person) {
-return keywords.stream()
-        .anyMatch(keyword ->
-StringUtil.contailsWordIgnoreCase(person.getName().fullName, keyword));
-}
-----
-Step 2:
+if (category.isStudent()) {
+            lastShownList = model.getFilteredStudentList();
+        } else {
+            lastShownList = model.getFilteredTutorList();
+        }
+        clientToMatch = lastShownList.get(targetIndex.getZeroBased());
 
-When the `John` is located, his data (location, grade, subject and category) are then retrieved into `MatchCommand.java`
-The detailed code is shown below:
 ----
-public CommandResult execute() {
-    model.updateFilteredPersonList(predicate);
-    model.updateFilteredPersonList(new MatchContainsPersonsPredicate(
-        Arrays.asList(model.getFilteredPersonList().get(0).toString().split("\\s+"))));
-}
+
+[NOTE]
+If the user input format is invalid, an exception will be thrown
+
+
+When the client is located, his data (location, grade and subject) are then sent to `MatchContainsKeywordsPredicate.java`
+
+The detailed code is shown below:
+
+[source,java]
+----
+    @Override
+    public boolean test(Client other) {
+        boolean isMatch = false;
+
+        if(other.getLocation().equals(client.getLocation())) {
+            isMatch = true;
+        }
+        if(other.getGrade().equals(client.getGrade())) {
+            isMatch = true;
+        }
+        if(other.getSubject().equals(client.getSubject())) {
+            isMatch = true;
+        }
+        return isMatch;
+    }
+
 ----
 [NOTE]
-Currently match function can only match client one at a time, as the code is only retrieving the first person’s data from the `getFilteredPersonList()`. Hence, even though a user can key in many names at one search, the search result is only corresponding to the first name entered.
+If there is no match client found, an empty list will be shown.
 
-Step 3:
+If the input client is a tutor, the tutor list will only be showing the particular of the input client.
 
-The data(location, grade, subject and category) of `John` will then passed into `MatchContainsPersonPredicate.java`, this method will then look through all the students and return all the students that have same data as `John`.
+image::WorkingMatchFunction.PNG[width="800']
+
+this is done in MatchContainsPersonsPredicate.java
 The detailed code is shown below:
+
+[source,java]
 ----
-public boolean test(Person person) {
-    return keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword))
-            && keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword))
-            && keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword));
-}
+public boolean test(Client other) {
+        return other.toString().equals(client.toString());
+    }
 ----
-[NOTE]
-If a `KEYWORD` that is not a name, or a name that is not registered in TuitionCor is entered, TuitionCor will return an empty list.
+A sequence diagram is shown below to show the current design when user input "match 1 c/s"
+
+image::MatchSequenceDiagram.png[width="800']
+
+===== Design Considerations
+
+====== Aspect: UserInput
+
+* **Alternative 1 (current choice):** User key in client index displayed with with client's category. e.g `match 1 c/t`
+** Pros: There will be no mismatch since user specify the exact client to match with
+** Cons: More user input and extra step is taken. User have to locate the client's index first before using match function.
+* **Alternative 2:** user key in the client's name. e.g `match John`
+** Pros: More convenient for user to operate, lesser steps
+** Cons: If there are 2 John stored in the application, there is a chance for the application to match a wrong client.
+
 
 ==== Future Improvements
-
-* Currently, match can only be done one client at a time. future implementations could be updating it to match all the possible combinations.
-* Currently, when matching a name or a word that is not stored in TuitionCor, an empty list is returned. This could be misleading since the user would not know its a typo or there is simply no match. Future implementation could help to resolve such issue.
-* Currently, a match only takes place when all the data of another client fits the data of the client entered. Future implementation could return a list of clients that ranks from highest match to lowest match. This provide more flexible choices to our clients.
+* Currently, Match function lists all the clients that have one or more similar attributes without ranking it from the highest match to the lowest match. Future implementation should rank the list from the highest match to the lowest match.
+* Currently, there is no colour mapping to the `location`, `grade` and `subject` attributes. future implmentation could colour map them to make them more user friendly.
 // end::match[]
 
 // tag::sorting[]
@@ -461,8 +543,18 @@ public class SortBySubjectCommand extends SortCommand {
 When the user wants to sort the specific list according to his/her needs, SortCommandParser will parse the user input and decide which type of SortCommand to invoke.
 An example of the input required "sort tl" which sorts tutor's list by location.
 
+[source,java]
+----
+public SortCommand parse(String args) throws ParseException {
+    String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
+----
+
 [NOTE]
-If the user input format is invalid, an exception will be thrown
+If the user input format is invalid, an ParseException will be thrown and an error message will be displayed to user.
 
 A sequence diagram is shown below to show the current design when user input "sort tl".
 
@@ -957,6 +1049,20 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |search by tags added to client |generate a list of clients that have the same tags
 
+|`* * *` |user |differentiate "location" "subject" and "grade" by colours |identify "location", "subject" and "grade" attributes easily
+
+|`* * *` |user |sort the clients name |better organise my clients
+
+|`* * *` |new user |sort contacts based on clients subjects |better organise my clients
+
+|`* * *` |new user |sort contacts based on clients grade |better organise my clients
+
+|`* * *` |user |sort the clients based on a particular field |better organise my clients
+
+|`* * *` |user |match a given client and app will show a list of clients sorted from the most suitable to the least suitable |give my clients more choices
+
+|`* * *` |user |match clients that only fit certain requirements |clients will have more choice to choose from
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`* *` |user |search multiple tags |narrow down the search to clients that fit all the different tags searched.
@@ -1023,12 +1129,12 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Sort student's list by locality
+=== Use case: Sort student's or tutor's list by locality
 
 *MSS*
 
-1.  User types “/sort sl” in to the command line.
-2.  TuitionCor will return a list of students or tutors based sorted by their locality.
+1.  User types “/sort sl” or “/sort tl” in to the command line.
+2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their locality in alphabetical order.
 +
 Use case ends.
 
@@ -1038,9 +1144,9 @@ Use case ends.
 * 1a. System detects an invalid input.
 +
 [none]
-** 1a1. TuitionCor will display invalid command or display sort message usage.
+** 1a1. TuitionCor will display invalid command and display sort message usage.
 ** 1a2. User enter required information.
-** 1a3. Steps 3a1 and 3a2 are repeated until valid input is entered.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
 +
 Use case resumes at step 2.
 
@@ -1049,32 +1155,145 @@ Use case resumes at step 2.
 +
 Use case ends.
 
-
 [discrete]
-=== Use case: Match
+=== Use case: Sort student's or tutor's list by grade
 
 *MSS*
 
-1.  User enter match followed by a person name.
-2.  TuitionCor displays information of client in the respective list (either tutor list or student list)
-3.  TuitionCor returns a list of potential matches in the respective list.
+1.  User types “/sort sg” or “/sort tg” in to the command line.
+2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their grade in ascending order of seniority.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Client cannot be found.
-+
-Use case ends.
-
-* 3a. There is no match found.
+* 1a. System detects an invalid input.
 +
 [none]
-** 3a1. TuitionCor returns an empty list.
+** 1a1. TuitionCor will display invalid command and display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. System detects no further input.
 +
 Use case ends.
 
+[discrete]
+=== Use case: Sort student's or tutor's list by name
+
+*MSS*
+
+1.  User types “/sort sn” or “/sort tn” in to the command line.
+2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their name in alphabetical order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. System detects an invalid input.
++
+[none]
+** 1a1. TuitionCor will display invalid command and display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. System detects no further input.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort student's or tutor's list by subject
+
+*MSS*
+
+1.  User types “/sort ss” or “/sort ts” in to the command line.
+2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their subject in alphabetical order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. System detects an invalid input.
++
+[none]
+** 1a1. TuitionCor will display invalid command and display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. System detects no further input.
++
+Use case ends.
+
+[discrete]
+=== Use case: Matching a student
+
+*MSS*
+
+1.  User enters "match 1 c/s".
+2.  TuitionCor displays information of the selected student in the student's list and all the relevant tutors which matches the student's needs in tutor's list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. System detects an invalid input.
++
+[none]
+** 1a1. TuitionCor will display invalid command and display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1a. System is unable to match any tutor to this student.
++
+[none]
+** 1a1. An empty tutor's list will be displayed to the user
++
+Use case ends.
+
+=== Use case: Matching a tutor
+
+*MSS*
+
+1.  User enters "match 1 c/t".
+2.  TuitionCor displays information of the selected tutor in the tutor's list and all the relevant students which matches the tutor's credentials in student's list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. System detects an invalid input.
++
+[none]
+** 1a1. TuitionCor will display invalid command and display sort message usage.
+** 1a2. User enter required information.
+** 1a3. Steps 1a1 and 1a2 are repeated until valid input is entered.
++
+Use case resumes at step 2.
+
+[none]
+* 1a. System is unable to match any student to this tutor.
++
+[none]
+** 1a1. An empty tutor's list will be displayed to the user
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements

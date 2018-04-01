@@ -16,6 +16,8 @@ public class AddressBookChangedEvent extends BaseEvent {
     public String toString() {
         return "number of students " + data.getStudentList().size()
                 + ", number of tutors " + data.getTutorList().size()
-                + ", number of tags " + data.getTagList().size();
+                + ", number of tags " + data.getTagList().size()
+                + ", number of closed student " + data.getClosedStudentList().size()
+                + ", number of closed tutor " + data.getClosedTutorList().size();
     }
 }

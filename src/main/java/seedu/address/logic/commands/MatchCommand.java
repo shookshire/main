@@ -1,5 +1,4 @@
 package seedu.address.logic.commands;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -11,9 +10,9 @@ import seedu.address.model.person.MatchContainsKeywordsPredicate;
 import seedu.address.model.person.MatchContainsPersonsPredicate;
 
 
+
 /**
- * Finds and lists all persons in address book that contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Match the entered client and lists all clients in address book that has similar attributes to the matched client.
  */
 public class MatchCommand extends Command {
 
@@ -21,8 +20,8 @@ public class MatchCommand extends Command {
     public static final String COMMAND_ALIAS = "m";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds all persons that match all the fields listed by the person entered.\n"
-            + "Example: " + COMMAND_WORD + " alice";
+            + ": Finds all clients that match all the fields listed by the person entered.\n"
+            + "Example: " + COMMAND_WORD + " 1" + " c/t";
 
     private final Index targetIndex;
     private final Category category;
@@ -31,7 +30,7 @@ public class MatchCommand extends Command {
 
     public MatchCommand(Index index, Category category) {
         this.targetIndex = index;
-        this. category = category;
+        this.category = category;
     }
 
     @Override
@@ -51,10 +50,17 @@ public class MatchCommand extends Command {
         clientToMatch = lastShownList.get(targetIndex.getZeroBased());
 
         MatchContainsKeywordsPredicate predicate = new MatchContainsKeywordsPredicate(clientToMatch);
+        if (category.isStudent()) {
+            model.updateFilteredTutorList(predicate);
+            model.updateFilteredStudentList(new MatchContainsPersonsPredicate(clientToMatch));
+            model.updateRankedTutorList();
+        } else {
+            model.updateFilteredStudentList(predicate);
+            model.updateFilteredTutorList(new MatchContainsPersonsPredicate(clientToMatch));
+            model.updateRankedStudentList();
+        }
 
-        model.updateFilteredStudentList(predicate);
-        model.updateFilteredTutorList(predicate);
-        return new CommandResult(getMessageForPersonListShownSummary(
+        return new CommandResult(getMessageForClientListShownSummary(
                 model.getFilteredStudentList().size(), model.getFilteredTutorList().size()));
     }
 

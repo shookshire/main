@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -57,6 +56,22 @@ public interface Model {
     /** Adds the given student to closed student's list */
     void addClosedStudent(Client closedStudent) throws DuplicatePersonException;
 
+    /**Sorts tutor list by name in alphabetical order*/
+    void sortByNameFilteredClientTutorList();
+    /**Sorts tutor list by location in alphabetical order*/
+    void sortByLocationFilteredClientTutorList();
+    /**Sorts tutor list by grade in ascending order*/
+    void sortByGradeFilteredClientTutorList();
+    /**Sorts tutor list by subject in alphabetical order*/
+    void sortBySubjectFilteredClientTutorList();
+    /**Sorts student list by name in alphabetical order*/
+    void sortByNameFilteredClientStudentList();
+    /**Sorts student list by location in alphabetical order*/
+    void sortByLocationFilteredClientStudentList();
+    /**Sorts student list by grade in ascending order*/
+    void sortByGradeFilteredClientStudentList();
+    /**Sorts student list by subject in alphabetical order*/
+    void sortBySubjectFilteredClientStudentList();
 
     /** Returns an unmodifiable view of the filtered students list */
     ObservableList<Client> getFilteredStudentList();
@@ -94,4 +109,15 @@ public interface Model {
      */
     void updateFilteredClosedStudentList(Predicate<Client> predicate);
 
+    /**
+     * Updates the filter of the filtered tutor list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateRankedTutorList();
+
+    /**
+     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateRankedStudentList();
 }

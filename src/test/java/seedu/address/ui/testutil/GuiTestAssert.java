@@ -10,7 +10,6 @@ import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.person.Client;
-import seedu.address.model.person.Person;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -31,7 +30,6 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getLocation(), actualCard.getLocation());
         assertEquals(expectedCard.getGrade(), actualCard.getGrade());
         assertEquals(expectedCard.getSubject(), actualCard.getSubject());
-        assertEquals(expectedCard.getCategory(), actualCard.getCategory());
     }
 
     /**
@@ -46,7 +44,6 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getLocation().value, actualCard.getLocation());
         assertEquals(expectedPerson.getGrade().value, actualCard.getGrade());
         assertEquals(expectedPerson.getSubject().value, actualCard.getSubject());
-        assertEquals(expectedPerson.getCategory().value, actualCard.getCategory());
     }
 
     /**
@@ -97,12 +94,6 @@ public class GuiTestAssert {
             return "orange";
 
         case "urgent":
-            return "red";
-
-        case "Urgent":
-            return "red";
-
-        case "UrGEnT":
             return "red";
 
         default:

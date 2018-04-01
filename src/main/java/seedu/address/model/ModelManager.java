@@ -3,12 +3,14 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -30,6 +32,11 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Client> filteredClosedStudents;
     private final FilteredList<Client> filteredClosedTutors;
 
+    private SortedList<Client> rankedFilteredTutors;
+    private SortedList<Client> rankedFilteredStudents;
+    private SortedList<Client> sortedFilteredTutors;
+    private SortedList<Client> sortedFilteredStudents;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -44,6 +51,11 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTutors = new FilteredList<>(this.addressBook.getTutorList());
         filteredClosedStudents = new FilteredList<>(this.addressBook.getClosedStudentList());
         filteredClosedTutors = new FilteredList<>(this.addressBook.getClosedTutorList());
+
+        sortedFilteredTutors = new SortedList<>(filteredTutors);
+        sortedFilteredStudents = new SortedList<>(filteredStudents);
+        rankedFilteredStudents = new SortedList<>(filteredStudents);
+        rankedFilteredStudents = new SortedList<>(filteredTutors);
 
     }
 
@@ -110,7 +122,75 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Client List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Tutor} backed by the internal list of
+     * {@code addressBook}
+     */
+
+    @Override
+    public void sortByNameFilteredClientTutorList() {
+        Comparator<Client> sortByName = (tutor1, tutor2)-> (tutor1.getName().fullName)
+                .compareToIgnoreCase(tutor2.getName().fullName);
+        sortedFilteredTutors.setComparator(sortByName);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void sortByNameFilteredClientStudentList() {
+        Comparator<Client> sortByName = (student1, student2)-> (student1.getName().fullName)
+                .compareToIgnoreCase(student2.getName().fullName);
+        sortedFilteredStudents.setComparator(sortByName);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void sortByLocationFilteredClientTutorList() {
+        Comparator<Client> sortByLocation = (tutor1, tutor2)-> (tutor1.getLocation().value)
+                .compareToIgnoreCase(tutor2.getLocation().value);
+        sortedFilteredTutors.setComparator(sortByLocation);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void sortByLocationFilteredClientStudentList() {
+        Comparator<Client> sortByLocation = (student1, student2)-> (student1.getLocation().value)
+                .compareToIgnoreCase(student2.getLocation().value);
+        sortedFilteredStudents.setComparator(sortByLocation);
+        indicateAddressBookChanged();
+    }
+
+
+    @Override
+    public void sortByGradeFilteredClientTutorList() {
+        Comparator<Client> sortByGrade = new SortByGradeComparator();
+        sortedFilteredTutors.setComparator(sortByGrade);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void sortByGradeFilteredClientStudentList() {
+        Comparator<Client> sortByGrade = new SortByGradeComparator();
+        sortedFilteredStudents.setComparator(sortByGrade);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void sortBySubjectFilteredClientTutorList() {
+        Comparator<Client> sortBySubject = (tutor1, tutor2)-> (tutor1.getSubject().value)
+                .compareToIgnoreCase(tutor2.getSubject().value);
+        sortedFilteredTutors.setComparator(sortBySubject);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void sortBySubjectFilteredClientStudentList() {
+        Comparator<Client> sortBySubject = (student1, student2)-> (student1.getSubject().value)
+                .compareToIgnoreCase(student2.getSubject().value);
+        sortedFilteredStudents.setComparator(sortBySubject);
+        indicateAddressBookChanged();
+    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
@@ -118,13 +198,14 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Client> getFilteredStudentList() {
-        return FXCollections.unmodifiableObservableList(filteredStudents);
+        return FXCollections.unmodifiableObservableList(sortedFilteredStudents);
     }
 
     @Override
     public void updateFilteredStudentList(Predicate<Client> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
+        indicateAddressBookChanged();
     }
 
     /**
@@ -133,13 +214,54 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Client> getFilteredTutorList() {
-        return FXCollections.unmodifiableObservableList(filteredTutors);
+        return FXCollections.unmodifiableObservableList(sortedFilteredTutors);
     }
 
     @Override
     public void updateFilteredTutorList(Predicate<Client> predicate) {
         requireNonNull(predicate);
         filteredTutors.setPredicate(predicate);
+        indicateAddressBookChanged();
+    }
+    //=========== Ranked Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
+     * {@code addressBook}
+     */
+
+    @Override
+    public void updateRankedStudentList() {
+
+        for (int i = 53; i > 50; i--) {
+            for (int j = 0; j < filteredStudents.size(); j++) {
+                System.out.println("filteredStudents ranking: " + filteredStudents.get(j).getRank());
+                if (filteredStudents.get(j).getRank() == i) {
+                    rankedFilteredStudents.add(filteredStudents.get(j));
+                }
+            }
+        }
+        filteredStudents.setAll(rankedFilteredStudents);
+        indicateAddressBookChanged();
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
+     * {@code addressBook}
+     */
+
+    @Override
+    public void updateRankedTutorList() {
+
+        for (int i = 3; i > 0; i--) {
+            for (int j = 0; j < filteredTutors.size(); j++) {
+                if (filteredTutors.get(j).getRank() == i) {
+                    rankedFilteredTutors.add(filteredTutors.get(j));
+                }
+            }
+        }
+        filteredTutors.setAll(rankedFilteredTutors);
+        indicateAddressBookChanged();
     }
 
     @Override

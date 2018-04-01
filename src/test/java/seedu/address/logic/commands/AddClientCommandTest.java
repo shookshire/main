@@ -23,7 +23,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.ClientBuilder;
@@ -46,7 +45,8 @@ public class AddClientCommandTest {
 
         CommandResult commandResult = getAddClientCommandForPerson(validClient, modelStub).execute();
 
-        assertEquals(String.format(AddClientCommand.MESSAGE_SUCCESS_STUDENT, validClient), commandResult.feedbackToUser);
+        assertEquals(String.format(AddClientCommand.MESSAGE_SUCCESS_STUDENT, validClient),
+                commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validClient), modelStub.studentsAdded);
     }
 
@@ -149,6 +149,52 @@ public class AddClientCommandTest {
 
         @Override
         public void updateFilteredTutorList(Predicate<Client> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateRankedStudentList() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateRankedTutorList() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void sortByNameFilteredClientTutorList() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void sortByLocationFilteredClientTutorList() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void sortByGradeFilteredClientTutorList() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void sortBySubjectFilteredClientTutorList() {
+            fail("This method should not be called.");
+        }
+
+        public void sortByNameFilteredClientStudentList() {
+            fail("This method should not be called.");
+        }
+
+        public void sortByLocationFilteredClientStudentList() {
+            fail("This method should not be called.");
+        }
+
+        public void sortByGradeFilteredClientStudentList() {
+            fail("This method should not be called.");
+        }
+
+        public void sortBySubjectFilteredClientStudentList() {
             fail("This method should not be called.");
         }
     }
