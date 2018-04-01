@@ -70,10 +70,10 @@ public class XmlSerializableAddressBook {
             addressBook.addTutor(t.toModelType());
         }
         for (XmlAdaptedClient cs : closedStudents) {
-            addressBook.addStudent(cs.toModelType());
+            addressBook.addClosedStudent(cs.toModelType());
         }
         for (XmlAdaptedClient ct : closedTutors) {
-            addressBook.addTutor(ct.toModelType());
+            addressBook.addClosedTutor(ct.toModelType());
         }
         return addressBook;
     }

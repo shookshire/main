@@ -13,47 +13,47 @@ import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
-public class CloseCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = "close";
+public class RestoreCommand extends UndoableCommand {
+    public static final String COMMAND_WORD = "restore";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " a active tutor or student";
 
-    public static final String MESSAGE_CLOSE_STUDENT_SUCCESS = "Student closed: %1$s";
-    public static final String MESSAGE_CLOSE_TUTOR_SUCCESS = "Tutor closed: %1$s";
+    public static final String MESSAGE_RESTORE_STUDENT_SUCCESS = "Student restored: %1$s";
+    public static final String MESSAGE_CLOSE_TUTOR_SUCCESS = "Tutor restored: %1$s";
 
     private final Index targetIndex;
     private final Category category;
 
-    private Client clientToClose;
+    private Client clientToRestore;
 
-    public CloseCommand(Index targetIndex, Category category) {
+    public RestoreCommand(Index targetIndex, Category category) {
         this.targetIndex = targetIndex;
         this.category = category;
     }
 
     @Override
     public CommandResult executeUndoableCommand() {
-        requireNonNull(clientToClose);
+        requireNonNull(clientToRestore);
         try {
-            model.deleteClient(clientToClose, category);
+            model.deleteClosedClient(clientToRestore, category);
         } catch (PersonNotFoundException pnfe) {
             throw new AssertionError("The target client cannot be missing");
         }
 
         try {
             if(category.isStudent()) {
-                model.addClosedStudent(clientToClose);
+                model.addStudent(clientToRestore);
             } else {
-                model.addClosedTutor(clientToClose);
+                model.addTutor(clientToRestore);
             }
         } catch (DuplicatePersonException e) {
             throw new AssertionError("The client should not be duplicated");
         }
 
         if(category.isStudent()) {
-            return new CommandResult(String.format(MESSAGE_CLOSE_STUDENT_SUCCESS, clientToClose));
+            return new CommandResult(String.format(MESSAGE_RESTORE_STUDENT_SUCCESS, clientToRestore));
         } else {
-            return new CommandResult(String.format(MESSAGE_CLOSE_TUTOR_SUCCESS, clientToClose));
+            return new CommandResult(String.format(MESSAGE_CLOSE_TUTOR_SUCCESS, clientToRestore));
         }
     }
 
@@ -62,23 +62,23 @@ public class CloseCommand extends UndoableCommand {
         List<Client> lastShownList;
 
         if (category.isStudent()) {
-            lastShownList = model.getFilteredStudentList();
+            lastShownList = model.getFilteredClosedStudentList();
         } else {
-            lastShownList = model.getFilteredTutorList();
+            lastShownList = model.getFilteredClosedTutorList();
         }
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        clientToClose = lastShownList.get(targetIndex.getZeroBased());
+        clientToRestore = lastShownList.get(targetIndex.getZeroBased());
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CloseCommand // instanceof handles nulls
-                && this.targetIndex.equals(((CloseCommand) other).targetIndex) // state check
-                && Objects.equals(this.clientToClose, ((CloseCommand) other).clientToClose));
+                || (other instanceof RestoreCommand // instanceof handles nulls
+                && this.targetIndex.equals(((RestoreCommand) other).targetIndex) // state check
+                && Objects.equals(this.clientToRestore, ((RestoreCommand) other).clientToRestore));
     }
 }

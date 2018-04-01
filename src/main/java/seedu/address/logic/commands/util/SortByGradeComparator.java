@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.logic.commands.util;
 
 import java.util.Comparator;
 

@@ -90,7 +90,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<Client> syncedTutorList = newData.getTutorList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
-
         List<Client> syncedClosedStudentList = newData.getClosedStudentList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
@@ -230,7 +229,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from the active client list in this {@code AddressBook}.
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
     public boolean removeClient(Client key, Category category) throws PersonNotFoundException {
@@ -240,6 +239,26 @@ public class AddressBook implements ReadOnlyAddressBook {
             isSuccess = students.remove(key);
         } else {
             isSuccess = tutors.remove(key);
+        }
+
+        if (isSuccess) {
+            return true;
+        } else {
+            throw new PersonNotFoundException();
+        }
+    }
+
+    /**
+     * Removes {@code key} from the closed client list in this {@code AddressBook}.
+     * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public boolean removeClosedClient(Client key, Category category) throws PersonNotFoundException {
+        Boolean isSuccess;
+
+        if (category.isStudent()) {
+            isSuccess = closedStudents.remove(key);
+        } else {
+            isSuccess = closedTutors.remove(key);
         }
 
         if (isSuccess) {

@@ -14,6 +14,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.logic.commands.util.SortByGradeComparator;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -82,6 +83,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteClient(Client target, Category category) throws PersonNotFoundException {
         addressBook.removeClient(target, category);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void deleteClosedClient(Client target, Category category) throws PersonNotFoundException {
+        addressBook.removeClosedClient(target, category);
         indicateAddressBookChanged();
     }
 

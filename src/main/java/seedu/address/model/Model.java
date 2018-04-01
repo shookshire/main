@@ -31,8 +31,11 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Deletes the given client. */
+    /** Deletes the given client in the active list. */
     void deleteClient(Client target, Category category) throws PersonNotFoundException;
+
+    /** Deletes the given client in the closed list. */
+    void deleteClosedClient(Client target, Category category) throws PersonNotFoundException;
 
     /**
      * Replaces the given person {@code target} with {@code editedClient}.
