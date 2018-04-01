@@ -4,11 +4,12 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.CommandNotAvailableInClosedViewException;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.MatchContainsKeywordsPredicate;
 import seedu.address.model.person.MatchContainsPersonsPredicate;
-
+import seedu.address.ui.util.ListPanelController;
 
 
 /**
@@ -35,6 +36,9 @@ public class MatchCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
+        if(!ListPanelController.isCurrentDisplayActiveList()) {
+            throw new CommandNotAvailableInClosedViewException();
+        }
         List<Client> lastShownList;
 
         if (category.isStudent()) {

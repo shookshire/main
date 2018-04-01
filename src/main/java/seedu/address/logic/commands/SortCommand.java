@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+
 /**
  * Represents a sort command
  */
@@ -39,9 +41,6 @@ public abstract class SortCommand extends Command {
             + ": Sort selected list according to user choice.\n"
             + "Parameters:" + USAGE_MESSAGE_LIST;
 
-
-
-
     @Override
-    public abstract CommandResult execute();
+    public abstract CommandResult execute() throws CommandException;
 }

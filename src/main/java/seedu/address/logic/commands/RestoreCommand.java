@@ -3,10 +3,12 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.CommandNotAvaiableInActiveViewException;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.ui.util.ListPanelController;
 
 import java.util.List;
 import java.util.Objects;
@@ -59,6 +61,10 @@ public class RestoreCommand extends UndoableCommand {
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
+        if(ListPanelController.isCurrentDisplayActiveList()) {
+            throw new CommandNotAvaiableInActiveViewException();
+        }
+
         List<Client> lastShownList;
 
         if (category.isStudent()) {

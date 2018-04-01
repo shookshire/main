@@ -17,18 +17,12 @@ import seedu.address.commons.events.ui.ClientListSwitchEvent;
 import seedu.address.commons.events.ui.ClientPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.person.Client;
+import seedu.address.ui.util.ListPanelController;
 
 /**
  * Panel containing the list of students.
  */
 public class StudentListPanel extends UiPart<Region> {
-
-    /**
-     * An enum to store which the type of list displayed
-     */
-    private enum Type {
-        closedStudentList, studentList
-    }
 
     private static final String FXML = "StudentListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
@@ -36,7 +30,6 @@ public class StudentListPanel extends UiPart<Region> {
     @FXML
     private ListView<ClientCard> studentListView;
 
-    private Type currentlyDisplayed = Type.studentList;
     private final ObservableList<Client> studentList;
     private final ObservableList<Client> closedStudentList;
 
@@ -65,15 +58,14 @@ public class StudentListPanel extends UiPart<Region> {
     }
 
     private void switchListDisplay() {
-        switch (currentlyDisplayed) {
-            case studentList:
+        ListPanelController listPanelController = ListPanelController.getInstance();
+        switch (listPanelController.getCurrentListDisplayed()) {
+            case activeList:
                 setConnectionsForClosedStudents();
-                currentlyDisplayed = Type.closedStudentList;
                 break;
 
-            case closedStudentList:
+            case closedList:
                 setConnectionsForStudents();
-                currentlyDisplayed = Type.studentList;
                 break;
 
             default:
