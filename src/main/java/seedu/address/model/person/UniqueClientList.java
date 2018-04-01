@@ -33,14 +33,28 @@ public class UniqueClientList implements Iterable<Client> {
     }
 
     /**
-     * Adds a client to the list.
+     * Adds a client to the active list.
      *
      * @throws DuplicatePersonException if the client to add is a duplicate of an existing client in the list.
      */
-    public void add(Client toAdd) throws DuplicatePersonException {
+    public void add(Client toAdd, UniqueClientList closedList) throws DuplicatePersonException {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
+        if (contains(toAdd) || closedList.contains(toAdd)) {
             throw new DuplicatePersonException();
+        }
+        internalList.add(toAdd);
+    }
+
+    /**
+     * Adds a client to the closed list.
+     *
+     * @throws AssertionError as it's impossible to have a duplicate given that we have checked for duplication
+     * before adding it into active list.
+     */
+    public void add(Client toAdd) throws AssertionError {
+        requireNonNull(toAdd);
+        if(contains(toAdd)) {
+            throw new AssertionError("It's impossible to have a duplicate person here");
         }
         internalList.add(toAdd);
     }
