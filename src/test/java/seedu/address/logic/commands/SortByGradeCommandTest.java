@@ -39,7 +39,7 @@ public class SortByGradeCommandTest {
     }
 
     @Test
-    public void executeSortUnsortedToSortedByName() {
+    public void executeSortUnsortedToSortedByGrade() {
         assertCommandSuccessForStudentList(sortByGradeCommandForStudentList, (SortByGradeCommand.MESSAGE_SUCCESS_STUDENT
                 + SortByGradeCommand.MESSAGE_SORT_DESC));
         assertCommandSuccessForTutorList(sortByGradeCommandForTutorList, (SortByGradeCommand.MESSAGE_SUCCESS_TUTOR

@@ -39,7 +39,7 @@ public class SortByLocationCommandTest {
     }
 
     @Test
-    public void executeSortUnsortedToSortedByName() {
+    public void executeSortUnsortedToSortedByLocation() {
         assertCommandSuccessForStudentList(sortByLocationCommandForStudentList, (
                 SortByLocationCommand.MESSAGE_SUCCESS_STUDENT + SortByLocationCommand.MESSAGE_SORT_DESC));
         assertCommandSuccessForTutorList(sortByLocationCommandForTutorList, (SortByLocationCommand.MESSAGE_SUCCESS_TUTOR

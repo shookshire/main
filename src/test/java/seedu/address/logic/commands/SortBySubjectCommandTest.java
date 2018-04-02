@@ -39,7 +39,7 @@ public class SortBySubjectCommandTest {
     }
 
     @Test
-    public void executeSortUnsortedToSortedByName() {
+    public void executeSortUnsortedToSortedBySubject() {
         assertCommandSuccessForStudentList(sortBySubjectCommandForStudentList, (
                 SortBySubjectCommand.MESSAGE_SUCCESS_STUDENT + SortBySubjectCommand.MESSAGE_SORT_DESC));
         assertCommandSuccessForTutorList(sortBySubjectCommandForTutorList, (SortBySubjectCommand.MESSAGE_SUCCESS_TUTOR
