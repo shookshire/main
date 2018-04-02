@@ -97,7 +97,7 @@ public class EditCommand extends UndoableCommand {
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
-        if(!ListPanelController.isCurrentDisplayActiveList()) {
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
             throw new CommandNotAvailableInClosedViewException();
         }
 

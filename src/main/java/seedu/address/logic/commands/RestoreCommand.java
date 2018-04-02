@@ -1,5 +1,10 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+import java.util.Objects;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -10,11 +15,10 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.ui.util.ListPanelController;
 
-import java.util.List;
-import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
-
+//@@author olimhc
+/**
+ * Delete a person from the closed list and add it back to the active list
+ */
 public class RestoreCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "restore";
 
@@ -43,7 +47,7 @@ public class RestoreCommand extends UndoableCommand {
         }
 
         try {
-            if(category.isStudent()) {
+            if (category.isStudent()) {
                 model.addStudent(clientToRestore);
             } else {
                 model.addTutor(clientToRestore);
@@ -52,7 +56,7 @@ public class RestoreCommand extends UndoableCommand {
             throw new AssertionError("The client should not be duplicated");
         }
 
-        if(category.isStudent()) {
+        if (category.isStudent()) {
             return new CommandResult(String.format(MESSAGE_RESTORE_STUDENT_SUCCESS, clientToRestore));
         } else {
             return new CommandResult(String.format(MESSAGE_CLOSE_TUTOR_SUCCESS, clientToRestore));
@@ -61,7 +65,7 @@ public class RestoreCommand extends UndoableCommand {
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
-        if(ListPanelController.isCurrentDisplayActiveList()) {
+        if (ListPanelController.isCurrentDisplayActiveList()) {
             throw new CommandNotAvaiableInActiveViewException();
         }
 

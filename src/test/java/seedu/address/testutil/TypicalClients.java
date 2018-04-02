@@ -30,8 +30,8 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
-public class TypicalPersons {
-
+public class TypicalClients {
+    //Typical Students
     public static final Client ALICE = new ClientBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("85355255")
@@ -57,6 +57,15 @@ public class TypicalPersons {
             .withEmail("anna@example.com").withAddress("4th street").withLocation("west").withGrade("j2")
             .withSubject("chemistry").withCategory("s").build();
 
+    //Typical ClosedStudents
+    public static final Client JIMMY = new ClientBuilder().withName("JIMMY").withPhone("62123123")
+            .withEmail("jimmytan@example.com").withAddress("San Diego").withLocation("east").withGrade("u1")
+            .withSubject("math").withCategory("s").build();
+    public static final Client DANNY = new ClientBuilder().withName("DANNY").withPhone("64233123")
+            .withEmail("dannytan@example.com").withAddress("Mexico").withLocation("east").withGrade("p1")
+            .withSubject("science").withCategory("s").build();
+
+
     // Manually added
     public static final Client HOON = new ClientBuilder().withName("Hoon Meier").withPhone("8482424")
             .withEmail("stefan@example.com").withAddress("little india").withLocation("north").withGrade("s1")
@@ -77,14 +86,14 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalClients() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Client client : getTypicalPersons()) {
+        for (Client client : getTypicalStudents()) {
             try {
                 ab.addStudent(client);
             } catch (DuplicatePersonException e) {
@@ -94,7 +103,11 @@ public class TypicalPersons {
         return ab;
     }
 
-    public static List<Client> getTypicalPersons() {
+    public static List<Client> getTypicalStudents() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Client> getTypicalClosedStudents() {
+        return new ArrayList<>(Arrays.asList(JIMMY, DANNY));
     }
 }

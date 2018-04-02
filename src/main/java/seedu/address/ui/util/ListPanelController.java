@@ -1,5 +1,6 @@
 package seedu.address.ui.util;
 
+//@@author olimhc
 /**
  * Stores the type of list being displayed
  */
@@ -9,16 +10,16 @@ public class ListPanelController {
     /**
      * An enum to store which the type of list displayed
      */
-    public enum displayType {
+    public enum DisplayType {
         closedList, activeList
     }
 
     /**
      * Ensure that the active client list is always shown first
      */
-    private static displayType currentlyDisplayed = displayType.activeList;
+    private static DisplayType currentlyDisplayed = DisplayType.activeList;
 
-    public displayType getCurrentListDisplayed() {
+    public DisplayType getCurrentListDisplayed() {
         return currentlyDisplayed;
     }
 
@@ -27,21 +28,24 @@ public class ListPanelController {
      */
     public void switchDisplay() {
         switch (currentlyDisplayed) {
-            case activeList:
-                currentlyDisplayed = displayType.closedList;
-                break;
+        case activeList:
+            currentlyDisplayed = DisplayType.closedList;
+            break;
 
-            case closedList:
-                currentlyDisplayed = displayType.activeList;
-                break;
+        case closedList:
+            currentlyDisplayed = DisplayType.activeList;
+            break;
 
-            default:
-                throw new AssertionError("This should not be possible.");
+        default:
+            throw new AssertionError("This should not be possible.");
         }
     }
 
+    /**
+     * @return true if displayed list is active list
+     */
     public static boolean isCurrentDisplayActiveList() {
-        if(currentlyDisplayed == displayType.activeList) {
+        if (currentlyDisplayed == DisplayType.activeList) {
             return true;
         } else {
             return false;

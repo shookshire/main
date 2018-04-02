@@ -115,6 +115,11 @@ public class AddClientCommandTest {
         }
 
         @Override
+        public void deleteClosedClient(Client target, Category category) throws PersonNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void updateClient(Client target, Client editedPerson, Category category)
                 throws DuplicatePersonException, PersonNotFoundException {
             fail("This method should not be called.");
@@ -127,6 +132,16 @@ public class AddClientCommandTest {
 
         @Override
         public void addStudent(Client student) throws DuplicatePersonException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void addClosedTutor(Client tutor) throws DuplicatePersonException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void addClosedStudent(Client student) throws DuplicatePersonException {
             fail("This method should not be called.");
         }
 
@@ -149,6 +164,28 @@ public class AddClientCommandTest {
 
         @Override
         public void updateFilteredTutorList(Predicate<Client> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Client> getFilteredClosedTutorList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void updateFilteredClosedTutorList(Predicate<Client> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Client> getFilteredClosedStudentList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void updateFilteredClosedStudentList(Predicate<Client> predicate) {
             fail("This method should not be called.");
         }
 
@@ -182,18 +219,22 @@ public class AddClientCommandTest {
             fail("This method should not be called.");
         }
 
+        @Override
         public void sortByNameFilteredClientStudentList() {
             fail("This method should not be called.");
         }
 
+        @Override
         public void sortByLocationFilteredClientStudentList() {
             fail("This method should not be called.");
         }
 
+        @Override
         public void sortByGradeFilteredClientStudentList() {
             fail("This method should not be called.");
         }
 
+        @Override
         public void sortBySubjectFilteredClientStudentList() {
             fail("This method should not be called.");
         }

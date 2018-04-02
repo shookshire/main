@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
-import seedu.address.ui.util.ListPanelController;
-
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLOSED_STUDENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLOSED_TUTORS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TUTORS;
+
+import seedu.address.ui.util.ListPanelController;
 
 /**
  * Lists all persons in the address book to the user.
@@ -19,7 +19,7 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if(ListPanelController.isCurrentDisplayActiveList()) {
+        if (ListPanelController.isCurrentDisplayActiveList()) {
             model.updateFilteredTutorList(PREDICATE_SHOW_ALL_TUTORS);
             model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         } else {

@@ -66,7 +66,7 @@ public class AddClientCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
 
-        if(!ListPanelController.isCurrentDisplayActiveList()) {
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
             throw new CommandNotAvailableInClosedViewException();
         }
 

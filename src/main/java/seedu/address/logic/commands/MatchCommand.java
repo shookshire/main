@@ -36,7 +36,7 @@ public class MatchCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-        if(!ListPanelController.isCurrentDisplayActiveList()) {
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
             throw new CommandNotAvailableInClosedViewException();
         }
         List<Client> lastShownList;

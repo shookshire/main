@@ -4,6 +4,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.CommandNotAvailableInClosedViewException;
 import seedu.address.ui.util.ListPanelController;
 
+//@@author olimhc
 /**
  *Sort the selected list according to their name in alphabetical order
  */
@@ -21,7 +22,7 @@ public class SortByNameCommand extends SortCommand {
 
     @Override
     public CommandResult execute() throws CommandException {
-        if(!ListPanelController.isCurrentDisplayActiveList()) {
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
             throw new CommandNotAvailableInClosedViewException();
         }
 

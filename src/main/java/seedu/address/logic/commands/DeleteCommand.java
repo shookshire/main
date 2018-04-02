@@ -43,7 +43,7 @@ public class DeleteCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() {
         requireNonNull(clientToDelete);
-        if(ListPanelController.isCurrentDisplayActiveList()) {
+        if (ListPanelController.isCurrentDisplayActiveList()) {
             try {
                 model.deleteClient(clientToDelete, category);
             } catch (PersonNotFoundException pnfe) {
@@ -65,7 +65,7 @@ public class DeleteCommand extends UndoableCommand {
     protected void preprocessUndoableCommand() throws CommandException {
         List<Client> lastShownList;
 
-        if(ListPanelController.isCurrentDisplayActiveList()) {
+        if (ListPanelController.isCurrentDisplayActiveList()) {
             if (category.isStudent()) {
                 lastShownList = model.getFilteredStudentList();
             } else {

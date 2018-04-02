@@ -57,6 +57,9 @@ public class TutorListPanel extends UiPart<Region> {
         setEventHandlerForSelectionChangeEvent();
     }
 
+    /**
+     * Switch the displayed tutor's list
+     */
     private void switchListDisplay() {
         ListPanelController listPanelController = ListPanelController.getInstance();
         switch (listPanelController.getCurrentListDisplayed()) {

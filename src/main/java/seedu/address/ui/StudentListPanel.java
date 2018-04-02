@@ -57,19 +57,22 @@ public class StudentListPanel extends UiPart<Region> {
         setEventHandlerForSelectionChangeEvent();
     }
 
+    /**
+     * Switch the displayed student's list
+     */
     private void switchListDisplay() {
         ListPanelController listPanelController = ListPanelController.getInstance();
         switch (listPanelController.getCurrentListDisplayed()) {
-            case activeList:
-                setConnectionsForClosedStudents();
-                break;
+        case activeList:
+            setConnectionsForClosedStudents();
+            break;
 
-            case closedList:
-                setConnectionsForStudents();
-                break;
+        case closedList:
+            setConnectionsForStudents();
+            break;
 
-            default:
-                throw new AssertionError("This should not be possible.");
+        default:
+            throw new AssertionError("This should not be possible.");
         }
     }
 

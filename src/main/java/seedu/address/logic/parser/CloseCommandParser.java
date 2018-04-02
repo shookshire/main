@@ -1,17 +1,18 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CloseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Category;
 
-import java.util.stream.Stream;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-
+/**
+ * Parses an input and create a new CloseCommand object
+ */
 public class CloseCommandParser implements Parser<CloseCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the CloseCommand
@@ -34,7 +35,7 @@ public class CloseCommandParser implements Parser<CloseCommand> {
             index = ParserUtil.parseIndex(argumentMultimap.getPreamble());
             category = ParserUtil.parseCategory(argumentMultimap.getValue(PREFIX_CATEGORY)).get();
             return new CloseCommand(index, category);
-        } catch (IllegalValueException ive){
+        } catch (IllegalValueException ive) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CloseCommand.MESSAGE_USAGE));
         }

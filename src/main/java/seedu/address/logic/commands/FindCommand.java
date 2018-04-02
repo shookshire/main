@@ -25,7 +25,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if(ListPanelController.isCurrentDisplayActiveList()) {
+        if (ListPanelController.isCurrentDisplayActiveList()) {
             model.updateFilteredStudentList(predicate);
             model.updateFilteredTutorList(predicate);
             return new CommandResult(getMessageForClientListShownSummary(

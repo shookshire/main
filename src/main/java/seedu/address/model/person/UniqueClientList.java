@@ -53,7 +53,7 @@ public class UniqueClientList implements Iterable<Client> {
      */
     public void add(Client toAdd) throws AssertionError {
         requireNonNull(toAdd);
-        if(contains(toAdd)) {
+        if (contains(toAdd)) {
             throw new AssertionError("It's impossible to have a duplicate person here");
         }
         internalList.add(toAdd);

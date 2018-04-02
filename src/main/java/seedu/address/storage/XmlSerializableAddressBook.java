@@ -45,11 +45,16 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
-        students.addAll(src.getStudentList().stream().map(XmlAdaptedClient::new).collect(Collectors.toList()));
-        tutors.addAll(src.getTutorList().stream().map(XmlAdaptedClient::new).collect(Collectors.toList()));
-        closedStudents.addAll(src.getClosedStudentList().stream().map(XmlAdaptedClient::new).collect(Collectors.toList()));
-        closedTutors.addAll(src.getClosedTutorList().stream().map(XmlAdaptedClient::new).collect(Collectors.toList()));
-        tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
+        students.addAll(src.getStudentList().stream().map(XmlAdaptedClient::new)
+                .collect(Collectors.toList()));
+        tutors.addAll(src.getTutorList().stream().map(XmlAdaptedClient::new)
+                .collect(Collectors.toList()));
+        closedStudents.addAll(src.getClosedStudentList().stream().map(XmlAdaptedClient::new)
+                .collect(Collectors.toList()));
+        closedTutors.addAll(src.getClosedTutorList().stream().map(XmlAdaptedClient::new)
+                .collect(Collectors.toList()));
+        tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new)
+                .collect(Collectors.toList()));
     }
 
     /**

@@ -1,5 +1,10 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+import java.util.Objects;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -10,11 +15,9 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.ui.util.ListPanelController;
 
-import java.util.List;
-import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Deletes a person from the active list and add it to the closed list
+ */
 public class CloseCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "close";
 
@@ -43,7 +46,7 @@ public class CloseCommand extends UndoableCommand {
         }
 
         try {
-            if(category.isStudent()) {
+            if (category.isStudent()) {
                 model.addClosedStudent(clientToClose);
             } else {
                 model.addClosedTutor(clientToClose);
@@ -52,7 +55,7 @@ public class CloseCommand extends UndoableCommand {
             throw new AssertionError("The client should not be duplicated");
         }
 
-        if(category.isStudent()) {
+        if (category.isStudent()) {
             return new CommandResult(String.format(MESSAGE_CLOSE_STUDENT_SUCCESS, clientToClose));
         } else {
             return new CommandResult(String.format(MESSAGE_CLOSE_TUTOR_SUCCESS, clientToClose));
@@ -61,7 +64,7 @@ public class CloseCommand extends UndoableCommand {
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
-        if(!ListPanelController.isCurrentDisplayActiveList()) {
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
             throw new CommandNotAvailableInClosedViewException();
         }
 
