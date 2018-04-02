@@ -5,7 +5,7 @@ package seedu.address.logic.commands;
  */
 public class SortByLocationCommand extends SortCommand {
 
-    private static final String MESSAGE_SORT_DESC = " their location in alphabetical order.";
+    public static final String MESSAGE_SORT_DESC = " their location in alphabetical order.";
 
     private int index;
     private final int tutorIndex = 0;

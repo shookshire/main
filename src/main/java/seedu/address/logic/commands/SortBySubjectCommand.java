@@ -5,7 +5,7 @@ package seedu.address.logic.commands;
  */
 public class SortBySubjectCommand extends SortCommand {
 
-    private static final String MESSAGE_SORT_DESC = " their subject in alphabetical order.";
+    public static final String MESSAGE_SORT_DESC = " their subject in alphabetical order.";
 
     private int index;
     private final int tutorIndex = 0;
@@ -25,7 +25,7 @@ public class SortBySubjectCommand extends SortCommand {
 
         case studentIndex:
             model.sortBySubjectFilteredClientStudentList();
-            return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
+            return new CommandResult(MESSAGE_SUCCESS_STUDENT + MESSAGE_SORT_DESC);
 
         default:
             return new CommandResult(MESSAGE_FAILURE);
