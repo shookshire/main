@@ -177,6 +177,7 @@ Alias Format: 'so s c/s'
 *Sorting by grade are based on ascending order of seniority (Kindergarten->Primary->Secondary->Junior College->University)
 ****
 Examples:
+
 * 'sort l c/t' +
 Tutor's list displayed will be sorted base on location.
 * 'sort s c/t' +
