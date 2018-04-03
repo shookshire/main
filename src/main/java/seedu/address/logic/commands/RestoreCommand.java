@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,8 +22,13 @@ import seedu.address.ui.util.ListPanelController;
  */
 public class RestoreCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "restore";
+    public static final String COMMAND_ALIAS = "re";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " a active tutor or student";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Restore a closed tutor or student to the active "
+            + "tutor or student list. \n"
+            + "Parameters: " + COMMAND_WORD + " " + "INDEX" + " " + PREFIX_CATEGORY + "CATEGORY "
+            + "(CATEGORY can only be either 's' or 't', where 's' represents students and 't' represents tutor).\n"
+            + "Example: " + COMMAND_WORD + " " + "1" + " " + PREFIX_CATEGORY + "t\n";
 
     public static final String MESSAGE_RESTORE_STUDENT_SUCCESS = "Student restored: %1$s";
     public static final String MESSAGE_CLOSE_TUTOR_SUCCESS = "Tutor restored: %1$s";

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,13 +16,19 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.ui.util.ListPanelController;
 
+//@@author olimhc
 /**
  * Deletes a person from the active list and add it to the closed list
  */
 public class CloseCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "close";
+    public static final String COMMAND_ALIAS = "cs";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " a active tutor or student";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Close an active tutor or student and store them in "
+            + "a closed student or tutor list. \n"
+            + "Parameters: " + COMMAND_WORD + " " + "INDEX" + " " + PREFIX_CATEGORY + "CATEGORY "
+            + "(CATEGORY can only be either 's' or 't', where 's' represents students and 't' represents tutor).\n"
+            + "Example: " + COMMAND_WORD + " " + "1" + " " + PREFIX_CATEGORY + "t\n";
 
     public static final String MESSAGE_CLOSE_STUDENT_SUCCESS = "Student closed: %1$s";
     public static final String MESSAGE_CLOSE_TUTOR_SUCCESS = "Tutor closed: %1$s";

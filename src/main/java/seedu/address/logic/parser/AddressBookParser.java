@@ -104,12 +104,15 @@ public class AddressBookParser {
             return new AddClientCommandParser().parse(arguments);
 
         case SwitchCommand.COMMAND_WORD:
+        case SwitchCommand.COMMAND_ALIAS:
             return new SwitchCommand();
 
         case CloseCommand.COMMAND_WORD:
+        case CloseCommand.COMMAND_ALIAS:
             return new CloseCommandParser().parse(arguments);
 
         case RestoreCommand.COMMAND_WORD:
+        case RestoreCommand.COMMAND_ALIAS:
             return new RestoreCommandParser().parse(arguments);
 
         default:

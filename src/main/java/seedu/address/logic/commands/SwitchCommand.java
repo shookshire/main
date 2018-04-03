@@ -11,6 +11,7 @@ import seedu.address.ui.util.ListPanelController;
 public class SwitchCommand extends Command {
 
     public static final String COMMAND_WORD = "switch";
+    public static final String COMMAND_ALIAS = "sw";
 
     public static final String MESSAGE_SUCCESS = "Switched to ";
     public static final String MESSAGE_CLOSED_DISPLAY_LIST = "closed list of student's and tutors.\n";
