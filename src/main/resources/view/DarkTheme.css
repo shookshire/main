@@ -375,22 +375,19 @@
     -fx-background-color: yellow;
 }
 
-#tags .orange {
+#places .orange {
     -fx-text-fill: black;
     -fx-background-color: orange;
 }
 
-#subjects {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
+#grades .orange {
+    -fx-text-fill: black;
+    -fx-background-color: orange;
 }
 
-#subjects .label {
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-background-color: grey;
+#subjects .orange {
     -fx-text-fill: black;
-    -fx-font-size: 11;
-    -fx-font-family: "Segoe UI Bold";
+    -fx-background-color: orange;
 }
+
+

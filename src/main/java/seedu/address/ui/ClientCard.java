@@ -14,8 +14,9 @@ public class ClientCard extends UiPart<Region> {
 
     private static final String FXML = "ClientListCard.fxml";
 
-    private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow" , "orange"};
+    private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow"};
 
+    private static final String MATCH_COLOUR_STYLE = "orange";
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -39,11 +40,11 @@ public class ClientCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private Label place;
+    private FlowPane places;
     @FXML
-    private Label grade;
+    private FlowPane grades;
     @FXML
-    private Label subject;
+    private FlowPane subjects;
     @FXML
     private FlowPane tags;
 
@@ -56,9 +57,9 @@ public class ClientCard extends UiPart<Region> {
         phone.setText(client.getPhone().value);
         address.setText(client.getAddress().value);
         email.setText(client.getEmail().value);
-        place.setText(client.getLocation().value);
-        grade.setText(client.getGrade().value);
-        subject.setText(client.getSubject().value);
+        intPlaces(client);
+        intGrades(client);
+        intSubjects(client);
         intTags(client);
     }
 
@@ -74,6 +75,42 @@ public class ClientCard extends UiPart<Region> {
             newLabel.getStyleClass().add(getColour(tag.tagName));
             tags.getChildren().add(newLabel);
         });
+    }
+
+    /**
+     *@author olimhc-reused
+     *Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits with minor modification
+     * Initialises tags
+     * @param client
+     */
+    private void intPlaces(Client client) {
+        Label newLabel = new Label(client.getLocation().value);
+        newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+        places.getChildren().add(newLabel);
+    }
+
+    /**
+     *@author olimhc-reused
+     *Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits with minor modification
+     * Initialises tags
+     * @param client
+     */
+    private void intGrades(Client client) {
+        Label newLabel = new Label(client.getGrade().value);
+        newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+        grades.getChildren().add(newLabel);
+    }
+
+    /**
+     *@author olimhc-reused
+     *Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits with minor modification
+     * Initialises tags
+     * @param client
+     */
+    private void intSubjects(Client client) {
+        Label newLabel = new Label(client.getSubject().value);
+        newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+        subjects.getChildren().add(newLabel);
     }
 
     /**
