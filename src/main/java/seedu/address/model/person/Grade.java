@@ -87,7 +87,7 @@ public class Grade {
     public Grade(String grade) {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
-        this.value = grade;
+        this.value = grade.trim().replaceAll(" +", " ");;
         this.valueWeightage = getGradeIndex();
     }
 

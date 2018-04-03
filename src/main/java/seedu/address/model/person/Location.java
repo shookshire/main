@@ -32,7 +32,7 @@ public class Location {
     public Location(String location) {
         requireNonNull(location);
         checkArgument(isValidLocation(location), MESSAGE_LOCATION_CONSTRAINTS);
-        this.value = location;
+        this.value = location.trim().replaceAll(" +", " ");
     }
 
     /**
