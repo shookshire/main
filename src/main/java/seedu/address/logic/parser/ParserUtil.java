@@ -33,6 +33,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
+    public static final String MESSAGE_INVALID_SORT_TYPE = "Sort type should not be empty.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -265,5 +266,17 @@ public class ParserUtil {
     public static Optional<Category> parseCategory(Optional<String> category) throws IllegalValueException {
         requireNonNull(category);
         return category.isPresent() ? Optional.of(parseCategory(category.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code Optional<String> category} into an {@code Optional<Category>} if {@code category} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static String parseSortType(String sortType) throws IllegalValueException {
+        sortType.trim();
+        if(sortType.isEmpty()) {
+            throw new IllegalValueException(MESSAGE_INVALID_SORT_TYPE);
+        }
+        return sortType;
     }
 }

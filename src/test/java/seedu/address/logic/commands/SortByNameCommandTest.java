@@ -13,6 +13,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Category;
 
 //@@author olimhc
 /**
@@ -24,17 +25,17 @@ public class SortByNameCommandTest {
     private SortByNameCommand sortByNameCommandForStudentList;
     private SortByNameCommand sortByNameCommandForTutorList;
 
-    private final int tutorIndex = 0;
-    private final int studentIndex = 1;
+    private final Category STUDENT_CATEGORY = new Category("s");
+    private final Category TUTOR_CATEGORY = new Category("t");
 
     @Before
     public void setup() {
         model = new ModelManager(getUnsortedAddressBook(), new UserPrefs());
         expectedModel =  new ModelManager(getSortedByNameAddressBook(), new UserPrefs());
 
-        sortByNameCommandForStudentList = new SortByNameCommand(studentIndex);
+        sortByNameCommandForStudentList = new SortByNameCommand(STUDENT_CATEGORY);
         sortByNameCommandForStudentList.setData(model, new CommandHistory(), new UndoRedoStack());
-        sortByNameCommandForTutorList = new SortByNameCommand(tutorIndex);
+        sortByNameCommandForTutorList = new SortByNameCommand(TUTOR_CATEGORY);
         sortByNameCommandForTutorList.setData(model, new CommandHistory(), new UndoRedoStack());
     }
 
