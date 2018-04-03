@@ -25,8 +25,8 @@ public class SortByLocationCommandTest {
     private SortByLocationCommand sortByLocationCommandForStudentList;
     private SortByLocationCommand sortByLocationCommandForTutorList;
 
-    private final Category STUDENT_CATEGORY = new Category("s");
-    private final Category TUTOR_CATEGORY = new Category("t");
+    private final Category studentCategory = new Category("s");
+    private final Category tutorCategory = new Category("t");
 
 
     @Before
@@ -34,9 +34,9 @@ public class SortByLocationCommandTest {
         model = new ModelManager(getUnsortedAddressBook(), new UserPrefs());
         expectedModel =  new ModelManager(getSortedByLocationAddressBook(), new UserPrefs());
 
-        sortByLocationCommandForStudentList = new SortByLocationCommand(STUDENT_CATEGORY);
+        sortByLocationCommandForStudentList = new SortByLocationCommand(studentCategory);
         sortByLocationCommandForStudentList.setData(model, new CommandHistory(), new UndoRedoStack());
-        sortByLocationCommandForTutorList = new SortByLocationCommand(TUTOR_CATEGORY);
+        sortByLocationCommandForTutorList = new SortByLocationCommand(tutorCategory);
         sortByLocationCommandForTutorList.setData(model, new CommandHistory(), new UndoRedoStack());
     }
 

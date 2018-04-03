@@ -10,8 +10,6 @@ public class SortByLocationCommand extends SortCommand {
     public static final String MESSAGE_SORT_DESC = " their location in alphabetical order.";
 
     private Category category;
-    private final String TUTOR_COMMAND_WORD = "t";
-    private final String STUDENT_COMMAND_WORD = "s";
 
     public SortByLocationCommand(Category category) {
         this.category = category;
@@ -21,11 +19,11 @@ public class SortByLocationCommand extends SortCommand {
     public CommandResult execute() {
         switch (category.toString()) {
 
-        case TUTOR_COMMAND_WORD:
+        case COMMAND_WORD_TUTOR:
             model.sortByLocationFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
 
-        case STUDENT_COMMAND_WORD:
+        case COMMAND_WORD_STUDENT:
             model.sortByLocationFilteredClientStudentList();
             return new CommandResult(MESSAGE_SUCCESS_STUDENT + MESSAGE_SORT_DESC);
 

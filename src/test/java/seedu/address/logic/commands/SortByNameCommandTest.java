@@ -25,17 +25,17 @@ public class SortByNameCommandTest {
     private SortByNameCommand sortByNameCommandForStudentList;
     private SortByNameCommand sortByNameCommandForTutorList;
 
-    private final Category STUDENT_CATEGORY = new Category("s");
-    private final Category TUTOR_CATEGORY = new Category("t");
+    private final Category studentCategory = new Category("s");
+    private final Category tutorCategory = new Category("t");
 
     @Before
     public void setup() {
         model = new ModelManager(getUnsortedAddressBook(), new UserPrefs());
         expectedModel =  new ModelManager(getSortedByNameAddressBook(), new UserPrefs());
 
-        sortByNameCommandForStudentList = new SortByNameCommand(STUDENT_CATEGORY);
+        sortByNameCommandForStudentList = new SortByNameCommand(studentCategory);
         sortByNameCommandForStudentList.setData(model, new CommandHistory(), new UndoRedoStack());
-        sortByNameCommandForTutorList = new SortByNameCommand(TUTOR_CATEGORY);
+        sortByNameCommandForTutorList = new SortByNameCommand(tutorCategory);
         sortByNameCommandForTutorList.setData(model, new CommandHistory(), new UndoRedoStack());
     }
 

@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
+import java.util.stream.Stream;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.SortByGradeCommand;
 import seedu.address.logic.commands.SortByLocationCommand;
@@ -12,8 +14,6 @@ import seedu.address.logic.commands.SortBySubjectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Category;
-
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new subclass object of SortCommand
@@ -44,28 +44,28 @@ public class SortCommandParser implements Parser<SortCommand> {
         String sortType;
 
         try {
-            sortType = ParserUtil.parseSortType(argMultimap.getPreamble());
+            sortType = argMultimap.getPreamble();
             category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY)).get();
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
         switch (sortType) {
-            case SortCommand.COMMAND_WORD_NAME:
-                return new SortByNameCommand(category);
+        case SortCommand.COMMAND_WORD_NAME:
+            return new SortByNameCommand(category);
 
-            case SortCommand.COMMAND_WORD_SUBJECT:
-                return new SortBySubjectCommand(category);
+        case SortCommand.COMMAND_WORD_SUBJECT:
+            return new SortBySubjectCommand(category);
 
-            case SortCommand.COMMAND_WORD_LOCATION:
-                return new SortByLocationCommand(category);
+        case SortCommand.COMMAND_WORD_LOCATION:
+            return new SortByLocationCommand(category);
 
-            case SortCommand.COMMAND_WORD_GRADE:
-                return new SortByGradeCommand(category);
+        case SortCommand.COMMAND_WORD_GRADE:
+            return new SortByGradeCommand(category);
 
-            default:
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        default:
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
     }
 

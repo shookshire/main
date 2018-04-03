@@ -25,17 +25,17 @@ public class SortBySubjectCommandTest {
     private SortBySubjectCommand sortBySubjectCommandForStudentList;
     private SortBySubjectCommand sortBySubjectCommandForTutorList;
 
-    private final Category STUDENT_CATEGORY = new Category("s");
-    private final Category TUTOR_CATEGORY = new Category("t");
+    private final Category studentCategory = new Category("s");
+    private final Category tutorCategory = new Category("t");
 
     @Before
     public void setup() {
         model = new ModelManager(getUnsortedAddressBook(), new UserPrefs());
         expectedModel =  new ModelManager(getSortedBySubjectAddressBook(), new UserPrefs());
 
-        sortBySubjectCommandForStudentList = new SortBySubjectCommand(STUDENT_CATEGORY);
+        sortBySubjectCommandForStudentList = new SortBySubjectCommand(studentCategory);
         sortBySubjectCommandForStudentList.setData(model, new CommandHistory(), new UndoRedoStack());
-        sortBySubjectCommandForTutorList = new SortBySubjectCommand(TUTOR_CATEGORY);
+        sortBySubjectCommandForTutorList = new SortBySubjectCommand(tutorCategory);
         sortBySubjectCommandForTutorList.setData(model, new CommandHistory(), new UndoRedoStack());
     }
 

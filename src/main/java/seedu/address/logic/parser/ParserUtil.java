@@ -267,16 +267,5 @@ public class ParserUtil {
         requireNonNull(category);
         return category.isPresent() ? Optional.of(parseCategory(category.get())) : Optional.empty();
     }
-
-    /**
-     * Parses a {@code Optional<String> category} into an {@code Optional<Category>} if {@code category} is present.
-     * See header comment of this class regarding the use of {@code Optional} parameters.
-     */
-    public static String parseSortType(String sortType) throws IllegalValueException {
-        sortType.trim();
-        if(sortType.isEmpty()) {
-            throw new IllegalValueException(MESSAGE_INVALID_SORT_TYPE);
-        }
-        return sortType;
-    }
 }
+

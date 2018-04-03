@@ -25,17 +25,17 @@ public class SortByGradeCommandTest {
     private SortByGradeCommand sortByGradeCommandForStudentList;
     private SortByGradeCommand sortByGradeCommandForTutorList;
 
-    private final Category STUDENT_CATEGORY = new Category("s");
-    private final Category TUTOR_CATEGORY = new Category("t");
+    private final Category studentCategory = new Category("s");
+    private final Category tutorCategory = new Category("t");
 
     @Before
     public void setup() {
         model = new ModelManager(getUnsortedAddressBook(), new UserPrefs());
         expectedModel =  new ModelManager(getSortedByGradeAddressBook(), new UserPrefs());
 
-        sortByGradeCommandForStudentList = new SortByGradeCommand(STUDENT_CATEGORY);
+        sortByGradeCommandForStudentList = new SortByGradeCommand(studentCategory);
         sortByGradeCommandForStudentList.setData(model, new CommandHistory(), new UndoRedoStack());
-        sortByGradeCommandForTutorList = new SortByGradeCommand(TUTOR_CATEGORY);
+        sortByGradeCommandForTutorList = new SortByGradeCommand(tutorCategory);
         sortByGradeCommandForTutorList.setData(model, new CommandHistory(), new UndoRedoStack());
     }
 
