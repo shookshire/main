@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -28,7 +31,7 @@ public class Subject {
     public Subject(String subject) {
         requireNonNull(subject);
         checkArgument(isValidSubject(subject), MESSAGE_SUBJECT_CONSTRAINTS);
-        this.value = subject;
+        this.value = subject.trim().replaceAll(" +", " ");
     }
 
     /**

@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -10,7 +13,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Location {
 
     public static final String MESSAGE_LOCATION_CONSTRAINTS =
-            "Location should only be north, south, east, west, central and only one location should be entered";
+            "Location should only be north, south, east, west and central in decreasing order of preference without " +
+                    "any repetitions";
 
     private static final String LOCATION_VALIDATION_REGEX_NORTH = "(?i)North";
     private static final String LOCATION_VALIDATION_REGEX_SOUTH = "(?i)South";
@@ -32,13 +36,32 @@ public class Location {
     }
 
     /**
-     * Returns true if a given string is a valid person Location.
+     * Returns true if a given string is a valid client Location.
      */
-    public static boolean isValidLocation(String test) {
+    public static boolean isValidLocationRegex(String test) {
         return test.matches(LOCATION_VALIDATION_REGEX_NORTH) || test.matches(LOCATION_VALIDATION_REGEX_EAST)
                 || test.matches(LOCATION_VALIDATION_REGEX_SOUTH)
                 || test.matches(LOCATION_VALIDATION_REGEX_WEST)
                 || test.matches(LOCATION_VALIDATION_REGEX_CENTRAL);
+    }
+
+    /**
+     * Returns true if all of the given string is a valid client Location.
+     */
+    public static boolean isValidLocation(String test) {
+        String[] splitLocation = test.split("\\s+");
+        Set<String> isUnique = new HashSet<>();
+        boolean isValid = true;
+        for (String ss : splitLocation) {
+            if (isValid) {
+                isValid = isValidLocationRegex(ss);
+                isUnique.add(ss);
+            }
+        }
+        if (isUnique.size() != splitLocation.length) {
+            isValid = false;
+        }
+        return isValid;
     }
 
     @Override
