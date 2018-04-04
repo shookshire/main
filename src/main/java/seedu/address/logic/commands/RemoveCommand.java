@@ -162,7 +162,7 @@ public class RemoveCommand extends UndoableCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof RemoveCommand)) {
             return false;
         }
 

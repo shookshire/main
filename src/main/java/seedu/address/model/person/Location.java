@@ -49,6 +49,9 @@ public class Location {
      * Returns true if all of the given string is a valid client Location.
      */
     public static boolean isValidLocation(String test) {
+        if (test.matches("\\s+")) {
+            return false;
+        }
         String[] splitLocation = test.split("\\s+");
         Set<String> isUnique = new HashSet<>();
         boolean isValid = true;

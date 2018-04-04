@@ -170,6 +170,9 @@ public class Grade {
      * Returns true if all of the given string is a valid client Grade.
      */
     public static boolean isValidGrade(String test) {
+        if (test.matches("\\s+")) {
+            return false;
+        }
         String[] splitGrade = test.split("\\s+");
         Set<String> isUnique = new HashSet<>();
         boolean isValid = true;
