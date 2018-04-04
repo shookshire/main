@@ -35,7 +35,7 @@ public class SwitchCommandTest {
         expectedModel =  new ModelManager(getSortedByGradeAddressBook(), new UserPrefs());
         switchCommand = new SwitchCommand();
         listPanelController = ListPanelController.getInstance();
-        if(!ListPanelController.isCurrentDisplayActiveList()) {
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
             listPanelController.switchDisplay();
         }
     }
