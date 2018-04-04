@@ -7,7 +7,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Subject;
