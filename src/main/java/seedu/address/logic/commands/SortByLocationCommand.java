@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.CommandNotAvailableInClosedViewException;
 import seedu.address.model.person.Category;
+import seedu.address.ui.util.ListPanelController;
 
 //@@author olimhc
 /**
@@ -17,7 +20,11 @@ public class SortByLocationCommand extends SortCommand {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() throws CommandException{
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
+            throw new CommandNotAvailableInClosedViewException();
+        }
+
         switch (category.toString()) {
         case COMMAND_WORD_TUTOR:
             model.sortByLocationFilteredClientTutorList();
