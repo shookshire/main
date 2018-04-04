@@ -197,6 +197,8 @@ public class AddClientCommandTest {
         public void sortBySubjectFilteredClientStudentList() {
             fail("This method should not be called.");
         }
+
+        public void resetHighLight() { fail("This method should not be called."); }
     }
 
     /**

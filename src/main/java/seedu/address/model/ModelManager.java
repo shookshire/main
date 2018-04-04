@@ -231,32 +231,31 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetHighLight() {
-        for (int i = 0; i < filteredTutors.size(); i++) {
-            filteredTutors.get(i).setRank(0);
-            filteredTutors.get(i).setMatchedSubject(false);
-            filteredTutors.get(i).setMatchedGrade(false);
-            filteredTutors.get(i).setMatchedLocation(false);
+        for (Client client : filteredTutors){
+            client.setRank(0);
+            client.setMatchedLocation(false);
+            client.setMatchedGrade(false);
+            client.setMatchedSubject(false);
+        }
+        for (Client client : filteredStudents){
+            client.setRank(0);
+            client.setMatchedLocation(false);
+            client.setMatchedGrade(false);
+            client.setMatchedSubject(false);
         }
 
-        for (int i = 0; i < filteredStudents.size(); i++) {
-            filteredStudents.get(i).setRank(0);
-            filteredStudents.get(i).setMatchedSubject(false);
-            filteredStudents.get(i).setMatchedGrade(false);
-            filteredStudents.get(i).setMatchedLocation(false);
+        for (Client client : sortedFilteredStudents){
+            client.setRank(0);
+            client.setMatchedLocation(false);
+            client.setMatchedGrade(false);
+            client.setMatchedSubject(false);
         }
 
-        for (int i = 0; i < sortedFilteredStudents.size(); i++) {
-            sortedFilteredStudents.get(i).setRank(0);
-            sortedFilteredStudents.get(i).setMatchedSubject(false);
-            sortedFilteredStudents.get(i).setMatchedGrade(false);
-            sortedFilteredStudents.get(i).setMatchedLocation(false);
-        }
-
-        for (int i = 0; i < sortedFilteredTutors.size(); i++) {
-            sortedFilteredTutors.get(i).setRank(0);
-            sortedFilteredTutors.get(i).setMatchedSubject(false);
-            sortedFilteredTutors.get(i).setMatchedGrade(false);
-            sortedFilteredTutors.get(i).setMatchedLocation(false);
+        for (Client client : sortedFilteredTutors){
+            client.setRank(0);
+            client.setMatchedLocation(false);
+            client.setMatchedGrade(false);
+            client.setMatchedSubject(false);
         }
 
     }
