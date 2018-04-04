@@ -68,7 +68,7 @@ public class TypicalClients {
 
     //Typical Tutors
     public static final Client ANDREW = new ClientBuilder().withName("ANDREW LIM").withPhone("5212533")
-            .withEmail("andrew@example.com").withAddress("Andrew street").withLocation("east").withGrade("primary 2")
+            .withEmail("andrew@example.com").withAddress("Andrew street").withLocation("east").withGrade("primary2")
             .withSubject("english").withCategory("t").build();
     public static final Client EDISON = new ClientBuilder().withName("EDISON").withPhone("2313224")
             .withEmail("EDISON@example.com").withAddress("EDISON ave").withLocation("west").withGrade("j2")
@@ -82,7 +82,7 @@ public class TypicalClients {
 
     //Typical ClosedTutors
     public static final Client NICKY = new ClientBuilder().withName("Nicky").withPhone("2712533")
-            .withEmail("nicky@example.com").withAddress("nicky street").withLocation("east").withGrade("primary 3")
+            .withEmail("nicky@example.com").withAddress("nicky street").withLocation("east").withGrade("primary3")
             .withSubject("english").withCategory("t").build();
     public static final Client ROMEO = new ClientBuilder().withName("Romeo Tan").withPhone("43432344")
             .withEmail("romeo@example.com").withAddress("Romeo love ave").withLocation("west").withGrade("j2")
