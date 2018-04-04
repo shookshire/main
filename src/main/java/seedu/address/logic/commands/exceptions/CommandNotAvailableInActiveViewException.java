@@ -4,8 +4,8 @@ package seedu.address.logic.commands.exceptions;
 /**
  * Signals that the command is not available in active list view.
  */
-public class CommandNotAvaiableInActiveViewException extends CommandException {
-    public CommandNotAvaiableInActiveViewException() {
+public class CommandNotAvailableInActiveViewException extends CommandException {
+    public CommandNotAvailableInActiveViewException() {
         super("Operation is not available in active list view."
                 + " Please switch back to closed list view with the command word: switch\n");
     }

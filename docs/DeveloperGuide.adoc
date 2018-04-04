@@ -629,7 +629,7 @@ image::CloseSequenceDiagram.PNG[width="800"]
 
 ==== Design Considerations
 
-====== Aspect: Implementation of the close command
+===== Aspect: Implementation of the close command
 * **Alternative 1 (current choice):** Current implementation calls model component twice to execute deleteClient and addClosedStudent or addClosedTutor.
 ** Pros: This ensures that deleteClient is able to execute successfully before addClosedStudent is executed.
 ** Cons: This reduces code efficiency.
@@ -779,7 +779,7 @@ image::SwitchSequenceDiagram.PNG[width="800"]
 
 ==== Design Considerations
 
-====== Aspect: Implementation of switch command
+===== Aspect: Implementation of switch command
 * **Alternative 1 (current choice):** Raise new event to indicate switch event.
 ** Pros: Reduce direct coupling between components StudentListPanel and TutorListPanel with SwitchCommand
 ** Cons: Code might be harder to understand.

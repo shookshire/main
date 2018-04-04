@@ -9,7 +9,7 @@ import java.util.Objects;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.exceptions.CommandNotAvaiableInActiveViewException;
+import seedu.address.logic.commands.exceptions.CommandNotAvailableInActiveViewException;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -31,7 +31,7 @@ public class RestoreCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " " + "1" + " " + PREFIX_CATEGORY + "t\n";
 
     public static final String MESSAGE_RESTORE_STUDENT_SUCCESS = "Student restored: %1$s";
-    public static final String MESSAGE_CLOSE_TUTOR_SUCCESS = "Tutor restored: %1$s";
+    public static final String MESSAGE_RESTORE_TUTOR_SUCCESS = "Tutor restored: %1$s";
 
     private final Index targetIndex;
     private final Category category;
@@ -65,14 +65,14 @@ public class RestoreCommand extends UndoableCommand {
         if (category.isStudent()) {
             return new CommandResult(String.format(MESSAGE_RESTORE_STUDENT_SUCCESS, clientToRestore));
         } else {
-            return new CommandResult(String.format(MESSAGE_CLOSE_TUTOR_SUCCESS, clientToRestore));
+            return new CommandResult(String.format(MESSAGE_RESTORE_TUTOR_SUCCESS, clientToRestore));
         }
     }
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
         if (ListPanelController.isCurrentDisplayActiveList()) {
-            throw new CommandNotAvaiableInActiveViewException();
+            throw new CommandNotAvailableInActiveViewException();
         }
 
         List<Client> lastShownList;

@@ -65,6 +65,33 @@ public class TypicalClients {
             .withEmail("dannytan@example.com").withAddress("Mexico").withLocation("east").withGrade("p1")
             .withSubject("science").withCategory("s").build();
 
+    //Typical Tutors
+    public static final Client ANDREW = new ClientBuilder().withName("ANDREW LIM").withPhone("5212533")
+            .withEmail("andrew@example.com").withAddress("Andrew street").withLocation("east").withGrade("primary 2")
+            .withSubject("english").withCategory("t").build();
+    public static final Client EDISON = new ClientBuilder().withName("EDISON").withPhone("2313224")
+            .withEmail("EDISON@example.com").withAddress("EDISON ave").withLocation("west").withGrade("j2")
+            .withSubject("math").withCategory("t").build();
+    public static final Client FLOWER = new ClientBuilder().withName("Flower").withPhone("2182427")
+            .withEmail("flowerislife@example.com").withAddress("little flower").withLocation("central").withGrade("k1")
+            .withSubject("physics").withCategory("t").build();
+    public static final Client GERRARD = new ClientBuilder().withName("GERRARD").withPhone("8321242")
+            .withEmail("liverpool@example.com").withAddress("Anfield").withLocation("west").withGrade("u4")
+            .withSubject("chemistry").withCategory("t").build();
+
+    //Typical ClosedTutors
+    public static final Client NICKY = new ClientBuilder().withName("Nicky").withPhone("2712533")
+            .withEmail("nicky@example.com").withAddress("nicky street").withLocation("east").withGrade("primary 3")
+            .withSubject("english").withCategory("t").build();
+    public static final Client ROMEO = new ClientBuilder().withName("Romeo Tan").withPhone("43432344")
+            .withEmail("romeo@example.com").withAddress("Romeo love ave").withLocation("west").withGrade("j2")
+            .withSubject("math").withCategory("t").build();
+    public static final Client JULIET = new ClientBuilder().withName("Juliet").withPhone("4236427")
+            .withEmail("romeoislife@example.com").withAddress("juliet flower").withLocation("central").withGrade("k1")
+            .withSubject("physics").withCategory("t").build();
+    public static final Client SHAKESPEAR = new ClientBuilder().withName("GERRARD").withPhone("8321242")
+            .withEmail("shakyshaky@example.com").withAddress("Roman rome river").withLocation("west").withGrade("u4")
+            .withSubject("literature").withCategory("t").build();
 
     // Manually added
     public static final Client HOON = new ClientBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -109,5 +136,43 @@ public class TypicalClients {
 
     public static List<Client> getTypicalClosedStudents() {
         return new ArrayList<>(Arrays.asList(JIMMY, DANNY));
+    }
+
+    /**
+     * Returns an {@code AddressBook} with all the typical persons.
+     * @// TODO: 4/4/2018 Two similar methods, the one above still returns students, fix in V1.5
+     * @return
+     */
+    public static AddressBook getTypicalAddressBookNew() {
+        AddressBook ab = new AddressBook();
+        for (Client client : getTypicalClients()) {
+            try {
+                ab.addClient(client);
+            } catch (DuplicatePersonException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+        return ab;
+    }
+
+    public static List<Client> getTypicalClients() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON , CARL , DANIEL, ELLE, FIONA, GEORGE,
+                ANDREW, EDISON, FLOWER, GERRARD));
+    }
+
+    public static AddressBook getTypicalClosedClientsAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Client client : getTypicalClosedClients()) {
+            try {
+                ab.addClosedClient(client);
+            } catch (AssertionError assertionError) {
+                throw new AssertionError("not possible");
+            }
+        }
+        return ab;
+    }
+
+    public static List<Client> getTypicalClosedClients() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, ANDREW, GERRARD));
     }
 }

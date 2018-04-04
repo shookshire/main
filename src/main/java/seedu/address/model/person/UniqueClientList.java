@@ -46,7 +46,7 @@ public class UniqueClientList implements Iterable<Client> {
     }
 
     /**
-     * Adds a client to the closed list.
+     * Adds a client to TuitionCor.
      *
      * @throws AssertionError as it's impossible to have a duplicate given that we have checked for duplication
      * before adding it into active list.

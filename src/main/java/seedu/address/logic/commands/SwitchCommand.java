@@ -14,8 +14,8 @@ public class SwitchCommand extends Command {
     public static final String COMMAND_ALIAS = "sw";
 
     public static final String MESSAGE_SUCCESS = "Switched to ";
-    public static final String MESSAGE_CLOSED_DISPLAY_LIST = "closed list of student's and tutors.\n";
-    public static final String MESSAGE_ACTIVE_DISPLAY_LIST = "active list of student's and tutors.\n";
+    public static final String MESSAGE_CLOSED_DISPLAY_LIST = "closed client list.\n";
+    public static final String MESSAGE_ACTIVE_DISPLAY_LIST = "active client list.\n";
 
 
     @Override

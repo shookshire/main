@@ -183,6 +183,25 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * For test cases use
+     * Adds a closed client to TuitionCor.
+     * This should not be used in runtime.
+     * Also checks the new student's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the tutor to point to those in {@link #tags}.
+     *
+     * @throws DuplicatePersonException if an equivalent person already exists.
+     */
+    public void addClosedClient(Client t) {
+        if (t.getCategory().isStudent()) {
+            Client closedStudent = syncWithMasterTagList(t);
+            closedStudents.add(closedStudent);
+        } else {
+            Client closedTutor = syncWithMasterTagList(t);
+            closedTutors.add(closedTutor);
+        }
+    }
+
+    /**
+     * For test cases use
      * Adds a client to TuitionCor
      * Also checks the new student's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the tutor to point to those in {@link #tags}.
@@ -202,7 +221,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given client {@code target} in the list with {@code editedClient}.
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedClient}.
-     *
+     * Either closedStudents or closedTutors will be pass in for duplication check when editing the client in active
+     * list.
      * @throws DuplicatePersonException if updating the client's details causes the client to be equivalent to
      *      another existing client in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
