@@ -1,29 +1,29 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.person.Category;
+
 /**
  *Sort the selected list according to their location in alphabetical order
  */
 public class SortByLocationCommand extends SortCommand {
 
-    private static final String MESSAGE_SORT_DESC = " their location in alphabetical order.";
+    public static final String MESSAGE_SORT_DESC = " their location in alphabetical order.";
 
-    private int index;
-    private final int tutorIndex = 0;
-    private final int studentIndex = 1;
+    private Category category;
 
-    public SortByLocationCommand(int index) {
-        this.index = index;
+    public SortByLocationCommand(Category category) {
+        this.category = category;
     }
 
     @Override
     public CommandResult execute() {
-        switch (index) {
+        switch (category.toString()) {
 
-        case tutorIndex:
+        case COMMAND_WORD_TUTOR:
             model.sortByLocationFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
 
-        case studentIndex:
+        case COMMAND_WORD_STUDENT:
             model.sortByLocationFilteredClientStudentList();
             return new CommandResult(MESSAGE_SUCCESS_STUDENT + MESSAGE_SORT_DESC);
 

@@ -138,59 +138,62 @@ Alias Format: `l`
 === Sorting a client: 'sort' {Since v1.3}
 
 Sorting tutor's list based on name +
-Format: 'sort tn'
-Alias Format: 'so tn'
+Format: 'sort n c/t'
+Alias Format: 'so n c/t'
 
 Sorting tutor's list based on location +
-Format: 'sort tl'
-Alias Format: 'so tl'
+Format: 'sort l c/t'
+Alias Format: 'so l c/t'
 
 Sorting tutor's list based on grade +
-Format: 'sort tg'
-Alias Format: 'so tg'
+Format: 'sort g c/t'
+Alias Format: 'so g c/t'
 
 Sorting tutor's list based on subject +
-Format: 'sort ts'
-Alias Format: 'so ts'
+Format: 'sort s c/t'
+Alias Format: 'so s c/t'
 
 Sorting student's list based on name +
-Format: 'sort sn'
-Alias Format: 'so sn'
+Format: 'sort n c/s'
+Alias Format: 'so n c/s'
 
 Sorting student's list based on location +
-Format: 'sort sl'
-Alias Format: 'so sl'
+Format: 'sort l c/s'
+Alias Format: 'so l c/s'
 
 Sorting student's list based on grade +
-Format: 'sort sg'
-Alias Format: 'so sg'
+Format: 'sort g c/s'
+Alias Format: 'so g c/s'
 
 Sorting student's list based on subject +
-Format: 'sort ss'
-Alias Format: 'so ss'
+Format: 'sort s c/s'
+Alias Format: 'so s c/s'
 
 ****
-*Sorts the client based on the selected list, either 't' for tutors or 's' for students based on a chosen criteria 'n' for name, 'g' for grade, 's' for subject and 'l' for location.
+*Sorts the client based on the selected category, either 't' for tutors or 's' for students based on a chosen criteria 'n' for name, 'g' for grade, 's' for subject and 'l' for location.
+
 *Sorting by name, grade and subjects are based on alphabetical order.
+
 *Sorting by grade are based on ascending order of seniority (Kindergarten->Primary->Secondary->Junior College->University)
 ****
 Examples:
-* 'sort tl' +
+
+* 'sort l c/t' +
 Tutor's list displayed will be sorted base on location.
-* 'sort ts' +
+* 'sort s c/t' +
 Tutor's list displayed will be sorted base on subject.
-* 'sort tn' +
+* 'sort n c/t' +
 Tutor's list displayed will be sorted base on name.
-* 'sort tg' +
+* 'sort g c/t' +
 Tutor's list displayed will be sorted base on grade.
 
-* 'sort sl' +
+* 'sort l c/s' +
 Student's list displayed will be sorted base on location.
-* 'sort ss' +
+* 'sort s c/s' +
 Student's list displayed will be sorted base on subject.
-* 'sort sn' +
+* 'sort n c/s' +
 Student's list displayed will be sorted base on name.
-* 'sort sg' +
+* 'sort g c/s' +
 Student's list displayed will be sorted base on grade.
 
 === Editing a client : `edit` {Since v1.3}
