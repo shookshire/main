@@ -28,10 +28,18 @@ public class GradeTest {
         // invalid subject
         assertFalse(Grade.isValidGrade("")); // empty string
         assertFalse(Grade.isValidGrade(" ")); // spaces only
+        assertFalse(Grade.isValidGrade("pri5")); // invalid format
+        assertFalse(Grade.isValidGrade("primary 3")); // spacing between "primary" and "3"
+
+        // one or more invalid subject
+        assertFalse(Grade.isValidGrade("pri4 p2 p1 s3")); // one invalid grade
+        assertFalse(Grade.isValidGrade("pre2 asdo feiwo")); // many invalid grade
+        assertFalse(Grade.isValidGrade("p2 p2")); // multiple same grade
 
         // valid subject
         assertTrue(Grade.isValidGrade("p3")); //alias
-        assertTrue(Grade.isValidGrade("primary 3")); // full grade
-        assertTrue(Grade.isValidGrade("secondary 3")); // full grade
+        assertTrue(Grade.isValidGrade("primary3")); // full grade
+        assertTrue(Grade.isValidGrade("secondary3")); // full grade
+        assertTrue(Grade.isValidGrade("p3 s3 s1 p4")); // multiple valid grade
     }
 }

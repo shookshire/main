@@ -22,7 +22,7 @@ import seedu.address.ui.util.ListPanelController;
  */
 public class RestoreCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "restore";
-    public static final String COMMAND_ALIAS = "re";
+    public static final String COMMAND_ALIAS = "res";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Restore a closed tutor or student to the active "
             + "tutor or student list. \n"

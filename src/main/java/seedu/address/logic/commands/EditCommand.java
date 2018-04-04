@@ -162,7 +162,7 @@ public class EditCommand extends UndoableCommand {
      * Stores the details to edit the client with. Each non-empty field value will replace the
      * corresponding field value of the client.
      */
-    public static class EditPersonDescriptor {
+    public static class     EditPersonDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
