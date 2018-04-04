@@ -35,7 +35,8 @@ public class TypicalPersons {
     public static final Client ALICE = new ClientBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("85355255")
-            .withTags("friends").withLocation("north").withGrade("p3").withSubject("math").withCategory("s").build();
+            .withTags("friends").withLocation("north").withGrade("p3").withSubject("math chemistry physics")
+            .withCategory("s").build();
     public static final Client BENSON = new ClientBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
@@ -45,13 +46,13 @@ public class TypicalPersons {
             .withEmail("heinz@example.com").withAddress("wall street").withLocation("south").withGrade("j1")
             .withSubject("physics").withCategory("s").build();
     public static final Client DANIEL = new ClientBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withLocation("east").withGrade("primary 6")
+            .withEmail("cornelia@example.com").withAddress("10th street").withLocation("east").withGrade("primary6")
             .withSubject("english").withCategory("s").build();
     public static final Client ELLE = new ClientBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave").withLocation("west").withGrade("p3")
             .withSubject("math").withCategory("s").build();
     public static final Client FIONA = new ClientBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").withLocation("north").withGrade("secondary 1")
+            .withEmail("lydia@example.com").withAddress("little tokyo").withLocation("north").withGrade("secondary1")
             .withSubject("physics").withCategory("s").build();
     public static final Client GEORGE = new ClientBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").withLocation("west").withGrade("j2")

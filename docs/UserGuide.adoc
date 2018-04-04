@@ -67,6 +67,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Close function and switch function which allows user to close a particular student or tutor.
 ** This allows user to close a tutor of student upon successful matching which will be stored in a closed tutor's or student's list for future reference.
 * Enhance grade, subject and location to support mutiple field.
+* Remove function to remove the specified subject.
+** This allows the user to remove the specified subject from the client instead of having to type out all the remaining subjects in edit. This is under the consideration that the desired subject of the student would often change as he find's a tutor.
 *****
 
 *  Coming in v1.5:
@@ -121,6 +123,8 @@ User can only enter only a specific location and a specific grade for each clien
 *** For Secondary INDEX available are {1,2,3,4,5}.
 *** For Tertiary INDEX available are {1,2}.
 *** For University INDEX available are {1,2,3,4}
+* Subject are split based on black space. Hence a single subject has to be typed without any space.
+** Example: "chinese studies" would be treated as two separate subject "chinese" and "studies" by other commands. Hence it should be typed without a blank space such as "chineseStudies".
 ****
 
 Examples:
@@ -224,6 +228,31 @@ Edits the name of the 2nd student to be `Betsy Crower` and clears all existing t
 Edits the phone number and email address of the 1st tutor to be `93213456` and `doe@example.com` respectively.
 * `e 2 c/t n/Beatty Crower t/` +
 Edits the name of the 2nd tutor to be `Beatty Crower` and clears all existing tags.
+
+=== Remove a subject of a client : `remove` {Since v1.4}
+
+Removes the specific subject from an existing student in the address book. +
+Format: `remove INDEX c/s s/SUBJECT`
+Alias Format: `e INDEX c/s s/SUBJECT`
+
+Edits an existing tutor in the address book. +
+Format: `edit INDEX c/t s/SUBJECT`
+Alias Format: `e INDEX c/t s/SUBJECT`
+
+****
+* Removes the specified subject from the client based on selected category either c/s for students or c/t for tutors at the specified `INDEX`. The index refers to the index number shown in the last tutors or students listing. The index *must be a positive integer* 1, 2, 3, ...
+* The provided subject has to be a single word without spacing or special characters.
+* If the subject exist (it matches one of the subjects in the specified client's Subject field) it would be removed.
+* A client cannot have an empty subject field. Clients with only one subject left should be deleted or closed instead
+* The specified subject has to be exact with the subjects of the specified client. Partial words like typing "math" in attempt to remove "mathematics" would not work.
+****
+
+Examples:
+
+* `remove 1 c/s s/math` +
+Removes the "math" subject from the 1st student.
+* `r 2 c/t s/physics` +
+Removes the "physics" subject from the 2nd tutor.
 
 === Locating persons: `find` {Since v1.3}
 
@@ -415,6 +444,9 @@ Alias: `d`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com` +
 Alias: `e`
+* *Remove* : `remove INDEX c/CATEGORY s/SUBJECT` +
+e.g. `remove 1 c/s s/math`
+Alias: `r`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake` +
 Alias: `f`

@@ -41,7 +41,7 @@
         <email>cornelia@example.com</email>
         <address>10th street</address>
         <location>east</location>
-        <grade>primary 6</grade>
+        <grade>primary6</grade>
         <subject>english</subject>
         <category>s</category>
     </students>
@@ -61,7 +61,7 @@
         <email>lydia@example.com</email>
         <address>little tokyo</address>
         <location>north</location>
-        <grade>secondary 1</grade>
+        <grade>secondary1</grade>
         <subject>physics</subject>
         <category>s</category>
     </students>
