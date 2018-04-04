@@ -182,6 +182,24 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * For test cases use
+     * Adds a client to TuitionCor
+     * Also checks the new student's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the tutor to point to those in {@link #tags}.
+     *
+     * @throws DuplicatePersonException if an equivalent person already exists.
+     */
+    public void addClient(Client t) throws DuplicatePersonException {
+        if (t.getCategory().isStudent()) {
+            Client student = syncWithMasterTagList(t);
+            students.add(student);
+        } else {
+            Client tutor = syncWithMasterTagList(t);
+            tutors.add(tutor);
+        }
+    }
+
+    /**
      * Replaces the given client {@code target} in the list with {@code editedClient}.
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedClient}.
      *

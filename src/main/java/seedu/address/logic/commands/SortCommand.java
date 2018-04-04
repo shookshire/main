@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
@@ -23,18 +25,19 @@ public abstract class SortCommand extends Command {
 
 
     private static final String USAGE_MESSAGE_LIST = " "
-            + COMMAND_WORD  + " " + COMMAND_WORD_TUTOR + COMMAND_WORD_NAME + ", "
-            + COMMAND_WORD  + " " + COMMAND_WORD_TUTOR + COMMAND_WORD_LOCATION + ", "
-            + COMMAND_WORD  + " " + COMMAND_WORD_TUTOR + COMMAND_WORD_SUBJECT + ", "
-            + COMMAND_WORD  + " " + COMMAND_WORD_TUTOR + COMMAND_WORD_GRADE + ", "
+            + COMMAND_WORD  + " " + COMMAND_WORD_NAME + " " + PREFIX_CATEGORY + COMMAND_WORD_TUTOR + ", "
+            + COMMAND_WORD  + " " + COMMAND_WORD_LOCATION + " " + PREFIX_CATEGORY + COMMAND_WORD_TUTOR + ", "
+            + COMMAND_WORD  + " " + COMMAND_WORD_SUBJECT + " " + PREFIX_CATEGORY + COMMAND_WORD_TUTOR + ", "
+            + COMMAND_WORD  + " " + COMMAND_WORD_GRADE + " " + PREFIX_CATEGORY + COMMAND_WORD_TUTOR + ", "
             + "to sort Tutor's list base on name, location, subject and level respectively.\n"
-            + COMMAND_WORD  + " " + COMMAND_WORD_STUDENT + COMMAND_WORD_NAME + ", "
-            + COMMAND_WORD  + " " + COMMAND_WORD_STUDENT + COMMAND_WORD_LOCATION + ", "
-            + COMMAND_WORD  + " " + COMMAND_WORD_STUDENT + COMMAND_WORD_SUBJECT + ", "
-            + COMMAND_WORD  + " " + COMMAND_WORD_STUDENT + COMMAND_WORD_GRADE + ", "
+            + "Parameters: "
+            + COMMAND_WORD  + " " + COMMAND_WORD_NAME + " " + PREFIX_CATEGORY + COMMAND_WORD_STUDENT + ", "
+            + COMMAND_WORD  + " " + COMMAND_WORD_LOCATION + " " + PREFIX_CATEGORY + COMMAND_WORD_STUDENT + ", "
+            + COMMAND_WORD  + " " + COMMAND_WORD_SUBJECT + " " + PREFIX_CATEGORY + COMMAND_WORD_STUDENT + ", "
+            + COMMAND_WORD  + " " + COMMAND_WORD_GRADE + " " + PREFIX_CATEGORY + COMMAND_WORD_STUDENT + ", "
             + "to sort Student's list base on name, location, subject and level respectively.\n"
             + "Example: "
-            + COMMAND_WORD + COMMAND_WORD_TUTOR + COMMAND_WORD_LOCATION + "\n";
+            + COMMAND_WORD + " " + COMMAND_WORD_LOCATION + " " + PREFIX_CATEGORY + COMMAND_WORD_STUDENT + "\n";
 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

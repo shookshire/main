@@ -541,7 +541,7 @@ public class SortBySubjectCommand extends SortCommand {
 ----
 
 When the user wants to sort the specific list according to his/her needs, SortCommandParser will parse the user input and decide which type of SortCommand to invoke.
-An example of the input required "sort tl" which sorts tutor's list by location.
+An example of the input required "sort l c/t" which sorts tutor's list by location.
 
 [source,java]
 ----
@@ -556,7 +556,7 @@ public SortCommand parse(String args) throws ParseException {
 [NOTE]
 If the user input format is invalid, an ParseException will be thrown and an error message will be displayed to user.
 
-A sequence diagram is shown below to show the current design when user input "sort tl".
+A sequence diagram is shown below to show the current design when user input "sort l c/t".
 
 image::SortSequenceDiagram.PNG[width="800']
 
@@ -573,7 +573,7 @@ image::SortSequenceDiagram.PNG[width="800']
 
 ====== Aspect: Parsing of user input for sort command
 
-* **Alternative 1 (current choice):** SortCommandParser parse one single string user input. Eg. 'sort tl' which sort tutor list by location.
+* **Alternative 1 (current choice):** SortCommandParser parse one single string user input. Eg. 'sort l c/t' which sort tutor list by location.
 ** Pros: Able to utilise the current Logic and Model Component for command inputs
 ** Cons: Less intuitive to user.
 * **Alternative 2:** Allow multiple user input of before parsing to a command. Eg. User input sort and system will prompts for user to input which list to sort.
@@ -1339,7 +1339,7 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User types “/sort sl” or “/sort tl” in to the command line.
+1.  User types “sort l c/t” or “sort l c/s” in to the command line.
 2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their locality in alphabetical order.
 +
 Use case ends.
@@ -1366,7 +1366,7 @@ Use case ends.
 
 *MSS*
 
-1.  User types “/sort sg” or “/sort tg” in to the command line.
+1.  User types “sort g c/t” or “sort g c/s” in to the command line.
 2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their grade in ascending order of seniority.
 +
 Use case ends.
@@ -1393,7 +1393,7 @@ Use case ends.
 
 *MSS*
 
-1.  User types “/sort sn” or “/sort tn” in to the command line.
+1.  User types “sort n c/t” or “sort n c/s” in to the command line.
 2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their name in alphabetical order.
 +
 Use case ends.
@@ -1420,7 +1420,7 @@ Use case ends.
 
 *MSS*
 
-1.  User types “/sort ss” or “/sort ts” in to the command line.
+1.  User types “sort s c/t” or “sort s c/s” in to the command line.
 2.  TuitionCor will return either a list of students or tutors with respect to the command entered sorted based on their subject in alphabetical order.
 +
 Use case ends.
