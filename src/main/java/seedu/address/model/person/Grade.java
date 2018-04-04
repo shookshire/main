@@ -1,10 +1,10 @@
 package seedu.address.model.person;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a Client's related Grade (the year of study eg. Primary 4, Secondary 3) in the TuitionCor.
@@ -69,8 +69,8 @@ public class Grade {
                     + " or " + MESSAGE_WORD_KINDERGARTEN_ALIAS + "1" + ", "
                     + MESSAGE_WORD_TERTIARY  + "2"
                     + " or " + MESSAGE_WORD_TERTIARY_ALIAS + "2.\n"
-                    + "multiple grades should be typed with a single space between them " +
-                    "in decreasing order of preferences with no repetitions";
+                    + "multiple grades should be typed with a single space between them "
+                    + "in decreasing order of preferences with no repetitions";
 
     public final String value;
 

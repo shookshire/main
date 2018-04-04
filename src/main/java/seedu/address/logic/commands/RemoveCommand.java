@@ -114,6 +114,11 @@ public class RemoveCommand extends UndoableCommand {
         editedPerson = createEditedPerson(personToEdit, toRemove);
     }
 
+    /**
+     * @param personToEdit the client that we wish to remove a subject from
+     * @param toRemove the subject to be removed
+     * Returns true if the subject exists
+     */
     private static boolean containsSubject(Client personToEdit, Subject toRemove) {
         String originalSubject = personToEdit.getSubject().toString();
         ArrayList<String> originalSubjectArrayList = new ArrayList<>(Arrays.asList(originalSubject.split(" ")));

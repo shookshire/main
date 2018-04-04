@@ -1,10 +1,10 @@
 package seedu.address.model.person;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a Person's available Location in the TuitionCor.
@@ -13,8 +13,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Location {
 
     public static final String MESSAGE_LOCATION_CONSTRAINTS =
-            "Location should only be north, south, east, west and central in decreasing order of preference without " +
-                    "any repetitions";
+            "Location should only be north, south, east, west and central in decreasing order of preference without "
+                    + "any repetitions";
 
     private static final String LOCATION_VALIDATION_REGEX_NORTH = "(?i)North";
     private static final String LOCATION_VALIDATION_REGEX_SOUTH = "(?i)South";

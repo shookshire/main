@@ -103,7 +103,7 @@ public class AddressBookParser {
 
         case RemoveCommand.COMMAND_WORD:
         case RemoveCommand.COMMAND_ALIAS:
-                return new RemoveCommandParser().parse(arguments);
+            return new RemoveCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
