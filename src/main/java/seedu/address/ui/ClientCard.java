@@ -17,6 +17,8 @@ public class ClientCard extends UiPart<Region> {
     private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow"};
 
     private static final String MATCH_COLOUR_STYLE = "orange";
+
+    private static final String UNMATCH_COLOUR_STYLE = "noFill";
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -78,38 +80,56 @@ public class ClientCard extends UiPart<Region> {
     }
 
     /**
-     *@author olimhc-reused
-     *Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits with minor modification
-     * Initialises tags
+     *@author Zhu-JIahui
+     * Initialises Location
+     * If Location is matched with the client, Location field will be highlighted.
      * @param client
      */
     private void intPlaces(Client client) {
         Label newLabel = new Label(client.getLocation().value);
-        newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+
+        if (client.getMatchedLocation() == true) {
+            newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+        } else {
+            newLabel.getStyleClass().add(UNMATCH_COLOUR_STYLE);
+        }
+
         places.getChildren().add(newLabel);
     }
 
     /**
-     *@author olimhc-reused
-     *Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits with minor modification
-     * Initialises tags
+     *@author Zhu-JIahui
+     * Initialises Grade
+     * If Grade is matched with the client, Grade field will be highlighted.
      * @param client
      */
     private void intGrades(Client client) {
         Label newLabel = new Label(client.getGrade().value);
-        newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+
+        if (client.getMatchedGrade() == true) {
+            newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+        } else {
+            newLabel.getStyleClass().add(UNMATCH_COLOUR_STYLE);
+        }
+
         grades.getChildren().add(newLabel);
     }
 
     /**
-     *@author olimhc-reused
-     *Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits with minor modification
-     * Initialises tags
+     *@author Zhu-JIahui
+     * Initialises Subject
+     * If Subject is matched with the client, Subject field will be highlighted.
      * @param client
      */
     private void intSubjects(Client client) {
         Label newLabel = new Label(client.getSubject().value);
-        newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+
+        if (client.getMatchedSubject() == true) {
+            newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+        } else {
+            newLabel.getStyleClass().add(UNMATCH_COLOUR_STYLE);
+        }
+
         subjects.getChildren().add(newLabel);
     }
 

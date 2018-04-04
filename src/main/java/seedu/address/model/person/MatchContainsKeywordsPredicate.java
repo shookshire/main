@@ -20,14 +20,17 @@ public class MatchContainsKeywordsPredicate implements Predicate<Client> {
 
         if (other.getLocation().equals(client.getLocation())) {
             isMatch = true;
+            other.setMatchedLocation(isMatch);
             rank++;
         }
         if (other.getGrade().equals(client.getGrade())) {
             isMatch = true;
+            other.setMatchedGrade(isMatch);
             rank++;
         }
         if (other.getSubject().equals(client.getSubject())) {
             isMatch = true;
+            other.setMatchedSubject(isMatch);
             rank++;
         }
         other.setRank(rank);

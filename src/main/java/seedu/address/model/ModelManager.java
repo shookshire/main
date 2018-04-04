@@ -80,7 +80,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateClient(Client target, Client editedPerson, Category category)
             throws DuplicatePersonException, PersonNotFoundException {
         requireAllNonNull(target, editedPerson, category);
-
         addressBook.updatePerson(target, editedPerson, category);
         indicateAddressBookChanged();
     }
@@ -224,6 +223,42 @@ public class ModelManager extends ComponentManager implements Model {
         Comparator<Client> rankTutor = new RankComparator();
         sortedFilteredTutors.setComparator(rankTutor);
         indicateAddressBookChanged();
+    }
+
+    /**
+     * Reset {@code rank}, {@code MatchedGrade}, {@code MatchedLocation} and {@code MatchedSubject} in all Clientlist to default value
+     */
+
+    @Override
+    public void resetHighLight() {
+        for (int i = 0; i < filteredTutors.size(); i++) {
+            filteredTutors.get(i).setRank(0);
+            filteredTutors.get(i).setMatchedSubject(false);
+            filteredTutors.get(i).setMatchedGrade(false);
+            filteredTutors.get(i).setMatchedLocation(false);
+        }
+
+        for (int i = 0; i < filteredStudents.size(); i++) {
+            filteredStudents.get(i).setRank(0);
+            filteredStudents.get(i).setMatchedSubject(false);
+            filteredStudents.get(i).setMatchedGrade(false);
+            filteredStudents.get(i).setMatchedLocation(false);
+        }
+
+        for (int i = 0; i < sortedFilteredStudents.size(); i++) {
+            sortedFilteredStudents.get(i).setRank(0);
+            sortedFilteredStudents.get(i).setMatchedSubject(false);
+            sortedFilteredStudents.get(i).setMatchedGrade(false);
+            sortedFilteredStudents.get(i).setMatchedLocation(false);
+        }
+
+        for (int i = 0; i < sortedFilteredTutors.size(); i++) {
+            sortedFilteredTutors.get(i).setRank(0);
+            sortedFilteredTutors.get(i).setMatchedSubject(false);
+            sortedFilteredTutors.get(i).setMatchedGrade(false);
+            sortedFilteredTutors.get(i).setMatchedLocation(false);
+        }
+
     }
 
     @Override

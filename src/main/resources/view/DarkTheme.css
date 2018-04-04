@@ -390,4 +390,17 @@
     -fx-background-color: orange;
 }
 
+#places .noFill {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+}
 
+#grades .noFill {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+}
+
+#subjects .noFill {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+}
