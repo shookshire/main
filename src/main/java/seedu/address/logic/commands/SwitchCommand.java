@@ -27,6 +27,5 @@ public class SwitchCommand extends Command {
         } else {
             return new CommandResult(MESSAGE_SUCCESS + MESSAGE_ACTIVE_DISPLAY_LIST);
         }
-
     }
 }

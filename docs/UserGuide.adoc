@@ -32,12 +32,21 @@ This app will not work with earlier versions of Java 8.
 +
 image::Ui.png[width="790"]
 +
+.  By default, upon launching TuitionCor you will be shown the active client list.
+** Active client list contains two separate list. Clients shown here are those who looking for students or tutors here.
+*** The list on the right represents the student's list where you can view information regarding students who are looking for tutors.
+*** The list on the left represents the tutor's list where you can view information regarding tutors who are looking for students.
+** Closed client list contains two separate list. Clients shown here are those who are no longer looking for students or tutors.
+*** The list on the right represents the student's list where you can view information regarding closed students who are no longer looking for tutors.
+*** The list on the left represents the tutor's list where you can view information regarding closed tutors who are no longer looking for students.
+** You can easily toggle between the closed and active client's list by command word `switch`.
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
+.  Some example commands you can try:
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`addclient`**`c/s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/Urgent` l/north g/s4 s/math : adds a contact named `John Doe` to TuitionCor.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -60,12 +69,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Sort feature which allows tutor's and student's list to be sorted by name, subject, location and grade.
 *****
 
-*  Coming in v1.4:
+*  In v1.4:
 *****
 * Match function now includes a ranking system.
 **  The ranking system works according to the number of matched attributes.
-* Close function and switch function which allows user to close a particular student or tutor.
+* Close and restore command which allows user to close or restore a particular student or tutor .
 ** This allows user to close a tutor of student upon successful matching which will be stored in a closed tutor's or student's list for future reference.
+** This also allows user to restore a client from the closed list to active list if the client were to become active again.
+* Switch command.
+** Allows user to toggle between active list and closed list.
 * Enhance grade, subject and location to support mutiple field.
 *****
 
@@ -86,8 +98,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 
-* There are alias for some of the commands, which helps users to save some time. e.g. for add command, you can use add n/... or a n/...
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* There are alias for some of the commands, which helps users to save some time. e.g. for addclient command, you can use ac n/... or a n/...
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addclient n/NAME`, `NAME` is a parameter which can be used as `addclient n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -193,6 +205,48 @@ Student's list displayed will be sorted base on name.
 * 'sort sg' +
 Student's list displayed will be sorted base on grade.
 
+=== Switching between active and closed client's list : `switch` {Since v1.4}
+
+Switch the display between active and closed client's list. +
+Format: `switch` +
+Alias Format: `sw`
+
+=== Closing a client : `close` {Since v1.4}
+
+Close an existing and active student in active student's list. +
+Format: `close INDEX c/s` +
+Alias Format: `cs INDEX c/s`
+
+Close an existing and active tutor in active student's list. +
+Format: `close INDEX c/t` +
+Alias Format: `cs INDEX c/t`
+
+[NOTE]
+This command is only available when viewing the active client's list. Use command word `switch` to toggle from closed list to active list.
+
+****
+* Close the client based on selected category either c/s for students or c/t for tutors at the specified `INDEX`. The index refers to the index number shown in the last tutors or students listing. The index *must be a positive integer* 1, 2, 3, ...
+* Closed student or tutor will be removed from the active list. They can now be found in the closed list which is accessible by command word `switch`.
+****
+
+=== Restoring a client : `close` {Since v1.4}
+
+Restore an existing and closed student in the closed student's list. +
+Format: `restore INDEX c/s` +
+Alias Format: `re INDEX c/s`
+
+Restore an existing and closed tutor in the closed tutor's list. +
+Format: `restore INDEX c/t` +
+Alias Format: `re INDEX c/t`
+
+[NOTE]
+This command is only available when viewing the closed client's list. Use command word `switch` to toggle from closed list to active list.
+
+****
+* Restore the client based on selected category either c/s for students or c/t for tutors at the specified `INDEX`. The index refers to the index number shown in the last tutors or students listing. The index *must be a positive integer* 1, 2, 3, ...
+* Restored student or tutor will be removed from the closed list. They can now be found in the active list which is accessible by command word `switch`.
+****
+
 === Editing a client : `edit` {Since v1.3}
 
 Edits an existing student in the address book. +
@@ -275,11 +329,11 @@ At index 1 of student's list, Jim is a student who requires tutors that are stay
 
 === Deleting a client : `delete` {Since v1.3}
 
-Deletes the specified tutor from the address book. +
+Deletes the specified tutor from TuitionCor. +
 Format: `delete INDEX c/t`
 Alias Format: `d INDEX c/t`
 
-Deletes the specified student from the address book. +
+Deletes the specified student from TuitionCor. +
 Format: `delete INDEX c/s`
 Alias Format: `d INDEX c/s`
 
@@ -316,13 +370,13 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores TuitionCor to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 Alias Format: `u`
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the TuitionCor's content (`addclient`, `delete`, `edit` , `close` , `restore` and `clear`).
 ====
 
 Examples:
@@ -368,7 +422,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear` {Since v1.0}
 
-Clears all entries from the address book. +
+Clears all entries from TuitionCor. +
 Format: `clear`
 
 Alias Format: `c`
@@ -382,7 +436,7 @@ Alias Format: `x`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+TuitionCor data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -394,7 +448,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TuitionCor folder.
 
 == Command Summary
 
@@ -432,3 +486,9 @@ Alias: `u`
 Alias: `r`
 * *Sort* : `sort` +
 Alias: `so`
+* *Close* : `close` +
+Alias: `cs`
+* *Restore* : `restore` +
+Alias: `re`
+* *Switch* : `switch` +
+Alias: `sw`

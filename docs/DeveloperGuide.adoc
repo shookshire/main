@@ -583,6 +583,212 @@ image::SortSequenceDiagram.PNG[width="800']
 
 // end::sorting[]
 
+// tag::close[]
+==== Current Implementation
+
+The close command allows users to remove a particular client from the active client's list and stores it in the closed client's list.
+
+* CloseCommand extends UndoableCommand and this is a undoable command. It overwrites executeUndoableCommand in abstract class UndoableCommand.
+
+** It will first remove the the selected client from the active client list. If this particular client is not found, a PersonNotFoundException will be thrown.
+** After which, the particular removed client will be added to the closed client list. An AssertionError will be thrown if a duplicated client is detected as it should not be possible to have a duplicated client in the active client list in TuitionCor.
+
+The code is as follows:
+[source,java]
+----
+    @Override
+    public CommandResult executeUndoableCommand() {
+        requireNonNull(clientToClose);
+        try {
+            model.deleteClient(clientToClose, category);
+        } catch (PersonNotFoundException pnfe) {
+            throw new AssertionError("The target client cannot be missing");
+        }
+
+        try {
+            if (category.isStudent()) {
+                model.addClosedStudent(clientToClose);
+            } else {
+                model.addClosedTutor(clientToClose);
+            }
+        } catch (DuplicatePersonException e) {
+            throw new AssertionError("The client should not be duplicated");
+        }
+
+        if (category.isStudent()) {
+            return new CommandResult(String.format(MESSAGE_CLOSE_STUDENT_SUCCESS, clientToClose));
+        } else {
+            return new CommandResult(String.format(MESSAGE_CLOSE_TUTOR_SUCCESS, clientToClose));
+        }
+    }
+----
+
+A sequence diagram is shown below to show the current design when a user input "close 1 c/s"
+
+image::CloseSequenceDiagram.PNG[width="800"]
+
+==== Design Considerations
+
+====== Aspect: Implementation of the close command
+* **Alternative 1 (current choice):** Current implementation calls model component twice to execute deleteClient and addClosedStudent or addClosedTutor.
+** Pros: This ensures that deleteClient is able to execute successfully before addClosedStudent is executed.
+** Cons: This reduces code efficiency.
+* **Alternative 2:** Implement a closeClient method in model to execute deleteClient and addClosedStudent or addClosedTutor.
+** Pros: Model can be called once.
+** Cons: This reduces code readability.
+
+// end::close[]
+
+// tag::restore[]
+==== Current Implementation
+The restore command allows users to remove a particular client from the closed client's list and restore it back to the active client's list.
+
+* RestoreCommand extends UndoableCommand and this is a undoable command. It overwrites executeUndoableCommand in abstract class UndoableCommand.
+
+** It will first remove the the selected client from the closed client list. If this particular client is not found, a PersonNotFoundException will be thrown.
+** After which, the particular removed client will be added to the active client list. An AssertionError will be thrown if a duplicated client is detected as it should not be possible to have a duplicated client in the active client list in TuitionCor.
+
+* This design is very similar to close command's design.
+
+The code is as follows:
+[source,java]
+----
+@Override
+    public CommandResult executeUndoableCommand() {
+        requireNonNull(clientToRestore);
+        try {
+            model.deleteClosedClient(clientToRestore, category);
+        } catch (PersonNotFoundException pnfe) {
+            throw new AssertionError("The target client cannot be missing");
+        }
+
+        try {
+            if (category.isStudent()) {
+                model.addStudent(clientToRestore);
+            } else {
+                model.addTutor(clientToRestore);
+            }
+        } catch (DuplicatePersonException e) {
+            throw new AssertionError("The client should not be duplicated");
+        }
+
+        if (category.isStudent()) {
+            return new CommandResult(String.format(MESSAGE_RESTORE_STUDENT_SUCCESS, clientToRestore));
+        } else {
+            return new CommandResult(String.format(MESSAGE_CLOSE_TUTOR_SUCCESS, clientToRestore));
+        }
+    }
+----
+
+A sequence diagram is shown below to show the current design when a user input "restore 1 c/s"
+
+image::RestoreSequenceDiagram.PNG[width="800"]
+
+// end::restore
+
+// tag::switch[]
+==== Current Implementation
+
+Switch commands allows user to toggle between the active and closed client's list and it extends Command.
+
+* Switch command overrides execute method in Command with the following code:
+
+[source,java]
+----
+@Override
+    public CommandResult execute() {
+        EventsCenter.getInstance().post(new ClientListSwitchEvent());
+        listPanelController.switchDisplay();
+        if (listPanelController.getCurrentListDisplayed() == ListPanelController.DisplayType.closedList) {
+            return new CommandResult(MESSAGE_SUCCESS + MESSAGE_CLOSED_DISPLAY_LIST);
+        } else {
+            return new CommandResult(MESSAGE_SUCCESS + MESSAGE_ACTIVE_DISPLAY_LIST);
+        }
+    }
+----
+
+* A ListPanelController is used to keep track of the currently displayed list and switch the list when called.
+
+[source, java]
+----
+    public void switchDisplay() {
+        switch (currentlyDisplayed) {
+        case activeList:
+            currentlyDisplayed = DisplayType.closedList;
+            break;
+
+        case closedList:
+            currentlyDisplayed = DisplayType.activeList;
+            break;
+
+        default:
+            throw new AssertionError("This should not be possible.");
+        }
+    }
+----
+
+* Switch command uses ClientListSwitchEvent to raise an event whenever the user wants to toggle the list displayed.
+
+[source,java]
+----
+   public class ClientListSwitchEvent extends BaseEvent {
+
+       @Override
+       public String toString() {
+           return this.getClass().getSimpleName();
+       }
+   }
+[source,java]
+----
+
+* When a event is raise it's handled by handleClientListSwitchEvent which resides in both StudentListPanel and TutorListPanel.
+
+[source,java]
+----
+    @Subscribe
+    private void handleClientListSwitchEvent(ClientListSwitchEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        switchListDisplay();
+    }
+----
+
+* This will allow StudentListPanel and TutorListPanel to be updated accordingly based on the current list that is on display.
+
+[source,java]
+----
+    private void switchListDisplay() {
+        ListPanelController listPanelController = ListPanelController.getInstance();
+        switch (listPanelController.getCurrentListDisplayed()) {
+        case activeList:
+            setConnectionsForClosedStudents();
+            break;
+
+        case closedList:
+            setConnectionsForStudents();
+            break;
+
+        default:
+            throw new AssertionError("This should not be possible.");
+        }
+    }
+----
+
+* A sequence diagram is shown below when switch command is entered by user.
+
+image::SwitchSequenceDiagram.PNG[width="800"]
+
+==== Design Considerations
+
+====== Aspect: Implementation of switch command
+* **Alternative 1 (current choice):** Raise new event to indicate switch event.
+** Pros: Reduce direct coupling between components StudentListPanel and TutorListPanel with SwitchCommand
+** Cons: Code might be harder to understand.
+* **Alternative 2:** Call a method in StudentListPanel and TutorListPanel to indicate switch event.
+** Pros: Code is easier to understand.
+** Cons: Direct coupling increase and changing a part might affect another component.
+
+// end::switch[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -1413,8 +1619,8 @@ Given below are the minor and major feature contributions for each of our team m
 
 . Major Contribution
 
-.. UI Changes +
-   The UI would be edited to suit TuitionCor's purpose by showing the Student and Tutor separately
+.. Close, restore and switch function +
+   This would allow user to close a client to the closed list or restore a client to the active list. Switch allows client to toggle between closed list and active list.
 
 . Minor Contribution
 
