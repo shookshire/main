@@ -46,13 +46,13 @@ public class UnsortedClients {
             .withEmail("heinz@example.com").withAddress("wall street").withLocation("south").withGrade("j1")
             .withSubject("physics").withCategory("s").build();
     public static final Client DANIEL = new ClientBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withLocation("east").withGrade("primary 6")
+            .withEmail("cornelia@example.com").withAddress("10th street").withLocation("east").withGrade("primary6")
             .withSubject("english").withCategory("s").build();
     public static final Client ELLE = new ClientBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave").withLocation("west").withGrade("p3")
             .withSubject("math").withCategory("s").build();
     public static final Client FIONA = new ClientBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").withLocation("north").withGrade("secondary 1")
+            .withEmail("lydia@example.com").withAddress("little tokyo").withLocation("north").withGrade("secondary1")
             .withSubject("physics").withCategory("s").build();
     public static final Client GEORGE = new ClientBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").withLocation("west").withGrade("j2")
@@ -60,7 +60,7 @@ public class UnsortedClients {
 
     //Tutors
     public static final Client ANDREW = new ClientBuilder().withName("ANDREW LIM").withPhone("5212533")
-            .withEmail("andrew@example.com").withAddress("Andrew street").withLocation("east").withGrade("primary 2")
+            .withEmail("andrew@example.com").withAddress("Andrew street").withLocation("east").withGrade("primary2")
             .withSubject("english").withCategory("t").build();
     public static final Client EDISON = new ClientBuilder().withName("EDISON").withPhone("2313224")
             .withEmail("EDISON@example.com").withAddress("EDISON ave").withLocation("west").withGrade("j2")
