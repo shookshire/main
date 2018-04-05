@@ -46,15 +46,38 @@ public class SampleDataUtil {
             new Client(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                 getTagSet("colleagues"), new Location("central"), new Grade("s1"), new Subject("physics"),
-                    new Category("s"))
+                    new Category("s")),
         };
     }
 
+    public static Client[] getSampleTutors() {
+        return new Client[]{
+            new Client(new Name("James"), new Phone("3213283"), new Email("james@example.com"),
+                    new Address("Blk 111 James Avenue"),
+                    getTagSet("neighbours"), new Location("north"), new Grade("u2"), new Subject("math"),
+                    new Category("t")),
+            new Client(new Name("George"), new Phone("66316282"), new Email("george@example.com"),
+                    new Address("Blk 436 George Town Street 26, #16-43"),
+                    getTagSet("friends"), new Location("central"), new Grade("k1"), new Subject("socialstudies"),
+                    new Category("t")),
+            new Client(new Name("Jennifer"), new Phone("66632521"), new Email("jeniferrrrrrrr@example.com"),
+                    new Address("Blk 47 Janifer Street 20, #13-35"),
+                    getTagSet("classmates"), new Location("south"), new Grade("p2"), new Subject("math"),
+                    new Category("t")),
+            new Client(new Name("Nancy"), new Phone("666454417"), new Email("nancy@example.com"),
+                    new Address("Blk 999 Queenstown 85, #01-31"),
+                    getTagSet("smart"), new Location("central"), new Grade("s2"), new Subject("physics"),
+                    new Category("t"))
+        };
+    }
     public static ReadOnlyAddressBook getSampleAddressBook() {
         try {
             AddressBook sampleAb = new AddressBook();
             for (Client sampleStudent : getSampleStudents()) {
-                sampleAb.addStudent(sampleStudent);
+                sampleAb.addClient(sampleStudent);
+            }
+            for (Client sampleTutor : getSampleTutors()) {
+                sampleAb.addClient(sampleTutor);
             }
             return sampleAb;
         } catch (DuplicatePersonException e) {
