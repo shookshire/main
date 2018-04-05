@@ -375,32 +375,33 @@
     -fx-background-color: yellow;
 }
 
-#places .orange {
+#tags .purple {
+    -fx-text-fill: black;
+    -fx-background-color: purple;
+}
+
+#tags .lightpink {
+    -fx-text-fill: black;
+    -fx-background-color: lightpink;
+}
+
+#tags .gold {
+    -fx-text-fill: black;
+    -fx-background-color: gold;
+}
+
+#tags .wheat {
+    -fx-text-fill: black;
+    -fx-background-color: wheat;
+}
+
+.orange {
     -fx-text-fill: black;
     -fx-background-color: orange;
 }
 
-#grades .orange {
+.noFill {
     -fx-text-fill: black;
-    -fx-background-color: orange;
-}
-
-#subjects .orange {
-    -fx-text-fill: black;
-    -fx-background-color: orange;
-}
-
-#places .noFill {
-    -fx-text-fill: white;
     -fx-background-color: transparent;
 }
 
-#grades .noFill {
-    -fx-text-fill: white;
-    -fx-background-color: transparent;
-}
-
-#subjects .noFill {
-    -fx-text-fill: white;
-    -fx-background-color: transparent;
-}

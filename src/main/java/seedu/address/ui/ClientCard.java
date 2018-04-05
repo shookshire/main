@@ -14,7 +14,8 @@ public class ClientCard extends UiPart<Region> {
 
     private static final String FXML = "ClientListCard.fxml";
 
-    private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow"};
+    private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow", "purple", "lightpink",
+            "gold","wheat"};
 
     private static final String MATCH_COLOUR_STYLE = "orange";
 
@@ -42,11 +43,11 @@ public class ClientCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane places;
+    private Label places;
     @FXML
-    private FlowPane grades;
+    private Label grades;
     @FXML
-    private FlowPane subjects;
+    private Label subjects;
     @FXML
     private FlowPane tags;
 
@@ -59,7 +60,7 @@ public class ClientCard extends UiPart<Region> {
         phone.setText(client.getPhone().value);
         address.setText(client.getAddress().value);
         email.setText(client.getEmail().value);
-        intPlaces(client);
+        intplaces(client);
         intGrades(client);
         intSubjects(client);
         intTags(client);
@@ -80,57 +81,56 @@ public class ClientCard extends UiPart<Region> {
     }
 
     /**
-     *@author Zhu-JIahui
+     *@author Zhu-Jiahui
      * Initialises Location
      * If Location is matched with the client, Location field will be highlighted.
      * @param client
      */
-    private void intPlaces(Client client) {
-        Label newLabel = new Label(client.getLocation().value);
+
+    private void intplaces(Client client) {
+
+        places.setText(client.getLocation().value);
 
         if (client.getMatchedLocation() == true) {
-            newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+            places.getStyleClass().add(MATCH_COLOUR_STYLE);
         } else {
-            newLabel.getStyleClass().add(UNMATCH_COLOUR_STYLE);
+            places.getStyleClass().add(UNMATCH_COLOUR_STYLE);
         }
-
-        places.getChildren().add(newLabel);
     }
 
     /**
-     *@author Zhu-JIahui
+     *@author Zhu-Jiahui
      * Initialises Grade
      * If Grade is matched with the client, Grade field will be highlighted.
      * @param client
      */
+
     private void intGrades(Client client) {
-        Label newLabel = new Label(client.getGrade().value);
+
+        grades.setText(client.getGrade().value);
 
         if (client.getMatchedGrade() == true) {
-            newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+            grades.getStyleClass().add(MATCH_COLOUR_STYLE);
         } else {
-            newLabel.getStyleClass().add(UNMATCH_COLOUR_STYLE);
+            grades.getStyleClass().add(UNMATCH_COLOUR_STYLE);
         }
-
-        grades.getChildren().add(newLabel);
     }
 
     /**
-     *@author Zhu-JIahui
+     *@author Zhu-Jiahui
      * Initialises Subject
      * If Subject is matched with the client, Subject field will be highlighted.
      * @param client
      */
+
     private void intSubjects(Client client) {
-        Label newLabel = new Label(client.getSubject().value);
+        subjects.setText(client.getSubject().value);
 
         if (client.getMatchedSubject() == true) {
-            newLabel.getStyleClass().add(MATCH_COLOUR_STYLE);
+            subjects.getStyleClass().add(MATCH_COLOUR_STYLE);
         } else {
-            newLabel.getStyleClass().add(UNMATCH_COLOUR_STYLE);
+            subjects.getStyleClass().add(UNMATCH_COLOUR_STYLE);
         }
-
-        subjects.getChildren().add(newLabel);
     }
 
     /**
