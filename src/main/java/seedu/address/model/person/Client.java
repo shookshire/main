@@ -7,6 +7,7 @@ import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 
+//@@author shookshire
 /**
  * Represents a Client in tuitionCor.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -18,6 +19,9 @@ public class Client extends Person {
     private final Subject subject;
     private final Category category;
     private int rank = 0;
+    private boolean matchedGrade = false;
+    private boolean matchedSubject = false;
+    private boolean matchedLocation = false;
 
     /**
      * Every field must be present and not null.
@@ -54,6 +58,30 @@ public class Client extends Person {
 
     public void setRank(int value) {
         this.rank = value;
+    }
+
+    public boolean getMatchedGrade() {
+        return matchedGrade;
+    }
+
+    public void setMatchedGrade(boolean isMatch) {
+        this.matchedGrade = isMatch;
+    }
+
+    public boolean getMatchedSubject() {
+        return matchedSubject;
+    }
+
+    public void setMatchedSubject(boolean isMatch) {
+        this.matchedSubject = isMatch;
+    }
+
+    public boolean getMatchedLocation() {
+        return matchedLocation;
+    }
+
+    public void setMatchedLocation(boolean isMatch) {
+        this.matchedLocation = isMatch;
     }
 
     @Override

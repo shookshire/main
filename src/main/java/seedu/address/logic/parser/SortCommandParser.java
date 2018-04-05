@@ -1,14 +1,21 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
+import java.util.stream.Stream;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.SortByGradeCommand;
 import seedu.address.logic.commands.SortByLocationCommand;
 import seedu.address.logic.commands.SortByNameCommand;
 import seedu.address.logic.commands.SortBySubjectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Category;
 
+//@@author olimhc
 /**
  * Parses input arguments and creates a new subclass object of SortCommand
  */
@@ -21,61 +28,53 @@ public class SortCommandParser implements Parser<SortCommand> {
 
     /**
      * Parse the given {@code String} of arguments in the context of SortCommand
+     * @return either SortByGradeCommand, SortByNameCommand, SortByGradeCommand, SortBySubjectCommand
+     * object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        requireNonNull(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_CATEGORY)
+                || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
-        String[] commandArgs = trimmedArgs.split("");
+        Category category;
+        String sortType;
 
-        switch (commandArgs[listIndex]) {
-        case SortCommand.COMMAND_WORD_TUTOR:
-            return parseSortType(commandArgs[sortTypeIndex], tutorIndex);
-
-        case SortCommand.COMMAND_WORD_STUDENT:
-            return parseSortType(commandArgs[sortTypeIndex], studentIndex);
-
-        default:
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        try {
+            sortType = argMultimap.getPreamble();
+            category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY)).get();
+        } catch (IllegalValueException ive) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
-    }
-
-    /**
-     * Parse the given {@code String} of arguments further in the context of SortCommand
-     * @param args type of sort
-     * @param listIndex indicating whether to sort tutor's or student's list
-     * @return either SortByGradeCommand, SortByNameCommand, SortByGradeCommand, SortBySubjectCommand
-     * object for execution.
-     * @throws ParseException
-     */
-    private SortCommand parseSortType(String args, int listIndex) throws ParseException {
-        if (args.isEmpty()) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
-        }
-
-        switch (args) {
+        switch (sortType) {
         case SortCommand.COMMAND_WORD_NAME:
-            return new SortByNameCommand(listIndex);
+            return new SortByNameCommand(category);
 
         case SortCommand.COMMAND_WORD_SUBJECT:
-            return new SortBySubjectCommand(listIndex);
+            return new SortBySubjectCommand(category);
 
         case SortCommand.COMMAND_WORD_LOCATION:
-            return new SortByLocationCommand(listIndex);
+            return new SortByLocationCommand(category);
 
         case SortCommand.COMMAND_WORD_GRADE:
-            return new SortByGradeCommand(listIndex);
+            return new SortByGradeCommand(category);
 
         default:
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

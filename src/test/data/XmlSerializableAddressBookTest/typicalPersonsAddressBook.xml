@@ -7,23 +7,23 @@
         <phone>85355255</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
-        <tagged>friends</tagged>
         <location>north</location>
         <grade>p3</grade>
         <subject>math</subject>
         <category>s</category>
+        <tagged>friends</tagged>
     </students>
     <students>
         <name>Benson Meier</name>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
-        <tagged>owesMoney</tagged>
-        <tagged>friends</tagged>
         <location>north</location>
         <grade>p3</grade>
         <subject>physics</subject>
         <category>s</category>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
     </students>
     <students>
         <name>Carl Kurz</name>
@@ -41,7 +41,7 @@
         <email>cornelia@example.com</email>
         <address>10th street</address>
         <location>east</location>
-        <grade>primary 6</grade>
+        <grade>primary6</grade>
         <subject>english</subject>
         <category>s</category>
     </students>
@@ -61,7 +61,7 @@
         <email>lydia@example.com</email>
         <address>little tokyo</address>
         <location>north</location>
-        <grade>secondary 1</grade>
+        <grade>secondary1</grade>
         <subject>physics</subject>
         <category>s</category>
     </students>
@@ -74,7 +74,7 @@
         <grade>j2</grade>
         <subject>chemistry</subject>
         <category>s</category>
+        <tags>friends</tags>
+        <tags>owesMoney</tags>
     </students>
-    <tags>friends</tags>
-    <tags>owesMoney</tags>
 </addressbook>

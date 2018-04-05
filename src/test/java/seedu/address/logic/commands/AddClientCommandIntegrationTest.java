@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +15,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Client;
 import seedu.address.testutil.ClientBuilder;
 
+//@@author shookshire
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */

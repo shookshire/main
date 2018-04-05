@@ -70,31 +70,31 @@ public class GuiTestAssert {
         switch(tagName) {
 
         case "owesMoney":
-            return "red";
+            return "green";
 
         case "friends":
-            return "red";
+            return "yellow";
 
         case "friend":
-            return "orange";
+            return "green";
 
         case "husband":
-            return "orange";
+            return "yellow";
 
         case "colleagues":
-            return "green";
+            return "purple";
 
         case "classmates":
-            return "red";
-
-        case "neighbours":
             return "green";
 
+        case "neighbours":
+            return "gold";
+
         case "family":
-            return "orange";
+            return "purple";
 
         case "urgent":
-            return "red";
+            return "wheat";
 
         default:
             return "";

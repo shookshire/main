@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddClientCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.CloseCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -18,7 +19,10 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MatchCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RemoveCommand;
+import seedu.address.logic.commands.RestoreCommand;
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -85,6 +89,7 @@ public class AddressBookParser {
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
+
         case RedoCommand.COMMAND_ALIAS:
             return new RedoCommand();
 
@@ -99,6 +104,22 @@ public class AddressBookParser {
         case AddClientCommand.COMMAND_WORD:
         case AddClientCommand.COMMAND_ALIAS:
             return new AddClientCommandParser().parse(arguments);
+
+        case SwitchCommand.COMMAND_WORD:
+        case SwitchCommand.COMMAND_ALIAS:
+            return new SwitchCommand();
+
+        case CloseCommand.COMMAND_WORD:
+        case CloseCommand.COMMAND_ALIAS:
+            return new CloseCommandParser().parse(arguments);
+
+        case RestoreCommand.COMMAND_WORD:
+        case RestoreCommand.COMMAND_ALIAS:
+            return new RestoreCommandParser().parse(arguments);
+
+        case RemoveCommand.COMMAND_WORD:
+        case RemoveCommand.COMMAND_ALIAS:
+            return new RemoveCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

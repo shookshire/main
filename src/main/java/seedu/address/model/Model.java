@@ -19,14 +19,23 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Client> PREDICATE_SHOW_ALL_TUTORS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Client> PREDICATE_SHOW_ALL_CLOSED_STUDENTS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Client> PREDICATE_SHOW_ALL_CLOSED_TUTORS = unused -> true;
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Deletes the given client. */
+    /** Deletes the given client in the active list. */
     void deleteClient(Client target, Category category) throws PersonNotFoundException;
+
+    /** Deletes the given client in the closed list. */
+    void deleteClosedClient(Client target, Category category) throws PersonNotFoundException;
 
     /**
      * Replaces the given person {@code target} with {@code editedClient}.
@@ -43,6 +52,12 @@ public interface Model {
 
     /** Adds the given student */
     void addStudent(Client student) throws DuplicatePersonException;
+
+    /** Adds the given tutor to closed tutor's list */
+    void addClosedTutor(Client closedTutor) throws DuplicatePersonException;
+
+    /** Adds the given student to closed student's list */
+    void addClosedStudent(Client closedStudent) throws DuplicatePersonException;
 
     /**Sorts tutor list by name in alphabetical order*/
     void sortByNameFilteredClientTutorList();
@@ -79,15 +94,39 @@ public interface Model {
      */
     void updateFilteredTutorList(Predicate<Client> predicate);
 
+    /** Returns an unmodifiable view of the closed filtered tutors list */
+    ObservableList<Client> getFilteredClosedTutorList();
+
     /**
-     * Updates the filter of the filtered tutor list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered closed tutor list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredClosedTutorList(Predicate<Client> predicate);
+
+    /** Returns an unmodifiable view of the closed filtered students list */
+    ObservableList<Client> getFilteredClosedStudentList();
+
+    /**
+     * Updates the filter of the filtered closed tutor list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredClosedStudentList(Predicate<Client> predicate);
+
+    /**
+     * Rank TutorList from the most number of matched attributes to the least number of matched attributes
      */
     void updateRankedTutorList();
 
     /**
-     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Rank StudentList from the most number of matched attributes to the least number of matched attributes
      */
     void updateRankedStudentList();
+
+    /**
+     * Reset {@code rank}, {@code MatchedGrade}, {@code MatchedLocation} and {@code MatchedSubject} in
+     * all Clientlist to default value
+     */
+    void resetHighLight();
+
 }
+

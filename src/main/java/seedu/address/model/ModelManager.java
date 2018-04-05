@@ -14,6 +14,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.logic.commands.util.SortByGradeComparator;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -29,8 +30,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final AddressBook addressBook;
     private final FilteredList<Client> filteredStudents;
     private final FilteredList<Client> filteredTutors;
-    private SortedList<Client> rankedFilteredTutors;
-    private SortedList<Client> rankedFilteredStudents;
+
+    private final FilteredList<Client> filteredClosedStudents;
+    private final FilteredList<Client> filteredClosedTutors;
 
     private SortedList<Client> sortedFilteredTutors;
     private SortedList<Client> sortedFilteredStudents;
@@ -47,10 +49,11 @@ public class ModelManager extends ComponentManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredTutors = new FilteredList<>(this.addressBook.getTutorList());
+        filteredClosedStudents = new FilteredList<>(this.addressBook.getClosedStudentList());
+        filteredClosedTutors = new FilteredList<>(this.addressBook.getClosedTutorList());
+
         sortedFilteredTutors = new SortedList<>(filteredTutors);
         sortedFilteredStudents = new SortedList<>(filteredStudents);
-        rankedFilteredStudents = new SortedList<>(filteredStudents);
-        rankedFilteredStudents = new SortedList<>(filteredTutors);
 
     }
 
@@ -79,12 +82,17 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeClient(target, category);
         indicateAddressBookChanged();
     }
+    //@@author shookshire
+    @Override
+    public synchronized void deleteClosedClient(Client target, Category category) throws PersonNotFoundException {
+        addressBook.removeClosedClient(target, category);
+        indicateAddressBookChanged();
+    }
 
     @Override
     public void updateClient(Client target, Client editedPerson, Category category)
             throws DuplicatePersonException, PersonNotFoundException {
         requireAllNonNull(target, editedPerson, category);
-
         addressBook.updatePerson(target, editedPerson, category);
         indicateAddressBookChanged();
     }
@@ -103,8 +111,24 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public synchronized void addClosedTutor(Client closedTutor) throws DuplicatePersonException {
+        addressBook.addClosedTutor(closedTutor);
+        updateFilteredClosedTutorList(PREDICATE_SHOW_ALL_CLOSED_TUTORS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void addClosedStudent(Client closedStudent) throws DuplicatePersonException {
+        addressBook.addClosedStudent(closedStudent);
+        updateFilteredClosedStudentList(PREDICATE_SHOW_ALL_CLOSED_STUDENTS);
+        indicateAddressBookChanged();
+    }
+
+    //@@author
     //=========== Filtered Client List Accessors =============================================================
 
+    //@@author olimhc
     /**
      * Returns an unmodifiable view of the list of {@code Tutor} backed by the internal list of
      * {@code addressBook}
@@ -172,7 +196,9 @@ public class ModelManager extends ComponentManager implements Model {
         sortedFilteredStudents.setComparator(sortBySubject);
         indicateAddressBookChanged();
     }
+    //@@author
 
+    //@@author shookshire
     /**
      * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
      * {@code addressBook}
@@ -204,8 +230,10 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTutors.setPredicate(predicate);
         indicateAddressBookChanged();
     }
+    //@@author
     //=========== Ranked Person List Accessors =============================================================
 
+    //@@author Zhu-Jiahui
     /**
      * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
      * {@code addressBook}
@@ -213,16 +241,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateRankedStudentList() {
-
-        for (int i = 53; i > 50; i--) {
-            for (int j = 0; j < filteredStudents.size(); j++) {
-                System.out.println("filteredStudents ranking: " + filteredStudents.get(j).getRank());
-                if (filteredStudents.get(j).getRank() == i) {
-                    rankedFilteredStudents.add(filteredStudents.get(j));
-                }
-            }
-        }
-        filteredStudents.setAll(rankedFilteredStudents);
+        Comparator<Client> rankStudent = new RankComparator();
+        sortedFilteredStudents.setComparator(rankStudent);
         indicateAddressBookChanged();
     }
 
@@ -233,16 +253,68 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateRankedTutorList() {
-
-        for (int i = 3; i > 0; i--) {
-            for (int j = 0; j < filteredTutors.size(); j++) {
-                if (filteredTutors.get(j).getRank() == i) {
-                    rankedFilteredTutors.add(filteredTutors.get(j));
-                }
-            }
-        }
-        filteredTutors.setAll(rankedFilteredTutors);
+        Comparator<Client> rankTutor = new RankComparator();
+        sortedFilteredTutors.setComparator(rankTutor);
         indicateAddressBookChanged();
+    }
+
+    /**
+     * Reset {@code rank}, {@code MatchedGrade}, {@code MatchedLocation} and {@code MatchedSubject} in all
+     * Clientlist to default value
+     */
+
+    @Override
+    public void resetHighLight() {
+        for (Client client : filteredTutors) {
+            client.setRank(0);
+            client.setMatchedLocation(false);
+            client.setMatchedGrade(false);
+            client.setMatchedSubject(false);
+        }
+        for (Client client : filteredStudents) {
+            client.setRank(0);
+            client.setMatchedLocation(false);
+            client.setMatchedGrade(false);
+            client.setMatchedSubject(false);
+        }
+
+        for (Client client : sortedFilteredStudents) {
+            client.setRank(0);
+            client.setMatchedLocation(false);
+            client.setMatchedGrade(false);
+            client.setMatchedSubject(false);
+        }
+
+        for (Client client : sortedFilteredTutors) {
+            client.setRank(0);
+            client.setMatchedLocation(false);
+            client.setMatchedGrade(false);
+            client.setMatchedSubject(false);
+        }
+
+    }
+    //@@author
+
+    @Override
+    public ObservableList<Client> getFilteredClosedTutorList() {
+        return FXCollections.unmodifiableObservableList(filteredClosedTutors);
+    }
+
+    @Override
+    public void updateFilteredClosedTutorList(Predicate<Client> predicate) {
+        requireNonNull(predicate);
+        filteredClosedTutors.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Client> getFilteredClosedStudentList() {
+        return FXCollections.unmodifiableObservableList(filteredClosedStudents);
+    }
+
+    @Override
+    public void updateFilteredClosedStudentList(Predicate<Client> predicate) {
+        requireNonNull(predicate);
+        filteredClosedStudents.setPredicate(predicate);
     }
 
     @Override
@@ -261,7 +333,9 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && filteredStudents.equals(other.filteredStudents)
-                && filteredTutors.equals(other.filteredTutors);
+                && filteredTutors.equals(other.filteredTutors)
+                && filteredClosedStudents.equals(other.filteredClosedStudents)
+                && filteredClosedTutors.equals(other.filteredClosedTutors);
     }
 
 }

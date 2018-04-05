@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author shookshire
 /**
  * Represents a Person's related Subject in the TuitionCor.
  * Guarantees: immutable; is valid as declared in {@link #isValidSubject(String)}
@@ -28,7 +29,7 @@ public class Subject {
     public Subject(String subject) {
         requireNonNull(subject);
         checkArgument(isValidSubject(subject), MESSAGE_SUBJECT_CONSTRAINTS);
-        this.value = subject;
+        this.value = subject.trim().replaceAll(" +", " ");
     }
 
     /**

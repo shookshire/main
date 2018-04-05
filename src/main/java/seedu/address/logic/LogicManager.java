@@ -33,6 +33,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
+        model.resetHighLight();
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = addressBookParser.parseCommand(commandText);
@@ -53,6 +54,16 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Client> getFilteredTutorList() {
         return model.getFilteredTutorList();
+    }
+
+    @Override
+    public ObservableList<Client> getFilteredClosedStudentList() {
+        return model.getFilteredClosedStudentList();
+    }
+
+    @Override
+    public ObservableList<Client> getFilteredClosedTutorList() {
+        return model.getFilteredClosedTutorList();
     }
 
     @Override

@@ -1,9 +1,10 @@
-package seedu.address.model;
+package seedu.address.logic.commands.util;
 
 import java.util.Comparator;
 
 import seedu.address.model.person.Client;
 
+//@@author olimhc
 /**
  * Comparator to sort by int base on valueWeight
  */

@@ -27,15 +27,16 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
+//@@author olimhc
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Clients} objects to be used in tests.
  */
-public class TypicalPersons {
-
+public class UnsortedClients {
+    //Students
     public static final Client ALICE = new ClientBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("85355255")
-            .withTags("friends").withLocation("north").withGrade("p3").withSubject("math").withCategory("s").build();
+            .withTags("friends").withLocation("north").withGrade("k1").withSubject("math").withCategory("s").build();
     public static final Client BENSON = new ClientBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
@@ -45,17 +46,31 @@ public class TypicalPersons {
             .withEmail("heinz@example.com").withAddress("wall street").withLocation("south").withGrade("j1")
             .withSubject("physics").withCategory("s").build();
     public static final Client DANIEL = new ClientBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withLocation("east").withGrade("primary 6")
+            .withEmail("cornelia@example.com").withAddress("10th street").withLocation("east").withGrade("primary6")
             .withSubject("english").withCategory("s").build();
     public static final Client ELLE = new ClientBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave").withLocation("west").withGrade("p3")
             .withSubject("math").withCategory("s").build();
     public static final Client FIONA = new ClientBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").withLocation("north").withGrade("secondary 1")
+            .withEmail("lydia@example.com").withAddress("little tokyo").withLocation("north").withGrade("secondary1")
             .withSubject("physics").withCategory("s").build();
     public static final Client GEORGE = new ClientBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").withLocation("west").withGrade("j2")
             .withSubject("chemistry").withCategory("s").build();
+
+    //Tutors
+    public static final Client ANDREW = new ClientBuilder().withName("ANDREW LIM").withPhone("5212533")
+            .withEmail("andrew@example.com").withAddress("Andrew street").withLocation("east").withGrade("primary2")
+            .withSubject("english").withCategory("t").build();
+    public static final Client EDISON = new ClientBuilder().withName("EDISON").withPhone("2313224")
+            .withEmail("EDISON@example.com").withAddress("EDISON ave").withLocation("west").withGrade("j2")
+            .withSubject("math").withCategory("t").build();
+    public static final Client FLOWER = new ClientBuilder().withName("Flower").withPhone("2182427")
+            .withEmail("flowerislife@example.com").withAddress("little flower").withLocation("central").withGrade("k1")
+            .withSubject("physics").withCategory("t").build();
+    public static final Client GERRARD = new ClientBuilder().withName("GERRARD").withPhone("8321242")
+            .withEmail("liverpool@example.com").withAddress("Anfield").withLocation("west").withGrade("u4")
+            .withSubject("chemistry").withCategory("t").build();
 
     // Manually added
     public static final Client HOON = new ClientBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -77,16 +92,16 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private UnsortedClients() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical clients.
      */
-    public static AddressBook getTypicalAddressBook() {
+    public static AddressBook getUnsortedAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Client client : getTypicalPersons()) {
+        for (Client client : getUnsortedClients()) {
             try {
-                ab.addStudent(client);
+                ab.addClient(client);
             } catch (DuplicatePersonException e) {
                 throw new AssertionError("not possible");
             }
@@ -94,7 +109,8 @@ public class TypicalPersons {
         return ab;
     }
 
-    public static List<Client> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    public static List<Client> getUnsortedClients() {
+        return new ArrayList<>(Arrays.asList(BENSON, CARL, ALICE, ELLE, FIONA, GEORGE,
+                DANIEL, GERRARD, EDISON, ANDREW, FLOWER));
     }
 }

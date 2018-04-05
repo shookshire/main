@@ -4,13 +4,14 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.CommandNotAvailableInClosedViewException;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.MatchContainsKeywordsPredicate;
 import seedu.address.model.person.MatchContainsPersonsPredicate;
+import seedu.address.ui.util.ListPanelController;
 
-
-
+//@@author Zhu-Jiahui
 /**
  * Match the entered client and lists all clients in address book that has similar attributes to the matched client.
  */
@@ -35,6 +36,9 @@ public class MatchCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
+            throw new CommandNotAvailableInClosedViewException();
+        }
         List<Client> lastShownList;
 
         if (category.isStudent()) {
@@ -54,10 +58,12 @@ public class MatchCommand extends Command {
             model.updateFilteredTutorList(predicate);
             model.updateFilteredStudentList(new MatchContainsPersonsPredicate(clientToMatch));
             model.updateRankedTutorList();
+
         } else {
             model.updateFilteredStudentList(predicate);
             model.updateFilteredTutorList(new MatchContainsPersonsPredicate(clientToMatch));
             model.updateRankedStudentList();
+
         }
 
         return new CommandResult(getMessageForClientListShownSummary(
@@ -72,3 +78,4 @@ public class MatchCommand extends Command {
                 && this.category.equals(((MatchCommand) other).category); // state check
     }
 }
+//@@author

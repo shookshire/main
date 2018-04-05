@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
+//@@author shookshire
 public class LocationTest {
 
     @Test
@@ -28,6 +29,10 @@ public class LocationTest {
         // invalid location
         assertFalse(Location.isValidLocation("")); // empty string
         assertFalse(Location.isValidLocation(" ")); // spaces only
+        assertFalse(Location.isValidLocation("sodv")); // invalid location
+        assertFalse(Location.isValidLocation("north asdf")); // one invalid location
+        assertFalse(Location.isValidLocation("fdsaob efowfds idb south")); // multiple invalid location
+        assertFalse(Location.isValidLocation("north south north")); // repeated location
 
         // valid location
         assertTrue(Location.isValidLocation("north"));
@@ -35,5 +40,6 @@ public class LocationTest {
         assertTrue(Location.isValidLocation("west"));
         assertTrue(Location.isValidLocation("east"));
         assertTrue(Location.isValidLocation("central"));
+        assertTrue(Location.isValidLocation("central north south")); // multiple valid location
     }
 }

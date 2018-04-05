@@ -33,6 +33,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
+    public static final String MESSAGE_INVALID_SORT_TYPE = "Sort type should not be empty.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -267,3 +268,4 @@ public class ParserUtil {
         return category.isPresent() ? Optional.of(parseCategory(category.get())) : Optional.empty();
     }
 }
+

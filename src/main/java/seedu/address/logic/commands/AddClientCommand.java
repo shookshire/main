@@ -12,9 +12,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.CommandNotAvailableInClosedViewException;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.ui.util.ListPanelController;
 
+//@@author shookshire
 /**
  * Adds a tutor to TuitionCor.
  */
@@ -43,7 +46,7 @@ public class AddClientCommand extends UndoableCommand {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
             + PREFIX_LOCATION + "east "
-            + PREFIX_GRADE + "pri6 "
+            + PREFIX_GRADE + "p6 "
             + PREFIX_SUBJECT + "physics";
 
     public static final String MESSAGE_SUCCESS_STUDENT = "New student added: %1$s";
@@ -63,6 +66,11 @@ public class AddClientCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
+
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
+            throw new CommandNotAvailableInClosedViewException();
+        }
+
         try {
             if (toAdd.getCategory().isStudent()) {
                 model.addStudent(toAdd);
