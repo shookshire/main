@@ -45,7 +45,7 @@ public class AddClientCommand extends UndoableCommand {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
             + PREFIX_LOCATION + "east "
-            + PREFIX_GRADE + "pri6 "
+            + PREFIX_GRADE + "p6 "
             + PREFIX_SUBJECT + "physics";
 
     public static final String MESSAGE_SUCCESS_STUDENT = "New student added: %1$s";

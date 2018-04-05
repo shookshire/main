@@ -57,6 +57,7 @@ public class TutorListPanel extends UiPart<Region> {
         setEventHandlerForSelectionChangeEvent();
     }
 
+    //@@author olimhc
     /**
      * Switch the displayed tutor's list
      */
@@ -75,6 +76,7 @@ public class TutorListPanel extends UiPart<Region> {
             throw new AssertionError("This should not be possible.");
         }
     }
+    //@@author
 
     private void setEventHandlerForSelectionChangeEvent() {
         tutorListView.getSelectionModel().selectedItemProperty()
@@ -102,11 +104,13 @@ public class TutorListPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
+    //@@author olimhc
     @Subscribe
     private void handleClientListSwitchEvent(ClientListSwitchEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchListDisplay();
     }
+    //@@author
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code ClientCard}.

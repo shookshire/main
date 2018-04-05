@@ -45,7 +45,7 @@ public class RestoreCommandTest {
      *Ensure display is at active client list after this class test.
      */
     @AfterClass
-    public static void close() {
+    public static void tearDownAfterClass() {
         listPanelController.setDefault();
     }
 

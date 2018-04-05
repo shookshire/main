@@ -127,6 +127,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Client List Accessors =============================================================
 
+    //@@author olimhc
     /**
      * Returns an unmodifiable view of the list of {@code Tutor} backed by the internal list of
      * {@code addressBook}
@@ -194,6 +195,7 @@ public class ModelManager extends ComponentManager implements Model {
         sortedFilteredStudents.setComparator(sortBySubject);
         indicateAddressBookChanged();
     }
+    //@@author
 
     /**
      * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of

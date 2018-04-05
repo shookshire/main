@@ -10,6 +10,7 @@ import seedu.address.logic.commands.CloseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Category;
 
+//@@author olimhc
 /**
  * Parses an input and create a new CloseCommand object
  */

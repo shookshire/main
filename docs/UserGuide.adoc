@@ -34,11 +34,11 @@ image::Ui.png[width="790"]
 +
 .  By default, upon launching TuitionCor you will be shown the active client list.
 ** Active client list contains two separate list. Clients shown here are those who looking for students or tutors here.
-*** The list on the right represents the student's list where you can view information regarding students who are looking for tutors.
-*** The list on the left represents the tutor's list where you can view information regarding tutors who are looking for students.
+*** The list on the left represents the student's list where you can view information regarding students who are looking for tutors.
+*** The list on the right represents the tutor's list where you can view information regarding tutors who are looking for students.
 ** Closed client list contains two separate list. Clients shown here are those who are no longer looking for students or tutors.
-*** The list on the right represents the student's list where you can view information regarding closed students who are no longer looking for tutors.
-*** The list on the left represents the tutor's list where you can view information regarding closed tutors who are no longer looking for students.
+*** The list on the left represents the student's list where you can view information regarding closed students who are no longer looking for tutors.
+*** The list on the right represents the tutor's list where you can view information regarding closed tutors who are no longer looking for students.
 ** You can easily toggle between the closed and active client's list by command word `switch`.
 
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -58,19 +58,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 *  In v1.2:
 *****
-* Supports addition of client, either tutor or students.
+** Supports addition of client, either tutor or students.
 *****
 
 *  In v1.3:
 *****
-* All commands are working and integrated with client.
-* Clients information are saved.
-* New match feature which allowing matching of student to tutors or tutor to students.
-* Sort feature which allows tutor's and student's list to be sorted by name, subject, location and grade.
+** All commands are working and integrated with client.
+** Clients information are saved.
+** New match feature which allowing matching of student to tutors or tutor to students.
+** Sort feature which allows tutor's and student's list to be sorted by name, subject, location and grade.
 *****
 
 *  In v1.4:
 *****
+
 * Match function now includes a ranking system.
 **  The ranking system works according to the number of matched attributes.
 ** The matched attributes will be highlighted in orange.
@@ -86,15 +87,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 *  Coming in v1.5:
 *****
-* Integrate all features together.
+** Integrate all features together.
 *****
 
 *  Coming in v2.0:
 *****
-* Auto match function where.
-** Whenever a new client either student or tutor is added, a list of tutor or student who fits the criteria of the tutor or student will be displayed to the user.
-* Integrate it with an online platform.
-** Whenever a user or student sign up on the online platform, their information will automatically be added into TuitionCor database.
+** Auto match function where.
+*** Whenever a new client either student or tutor is added, a list of tutor or student who fits the criteria of the tutor or student will be displayed to the user.
+** Integrate it with an online platform.
+*** Whenever a user or student sign up on the online platform, their information will automatically be added into TuitionCor database.
 *****
 
 ====
@@ -128,7 +129,7 @@ User can only enter only a specific location and a specific grade for each clien
 * It's required to indicate the category the particular client belongs to.
 * Accepted case-insensitive location available for user input are {North,South,East,West,Central}. Any other type of location will be invalid.
 * Accepted case-insensitive grade available for user input are as follows:
-** Format of grade are in this particular format 'LEVEL YEAR' or alias format 'ALIASLEVEL YEAR' without any spacing in-between. Example: 'Primary 1' or 'P1'.
+** Format of grade are in this particular format 'LEVEL YEAR' or alias format 'ALIASLEVEL YEAR' without any spacing in-between. Example: 'Primary1' or 'P1'.
 ** LEVEL available are {Kindergarten, Primary, Secondary, Tertiary, University}. Alias LEVEL are {K,P,S,J,U} respectively.
 ** INDEX available varies differently for each Level.
 *** For Kindergarten INDEX available are {1,2,3}.
@@ -142,8 +143,8 @@ User can only enter only a specific location and a specific grade for each clien
 
 Examples:
 
-* `addclient c/t n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` t/urgent l/north g/p1 s/math
-* `ac c/s n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/urgent l/south g/primary 1 s/math
+* `addclient c/t n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/urgent l/north g/p1 s/math`
+* `ac c/s n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/urgent l/south g/primary 1 s/math`
 
 === Listing all persons : `list`
 
@@ -354,10 +355,10 @@ Alias Format: `m INDEX c/t`
 
 Examples:
 
-* `match 1 c/t +
+* `match 1 c/t` +
 At index 1 of tutor's list, John is a tutor finding students that are staying in west and is looking for s4 chemistry. This command will return a list of students that are staying in the west or s4 or Chemistry.
 
-* `match 1 c/s +
+* `match 1 c/s` +
 At index 1 of student's list, Jim is a student who requires tutors that are staying in west and teaching s4 chemistry. This command will return a list of tutors that are staying in the west or teaching s4 or teaching Chemistry.
 
 === Deleting a client : `delete` {Since v1.3}
