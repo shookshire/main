@@ -80,14 +80,20 @@ public interface Model {
     void updateFilteredTutorList(Predicate<Client> predicate);
 
     /**
-     * Updates the filter of the filtered tutor list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Rank TutorList from the most number of matched attributes to the least number of matched attributes
      */
     void updateRankedTutorList();
 
     /**
-     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Rank StudentList from the most number of matched attributes to the least number of matched attributes
      */
     void updateRankedStudentList();
+
+    /**
+     * Reset {@code rank}, {@code MatchedGrade}, {@code MatchedLocation} and {@code MatchedSubject} in
+     * all Clientlist to default value
+     */
+    void resetHighLight();
+
 }
+
