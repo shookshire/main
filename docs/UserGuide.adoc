@@ -41,6 +41,14 @@ image::Ui.png[width="790"]
 *** The list on the right represents the tutor's list where you can view information regarding closed tutors who are no longer looking for students.
 ** You can easily toggle between the closed and active client's list by command word `switch`.
 
+[NOTE]
+Commands available in active client's list: +
+`addclient` `clear` `close` `delete` `edit` `exit` `find` `help` `history` `list` `match` `redo` `undo` `remove` `sort` `switch`
+
+[NOTE]
+Commands available in closed client's list: +
+`clear` `exit` `find` `help` history` `list` `redo` `undo` `restore` `switch`
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
@@ -57,46 +65,36 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Breakdown of features*
 
 *  In v1.2:
-*****
 ** Supports addition of client, either tutor or students.
-*****
 
 *  In v1.3:
-*****
 ** All commands are working and integrated with client.
 ** Clients information are saved.
 ** New match feature which allowing matching of student to tutors or tutor to students.
 ** Sort feature which allows tutor's and student's list to be sorted by name, subject, location and grade.
-*****
 
 *  In v1.4:
-*****
+** Match function now includes a ranking system.
+***  The ranking system works according to the number of matched attributes.
+*** The matched attributes will be highlighted in orange.
+** Close and restore command which allows user to close or restore a particular student or tutor .
+*** This allows user to close a tutor of student upon successful matching which will be stored in a closed tutor's or student's list for future reference.
+*** This also allows user to restore a client from the closed list to active list if the client were to become active again.
+** Switch command.
+*** Allows user to toggle between active list and closed list.
+** Enhance grade, subject and location to support mutiple field.
+** Remove function to remove the specified subject.
+*** This allows the user to remove the specified subject from the client instead of having to type out all the remaining subjects in edit. This is under the consideration that the desired subject of the student would often change as he find's a tutor.
 
-* Match function now includes a ranking system.
-**  The ranking system works according to the number of matched attributes.
-** The matched attributes will be highlighted in orange.
-* Close and restore command which allows user to close or restore a particular student or tutor .
-** This allows user to close a tutor of student upon successful matching which will be stored in a closed tutor's or student's list for future reference.
-** This also allows user to restore a client from the closed list to active list if the client were to become active again.
-* Switch command.
-** Allows user to toggle between active list and closed list.
-* Enhance grade, subject and location to support mutiple field.
-* Remove function to remove the specified subject.
-** This allows the user to remove the specified subject from the client instead of having to type out all the remaining subjects in edit. This is under the consideration that the desired subject of the student would often change as he find's a tutor.
-*****
 
 *  Coming in v1.5:
-*****
 ** Integrate all features together.
-*****
 
 *  Coming in v2.0:
-*****
 ** Auto match function where.
 *** Whenever a new client either student or tutor is added, a list of tutor or student who fits the criteria of the tutor or student will be displayed to the user.
 ** Integrate it with an online platform.
 *** Whenever a user or student sign up on the online platform, their information will automatically be added into TuitionCor database.
-*****
 
 ====
 *Command Format*
@@ -238,7 +236,7 @@ This command is only available when viewing the active client's list. Use comman
 * Closed student or tutor will be removed from the active list. They can now be found in the closed list which is accessible by command word `switch`.
 ****
 
-=== Restoring a client : `close` {Since v1.4}
+=== Restoring a client : `restore` {Since v1.4}
 
 Restore an existing and closed student in the closed student's list. +
 Format: `restore INDEX c/s` +
@@ -310,7 +308,7 @@ Removes the "math" subject from the 1st student.
 * `r 2 c/t s/physics` +
 Removes the "physics" subject from the 2nd tutor.
 
-=== Locating persons: `find` {Since v1.3}
+=== Locating clients: `find` {Since v1.3}
 
 Finds clients that contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -509,23 +507,23 @@ Alias: `f`
 * *Match* : `match NAME` +
 e.g. `match James` +
 Alias: `m`
+* *Sort* : `sort` +
+eg. `sort TYPE c/s` +
+Alias: `so`
+* *Close* : `close` +
+eg. `close INDEX c/s` +
+Alias: `cs`
+* *Restore* : `restore` +
+eg. `restore INDEX c/s` +
+Alias: `res`
+* *Switch* : `switch` +
+Alias: `sw`
 * *List* : `list` +
 Alias: `l`
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2` +
-Alias: `s`
 * *History* : `history` +
 Alias: `h`
 * *Undo* : `undo` +
 Alias: `u`
 * *Redo* : `redo` +
 Alias: `r`
-* *Sort* : `sort` +
-Alias: `so`
-* *Close* : `close` +
-Alias: `cs`
-* *Restore* : `restore` +
-Alias: `res`
-* *Switch* : `switch` +
-Alias: `sw`
