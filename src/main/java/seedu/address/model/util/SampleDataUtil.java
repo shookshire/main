@@ -21,7 +21,7 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Client[] getSampleClients() {
+    public static Client[] getSampleStudents() {
         return new Client[] {
             new Client(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
@@ -47,6 +47,11 @@ public class SampleDataUtil {
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                 getTagSet("colleagues"), new Location("central"), new Grade("s1"), new Subject("physics"),
                     new Category("s")),
+        };
+    }
+
+    public static Client[] getSampleTutors() {
+        return new Client[]{
             new Client(new Name("James"), new Phone("3213283"), new Email("james@example.com"),
                     new Address("Blk 111 James Avenue"),
                     getTagSet("neighbours"), new Location("north"), new Grade("u2"), new Subject("math"),
@@ -65,12 +70,14 @@ public class SampleDataUtil {
                     new Category("t"))
         };
     }
-
     public static ReadOnlyAddressBook getSampleAddressBook() {
         try {
             AddressBook sampleAb = new AddressBook();
-            for (Client sampleStudent : getSampleClients()) {
+            for (Client sampleStudent : getSampleStudents()) {
                 sampleAb.addClient(sampleStudent);
+            }
+            for (Client sampleTutor : getSampleTutors()) {
+                sampleAb.addClient(sampleTutor);
             }
             return sampleAb;
         } catch (DuplicatePersonException e) {
