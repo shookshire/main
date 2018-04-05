@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalClients.getTypicalAddressBookNew;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -21,11 +22,20 @@ import seedu.address.ui.util.ListPanelController;
  * Contains integration tests (interaction with the Model) for {@code CloseCommandTest}.
  */
 public class CloseCommandTest {
+    private static ListPanelController listPanelController = ListPanelController.getInstance();
+
     private Model model = new ModelManager(getTypicalAddressBookNew(), new UserPrefs());
 
     private final Category studentCategory = new Category("s");
     private final Category tutorCategory = new Category("t");
 
+    /**
+     * Ensure that the list is always displaying active clients.
+     */
+    @Before
+    public void setUp() {
+        listPanelController.setDefault();
+    }
 
     /**
      * Tests if a particular tutor is closed properly.

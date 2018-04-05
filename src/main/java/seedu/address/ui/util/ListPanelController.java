@@ -42,6 +42,15 @@ public class ListPanelController {
     }
 
     /**
+     * Reset the display to its default mode showing active client list.
+     */
+    public void setDefault() {
+        if (!isCurrentDisplayActiveList()) {
+            switchDisplay();
+        }
+    }
+
+    /**
      * @return true if displayed list is active list
      */
     public static boolean isCurrentDisplayActiveList() {

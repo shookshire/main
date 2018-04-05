@@ -46,9 +46,7 @@ public class RestoreCommandTest {
      */
     @AfterClass
     public static void close() {
-        if (!ListPanelController.isCurrentDisplayActiveList()) {
-            listPanelController.switchDisplay();
-        }
+        listPanelController.setDefault();
     }
 
     /**
