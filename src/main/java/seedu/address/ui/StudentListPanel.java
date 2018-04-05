@@ -57,6 +57,7 @@ public class StudentListPanel extends UiPart<Region> {
         setEventHandlerForSelectionChangeEvent();
     }
 
+    //@@author olimhc
     /**
      * Switch the displayed student's list
      */
@@ -75,6 +76,7 @@ public class StudentListPanel extends UiPart<Region> {
             throw new AssertionError("This should not be possible.");
         }
     }
+    //@@author
 
     private void setEventHandlerForSelectionChangeEvent() {
         studentListView.getSelectionModel().selectedItemProperty()
@@ -102,11 +104,13 @@ public class StudentListPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
+    //@@author olimhc
     @Subscribe
     private void handleClientListSwitchEvent(ClientListSwitchEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchListDisplay();
     }
+    //@@author
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code ClientCard}.

@@ -89,6 +89,7 @@ public class StatusBarFooter extends UiPart<Region> {
         setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
     }
 
+    //@@author olimhc
     @Subscribe
     private void handleClientListSwitchEvent(ClientListSwitchEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -98,4 +99,5 @@ public class StatusBarFooter extends UiPart<Region> {
             setDisplayStatus(SYNC_STATUS_ACTIVE_LIST);
         }
     }
+    //@@author
 }
