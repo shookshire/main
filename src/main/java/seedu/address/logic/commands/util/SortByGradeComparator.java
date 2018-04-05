@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import seedu.address.model.person.Client;
 
+//@@author olimhc
 /**
  * Comparator to sort by int base on valueWeight
  */
