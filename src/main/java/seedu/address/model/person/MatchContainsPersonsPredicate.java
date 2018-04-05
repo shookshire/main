@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import java.util.function.Predicate;
 
+//@@author Zhu-Jiahui
 /**
  * Tests that a {@code Client}'s attributes matches all of the attributes of the entered {@code Client}'s.
  */
@@ -25,3 +26,4 @@ public class MatchContainsPersonsPredicate implements Predicate<Client> {
     }
 
 }
+//@@author

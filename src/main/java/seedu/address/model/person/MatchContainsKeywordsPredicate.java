@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import java.util.function.Predicate;
 
+//@@author Zhu-Jiahui
 /**
  * Tests that a {@code Client}'s {@code Location, Grade and Subject} matches the entered {@code Client}'s
  * {@code Location, Grade and Subject}.
@@ -45,3 +46,4 @@ public class MatchContainsKeywordsPredicate implements Predicate<Client> {
     }
 
 }
+//@@author

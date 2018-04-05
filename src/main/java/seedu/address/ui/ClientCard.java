@@ -80,8 +80,8 @@ public class ClientCard extends UiPart<Region> {
         });
     }
 
+    //@@author Zhu-Jiahui
     /**
-     *@author Zhu-Jiahui
      * Initialises Location
      * If Location is matched with the client, Location field will be highlighted.
      * @param client
@@ -99,7 +99,6 @@ public class ClientCard extends UiPart<Region> {
     }
 
     /**
-     *@author Zhu-Jiahui
      * Initialises Grade
      * If Grade is matched with the client, Grade field will be highlighted.
      * @param client
@@ -132,6 +131,7 @@ public class ClientCard extends UiPart<Region> {
             subjects.getStyleClass().add(UNMATCH_COLOUR_STYLE);
         }
     }
+    //@@author
 
     /**
      * @param name

@@ -11,7 +11,7 @@ import seedu.address.model.person.MatchContainsKeywordsPredicate;
 import seedu.address.model.person.MatchContainsPersonsPredicate;
 import seedu.address.ui.util.ListPanelController;
 
-
+//@@author Zhu-Jiahui
 /**
  * Match the entered client and lists all clients in address book that has similar attributes to the matched client.
  */
@@ -78,3 +78,4 @@ public class MatchCommand extends Command {
                 && this.category.equals(((MatchCommand) other).category); // state check
     }
 }
+//@@author

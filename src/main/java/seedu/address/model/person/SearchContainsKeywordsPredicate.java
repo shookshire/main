@@ -15,6 +15,7 @@ public class SearchContainsKeywordsPredicate implements Predicate<Client> {
         this.keywords = keywords;
     }
 
+    //@@author Zhu-Jiahui
     @Override
     public boolean test(Client client) {
         return keywords.stream()
@@ -34,6 +35,7 @@ public class SearchContainsKeywordsPredicate implements Predicate<Client> {
                 || keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getCategory().value, keyword));
     }
+    //@@author
 
     @Override
     public boolean equals(Object other) {
