@@ -82,7 +82,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *** This also allows user to restore a client from the closed list to active list if the client were to become active again.
 ** Switch command.
 *** Allows user to toggle between active list and closed list.
-** Enhance grade, subject and location to support mutiple field.
+** Enhance grade, subject and location to support multiple field.
 ** Remove function to remove the specified subject.
 *** This allows the user to remove the specified subject from the client instead of having to type out all the remaining subjects in edit. This is under the consideration that the desired subject of the student would often change as he find's a tutor.
 
