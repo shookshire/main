@@ -82,7 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeClient(target, category);
         indicateAddressBookChanged();
     }
-
+    //@@author shookshire
     @Override
     public synchronized void deleteClosedClient(Client target, Category category) throws PersonNotFoundException {
         addressBook.removeClosedClient(target, category);
@@ -110,6 +110,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         indicateAddressBookChanged();
     }
+<<<<<<< Updated upstream
 
     @Override
     public synchronized void addClosedTutor(Client closedTutor) throws DuplicatePersonException {
@@ -125,6 +126,9 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+=======
+    //@@author
+>>>>>>> Stashed changes
     //=========== Filtered Client List Accessors =============================================================
 
     //@@author olimhc
@@ -195,8 +199,12 @@ public class ModelManager extends ComponentManager implements Model {
         sortedFilteredStudents.setComparator(sortBySubject);
         indicateAddressBookChanged();
     }
+<<<<<<< Updated upstream
     //@@author
 
+=======
+    //@@author shookshire
+>>>>>>> Stashed changes
     /**
      * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
      * {@code addressBook}
@@ -228,6 +236,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTutors.setPredicate(predicate);
         indicateAddressBookChanged();
     }
+    //@@author
     //=========== Ranked Person List Accessors =============================================================
 
     //@@author Zhu-Jiahui
