@@ -73,6 +73,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *****
 * Match function now includes a ranking system.
 **  The ranking system works according to the number of matched attributes.
+** The matched attributes will be highlighted in orange.
 * Close and restore command which allows user to close or restore a particular student or tutor .
 ** This allows user to close a tutor of student upon successful matching which will be stored in a closed tutor's or student's list for future reference.
 ** This also allows user to restore a client from the closed list to active list if the client were to become active again.
