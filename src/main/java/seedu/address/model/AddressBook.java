@@ -27,6 +27,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueClientList students;
     private final UniqueClientList tutors;
+    private final UniqueClientList closedStudents;
+    private final UniqueClientList closedTutors;
     private final UniqueTagList tags;
 
     /*
@@ -39,6 +41,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         students = new UniqueClientList();
         tutors = new UniqueClientList();
+        closedTutors = new UniqueClientList();
+        closedStudents = new UniqueClientList();
         tags = new UniqueTagList();
     }
 
@@ -62,6 +66,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tutors.setClients(tutors);
     }
 
+    public void setClosedStudents(List<Client> closedStudents) throws DuplicatePersonException {
+        this.closedStudents.setClients(closedStudents);
+    }
+
+    public void setClosedTutors(List<Client> closedTutors) throws DuplicatePersonException {
+        this.closedTutors.setClients(closedTutors);
+    }
+
     public void setTags(Set<Tag> tags) {
         this.tags.setTags(tags);
     }
@@ -78,6 +90,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<Client> syncedTutorList = newData.getTutorList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
+        List<Client> syncedClosedStudentList = newData.getClosedStudentList().stream()
+                .map(this::syncWithMasterTagList)
+                .collect(Collectors.toList());
+        List<Client> syncedClosedTutorList = newData.getClosedTutorList().stream()
+                .map(this::syncWithMasterTagList)
+                .collect(Collectors.toList());
 
         try {
             setStudents(syncedStudentList);
@@ -86,6 +104,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
         try {
             setTutors(syncedTutorList);
+        } catch (DuplicatePersonException e) {
+            throw new AssertionError("AddressBooks should not have duplicate tutors");
+        }
+        try {
+            setClosedStudents(syncedClosedStudentList);
+        } catch (DuplicatePersonException e) {
+            throw new AssertionError("AddressBooks should not have duplicate students");
+        }
+        try {
+            setClosedTutors(syncedClosedTutorList);
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate tutors");
         }
@@ -105,13 +133,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        tutors.add(tutor);
+        tutors.add(tutor, closedTutors);
     }
 
     /**
      * Adds a student to TuitionCor.
      * Also checks the new student's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the tutor to point to those in {@link #tags}.
+     * and updates the Tag objects in the student to point to those in {@link #tags}.
      *
      * @throws DuplicatePersonException if an equivalent person already exists.
      */
@@ -120,7 +148,56 @@ public class AddressBook implements ReadOnlyAddressBook {
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        students.add(student);
+        students.add(student, closedStudents);
+    }
+
+    /**
+     * Adds a student to closed student's list.
+     * Also checks the closed student's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the closed student to point to those in {@link #tags}.
+     *
+     * @throws AssertionError if an equivalent person already exists.
+     */
+    public void addClosedStudent(Client t) throws AssertionError {
+        Client closedStudent = syncWithMasterTagList(t);
+        // TODO: the tags master list will be updated even though the below line fails.
+        // This can cause the tags master list to have additional tags that are not tagged to any person
+        // in the person list.
+        closedStudents.add(closedStudent);
+    }
+
+    /**
+     * Adds a tutor to closed tutor's list.
+     * Also checks the closed tutor's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the closed tutor to point to those in {@link #tags}.
+     *
+     * @throws AssertionError if an equivalent person already exists.
+     */
+    public void addClosedTutor(Client t) throws AssertionError {
+        Client closedTutor = syncWithMasterTagList(t);
+        // TODO: the tags master list will be updated even though the below line fails.
+        // This can cause the tags master list to have additional tags that are not tagged to any person
+        // in the person list.
+        closedTutors.add(closedTutor);
+    }
+
+    /**
+     * For test cases use
+     * Adds a closed client to TuitionCor.
+     * This should not be used in runtime.
+     * Also checks the new student's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the tutor to point to those in {@link #tags}.
+     *
+     * @throws DuplicatePersonException if an equivalent person already exists.
+     */
+    public void addClosedClient(Client t) {
+        if (t.getCategory().isStudent()) {
+            Client closedStudent = syncWithMasterTagList(t);
+            closedStudents.add(closedStudent);
+        } else {
+            Client closedTutor = syncWithMasterTagList(t);
+            closedTutors.add(closedTutor);
+        }
     }
 
     /**
@@ -144,7 +221,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given client {@code target} in the list with {@code editedClient}.
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedClient}.
-     *
+     * Either closedStudents or closedTutors will be pass in for duplication check when editing the client in active
+     * list.
      * @throws DuplicatePersonException if updating the client's details causes the client to be equivalent to
      *      another existing client in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
@@ -160,9 +238,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
         if (category.isStudent()) {
-            students.setClient(target, syncedEditedPerson);
+            students.setClient(target, syncedEditedPerson, closedStudents);
         } else {
-            tutors.setClient(target, syncedEditedPerson);
+            tutors.setClient(target, syncedEditedPerson, closedTutors);
         }
     }
 
@@ -189,7 +267,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from the active client list in this {@code AddressBook}.
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
     public boolean removeClient(Client key, Category category) throws PersonNotFoundException {
@@ -199,6 +277,26 @@ public class AddressBook implements ReadOnlyAddressBook {
             isSuccess = students.remove(key);
         } else {
             isSuccess = tutors.remove(key);
+        }
+
+        if (isSuccess) {
+            return true;
+        } else {
+            throw new PersonNotFoundException();
+        }
+    }
+
+    /**
+     * Removes {@code key} from the closed client list in this {@code AddressBook}.
+     * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public boolean removeClosedClient(Client key, Category category) throws PersonNotFoundException {
+        Boolean isSuccess;
+
+        if (category.isStudent()) {
+            isSuccess = closedStudents.remove(key);
+        } else {
+            isSuccess = closedTutors.remove(key);
         }
 
         if (isSuccess) {
@@ -232,6 +330,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Client> getTutorList() {
         return tutors.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Client> getClosedStudentList() {
+        return closedStudents.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Client> getClosedTutorList() {
+        return closedTutors.asObservableList();
     }
 
     @Override

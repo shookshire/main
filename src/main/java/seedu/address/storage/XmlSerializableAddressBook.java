@@ -22,6 +22,10 @@ public class XmlSerializableAddressBook {
     @XmlElement
     private List<XmlAdaptedClient> tutors;
     @XmlElement
+    private List<XmlAdaptedClient> closedStudents;
+    @XmlElement
+    private List<XmlAdaptedClient> closedTutors;
+    @XmlElement
     private List<XmlAdaptedTag> tags;
 
     /**
@@ -31,6 +35,8 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook() {
         tutors = new ArrayList<>();
         students = new ArrayList<>();
+        closedStudents = new ArrayList<>();
+        closedTutors = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -39,9 +45,16 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
-        students.addAll(src.getStudentList().stream().map(XmlAdaptedClient::new).collect(Collectors.toList()));
-        tutors.addAll(src.getTutorList().stream().map(XmlAdaptedClient::new).collect(Collectors.toList()));
-        tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
+        students.addAll(src.getStudentList().stream().map(XmlAdaptedClient::new)
+                .collect(Collectors.toList()));
+        tutors.addAll(src.getTutorList().stream().map(XmlAdaptedClient::new)
+                .collect(Collectors.toList()));
+        closedStudents.addAll(src.getClosedStudentList().stream().map(XmlAdaptedClient::new)
+                .collect(Collectors.toList()));
+        closedTutors.addAll(src.getClosedTutorList().stream().map(XmlAdaptedClient::new)
+                .collect(Collectors.toList()));
+        tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -60,6 +73,12 @@ public class XmlSerializableAddressBook {
         }
         for (XmlAdaptedClient t : tutors) {
             addressBook.addTutor(t.toModelType());
+        }
+        for (XmlAdaptedClient cs : closedStudents) {
+            addressBook.addClosedStudent(cs.toModelType());
+        }
+        for (XmlAdaptedClient ct : closedTutors) {
+            addressBook.addClosedTutor(ct.toModelType());
         }
         return addressBook;
     }

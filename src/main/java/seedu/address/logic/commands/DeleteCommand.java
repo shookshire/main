@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.ui.util.ListPanelController;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -42,10 +43,19 @@ public class DeleteCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() {
         requireNonNull(clientToDelete);
-        try {
-            model.deleteClient(clientToDelete, category);
-        } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("The target person cannot be missing");
+        if (ListPanelController.isCurrentDisplayActiveList()) {
+            try {
+                model.deleteClient(clientToDelete, category);
+            } catch (PersonNotFoundException pnfe) {
+                throw new AssertionError("The target person cannot be missing");
+            }
+        } else {
+            assert(!ListPanelController.isCurrentDisplayActiveList());
+            try {
+                model.deleteClosedClient(clientToDelete, category);
+            } catch (PersonNotFoundException pnfe) {
+                throw new AssertionError("The target person cannot be missing");
+            }
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_CLIENT_SUCCESS, clientToDelete));
@@ -55,10 +65,19 @@ public class DeleteCommand extends UndoableCommand {
     protected void preprocessUndoableCommand() throws CommandException {
         List<Client> lastShownList;
 
-        if (category.isStudent()) {
-            lastShownList = model.getFilteredStudentList();
+        if (ListPanelController.isCurrentDisplayActiveList()) {
+            if (category.isStudent()) {
+                lastShownList = model.getFilteredStudentList();
+            } else {
+                lastShownList = model.getFilteredTutorList();
+            }
         } else {
-            lastShownList = model.getFilteredTutorList();
+            assert(!ListPanelController.isCurrentDisplayActiveList());
+            if (category.isStudent()) {
+                lastShownList = model.getFilteredClosedStudentList();
+            } else {
+                lastShownList = model.getFilteredClosedTutorList();
+            }
         }
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {

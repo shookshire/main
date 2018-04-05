@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLOSED_STUDENTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLOSED_TUTORS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TUTORS;
 
@@ -41,6 +43,8 @@ public abstract class UndoableCommand extends Command {
         model.resetData(previousAddressBook);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         model.updateFilteredTutorList(PREDICATE_SHOW_ALL_TUTORS);
+        model.updateFilteredClosedStudentList(PREDICATE_SHOW_ALL_CLOSED_STUDENTS);
+        model.updateFilteredClosedTutorList(PREDICATE_SHOW_ALL_CLOSED_TUTORS);
     }
 
     /**
@@ -57,6 +61,8 @@ public abstract class UndoableCommand extends Command {
         }
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         model.updateFilteredTutorList(PREDICATE_SHOW_ALL_TUTORS);
+        model.updateFilteredClosedStudentList(PREDICATE_SHOW_ALL_CLOSED_STUDENTS);
+        model.updateFilteredClosedTutorList(PREDICATE_SHOW_ALL_CLOSED_TUTORS);
     }
 
     @Override

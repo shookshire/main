@@ -1,8 +1,8 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalClients.ALICE;
+import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,6 +75,8 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Client> students = FXCollections.observableArrayList();
         private final ObservableList<Client> tutors = FXCollections.observableArrayList();
+        private final ObservableList<Client> closedStudents = FXCollections.observableArrayList();
+        private final ObservableList<Client> closedTutors = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Client> clients, Collection<? extends Tag> tags) {
@@ -90,6 +92,16 @@ public class AddressBookTest {
         @Override
         public ObservableList<Client> getTutorList() {
             return tutors;
+        }
+
+        @Override
+        public ObservableList<Client> getClosedStudentList() {
+            return closedStudents;
+        }
+
+        @Override
+        public ObservableList<Client> getClosedTutorList() {
+            return closedTutors;
         }
 
         @Override

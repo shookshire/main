@@ -141,7 +141,7 @@ public class Grade {
             break;
 
         default:
-            tempIndex = -1;
+            throw new AssertionError("It should not be possible to reach here");
         }
 
         tempIndex += (Integer.parseInt(getGradeFields()[yearIndex]) - 1);

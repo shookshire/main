@@ -14,6 +14,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.logic.commands.util.SortByGradeComparator;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -30,6 +31,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Client> filteredStudents;
     private final FilteredList<Client> filteredTutors;
 
+    private final FilteredList<Client> filteredClosedStudents;
+    private final FilteredList<Client> filteredClosedTutors;
+
     private SortedList<Client> sortedFilteredTutors;
     private SortedList<Client> sortedFilteredStudents;
 
@@ -45,6 +49,9 @@ public class ModelManager extends ComponentManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredTutors = new FilteredList<>(this.addressBook.getTutorList());
+        filteredClosedStudents = new FilteredList<>(this.addressBook.getClosedStudentList());
+        filteredClosedTutors = new FilteredList<>(this.addressBook.getClosedTutorList());
+
         sortedFilteredTutors = new SortedList<>(filteredTutors);
         sortedFilteredStudents = new SortedList<>(filteredStudents);
 
@@ -77,6 +84,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public synchronized void deleteClosedClient(Client target, Category category) throws PersonNotFoundException {
+        addressBook.removeClosedClient(target, category);
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public void updateClient(Client target, Client editedPerson, Category category)
             throws DuplicatePersonException, PersonNotFoundException {
         requireAllNonNull(target, editedPerson, category);
@@ -95,6 +108,20 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addStudent(Client student) throws DuplicatePersonException {
         addressBook.addStudent(student);
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void addClosedTutor(Client closedTutor) throws DuplicatePersonException {
+        addressBook.addClosedTutor(closedTutor);
+        updateFilteredClosedTutorList(PREDICATE_SHOW_ALL_CLOSED_TUTORS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void addClosedStudent(Client closedStudent) throws DuplicatePersonException {
+        addressBook.addClosedStudent(closedStudent);
+        updateFilteredClosedStudentList(PREDICATE_SHOW_ALL_CLOSED_STUDENTS);
         indicateAddressBookChanged();
     }
 
@@ -262,6 +289,28 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<Client> getFilteredClosedTutorList() {
+        return FXCollections.unmodifiableObservableList(filteredClosedTutors);
+    }
+
+    @Override
+    public void updateFilteredClosedTutorList(Predicate<Client> predicate) {
+        requireNonNull(predicate);
+        filteredClosedTutors.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Client> getFilteredClosedStudentList() {
+        return FXCollections.unmodifiableObservableList(filteredClosedStudents);
+    }
+
+    @Override
+    public void updateFilteredClosedStudentList(Predicate<Client> predicate) {
+        requireNonNull(predicate);
+        filteredClosedStudents.setPredicate(predicate);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -277,7 +326,9 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && filteredStudents.equals(other.filteredStudents)
-                && filteredTutors.equals(other.filteredTutors);
+                && filteredTutors.equals(other.filteredTutors)
+                && filteredClosedStudents.equals(other.filteredClosedStudents)
+                && filteredClosedTutors.equals(other.filteredClosedTutors);
     }
 
 }

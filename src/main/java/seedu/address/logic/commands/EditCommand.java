@@ -20,6 +20,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.CommandNotAvailableInClosedViewException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
@@ -32,6 +33,7 @@ import seedu.address.model.person.Subject;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.util.ListPanelController;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -95,6 +97,10 @@ public class EditCommand extends UndoableCommand {
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
+            throw new CommandNotAvailableInClosedViewException();
+        }
+
         List<Client> lastShownList;
 
         if (category.isStudent()) {

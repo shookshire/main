@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -55,11 +56,14 @@ public class SortByNameCommandTest {
      */
     private void assertCommandSuccessForStudentList(SortByNameCommand command, String expectedMessage) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        CommandResult commandResult = command.execute();
-
-        assertEquals(expectedMessage, commandResult.feedbackToUser);
-        assertEquals(expectedModel.getFilteredStudentList(), model.getFilteredStudentList());
-        assertEquals(expectedAddressBook, model.getAddressBook());
+        try {
+            CommandResult commandResult = command.execute();
+            assertEquals(expectedMessage, commandResult.feedbackToUser);
+            assertEquals(expectedModel.getFilteredStudentList(), model.getFilteredStudentList());
+            assertEquals(expectedAddressBook, model.getAddressBook());
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
     }
 
     /**
@@ -70,10 +74,13 @@ public class SortByNameCommandTest {
      */
     private void assertCommandSuccessForTutorList(SortByNameCommand command, String expectedMessage) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        CommandResult commandResult = command.execute();
-
-        assertEquals(expectedMessage, commandResult.feedbackToUser);
-        assertEquals(expectedModel.getFilteredTutorList(), model.getFilteredTutorList());
-        assertEquals(expectedAddressBook, model.getAddressBook());
+        try {
+            CommandResult commandResult = command.execute();
+            assertEquals(expectedMessage, commandResult.feedbackToUser);
+            assertEquals(expectedModel.getFilteredTutorList(), model.getFilteredTutorList());
+            assertEquals(expectedAddressBook, model.getAddressBook());
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
     }
 }

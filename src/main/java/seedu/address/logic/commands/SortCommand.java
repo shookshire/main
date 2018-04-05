@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+
 /**
  * Represents a sort command
  */
@@ -42,9 +44,6 @@ public abstract class SortCommand extends Command {
             + ": Sort selected list according to user choice.\n"
             + "Parameters:" + USAGE_MESSAGE_LIST;
 
-
-
-
     @Override
-    public abstract CommandResult execute();
+    public abstract CommandResult execute() throws CommandException;
 }
