@@ -15,6 +15,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Client;
 import seedu.address.testutil.ClientBuilder;
 
+//@@author shookshire
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */
