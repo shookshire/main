@@ -22,6 +22,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.ui.util.ListPanelController;
 
+//@@author shookshire
 /**
  * Remove the specified details of an existing client in the address book.
  */

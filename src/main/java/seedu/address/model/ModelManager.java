@@ -82,7 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeClient(target, category);
         indicateAddressBookChanged();
     }
-
+    //@@author shookshire
     @Override
     public synchronized void deleteClosedClient(Client target, Category category) throws PersonNotFoundException {
         addressBook.removeClosedClient(target, category);
@@ -125,6 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author
     //=========== Filtered Client List Accessors =============================================================
 
     //@@author olimhc
@@ -197,6 +198,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
 
+    //@@author shookshire
     /**
      * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
      * {@code addressBook}
@@ -228,6 +230,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTutors.setPredicate(predicate);
         indicateAddressBookChanged();
     }
+    //@@author
     //=========== Ranked Person List Accessors =============================================================
 
     //@@author Zhu-Jiahui

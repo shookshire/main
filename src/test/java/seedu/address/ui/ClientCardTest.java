@@ -11,6 +11,7 @@ import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.person.Client;
 import seedu.address.testutil.ClientBuilder;
 
+//@@author shookshire
 public class ClientCardTest extends GuiUnitTest {
 
     @Test
