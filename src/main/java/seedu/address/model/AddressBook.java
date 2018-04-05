@@ -66,7 +66,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setTutors(List<Client> tutors) throws DuplicatePersonException {
         this.tutors.setClients(tutors);
     }
-<<<<<<< Updated upstream
 
     public void setClosedStudents(List<Client> closedStudents) throws DuplicatePersonException {
         this.closedStudents.setClients(closedStudents);
@@ -76,9 +75,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.closedTutors.setClients(closedTutors);
     }
 
-=======
     //@@author
->>>>>>> Stashed changes
     public void setTags(Set<Tag> tags) {
         this.tags.setTags(tags);
     }
@@ -292,7 +289,6 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new PersonNotFoundException();
         }
     }
-<<<<<<< Updated upstream
 
     /**
      * Removes {@code key} from the closed client list in this {@code AddressBook}.
@@ -314,9 +310,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-=======
     //@@author
->>>>>>> Stashed changes
     //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
