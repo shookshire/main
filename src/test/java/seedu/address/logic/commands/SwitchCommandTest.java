@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.SortedClients.getSortedByGradeAddressBook;
 import static seedu.address.testutil.TypicalClients.getTypicalAddressBookNew;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,11 +18,11 @@ import seedu.address.ui.util.ListPanelController;
 
 //@@author olimhc
 public class SwitchCommandTest {
+    private static ListPanelController listPanelController;
     private Model model;
     private Model expectedModel;
     private SwitchCommand switchCommand;
     private EventsCollectorRule eventsCollectorRule;
-    private ListPanelController listPanelController;
 
     private final String expectedSwitchToClosedListMessage = String.format(SwitchCommand.MESSAGE_SUCCESS
             + SwitchCommand.MESSAGE_CLOSED_DISPLAY_LIST);
@@ -35,6 +36,16 @@ public class SwitchCommandTest {
         expectedModel =  new ModelManager(getSortedByGradeAddressBook(), new UserPrefs());
         switchCommand = new SwitchCommand();
         listPanelController = ListPanelController.getInstance();
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
+            listPanelController.switchDisplay();
+        }
+    }
+
+    /**
+     *Ensure display is at active client list after this class test.
+     */
+    @AfterClass
+    public static void close() {
         if (!ListPanelController.isCurrentDisplayActiveList()) {
             listPanelController.switchDisplay();
         }

@@ -20,7 +20,7 @@ public class SortByNameCommand extends SortCommand {
     }
 
     @Override
-    public CommandResult execute() throws CommandException{
+    public CommandResult execute() throws CommandException {
         if (!ListPanelController.isCurrentDisplayActiveList()) {
             throw new CommandNotAvailableInClosedViewException();
         }

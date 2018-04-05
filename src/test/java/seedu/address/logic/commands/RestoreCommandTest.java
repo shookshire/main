@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalClients.getTypicalClosedClientsAddressBook;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -30,12 +31,24 @@ public class RestoreCommandTest {
     private final Category tutorCategory = new Category("t");
 
     /**
-     * Switch the list displayed as restore command is not available when viewing active clients' list.
+     * Ensure display is displaying closed client list.
      */
     @BeforeClass
     public static void setup() {
         listPanelController = ListPanelController.getInstance();
-        listPanelController.switchDisplay();
+        if (ListPanelController.isCurrentDisplayActiveList()) {
+            listPanelController.switchDisplay();
+        }
+    }
+
+    /**
+     *Ensure display is at active client list after this class test.
+     */
+    @AfterClass
+    public static void close() {
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
+            listPanelController.switchDisplay();
+        }
     }
 
     /**
