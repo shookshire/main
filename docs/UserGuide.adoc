@@ -47,7 +47,7 @@ Commands available in active client's list: +
 
 [NOTE]
 Commands available in closed client's list: +
-`clear` `exit` `find` `help` history` `list` `redo` `undo` `restore` `switch`
+`clear` `exit` `find` `help` `history` `list` `redo` `undo` `restore` `switch`
 
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
