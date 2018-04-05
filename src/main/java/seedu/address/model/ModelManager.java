@@ -228,6 +228,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //=========== Ranked Person List Accessors =============================================================
 
+    //@@author Zhu-Jiahui
     /**
      * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
      * {@code addressBook}
@@ -287,6 +288,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
     }
+    //@@author
 
     @Override
     public ObservableList<Client> getFilteredClosedTutorList() {
