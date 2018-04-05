@@ -414,7 +414,11 @@ first, locate John by either using `find John` or finding him in the tutor list.
 Lets say John's Index number if 1.
 
 
-Keying in `match 1 c/t` will return a list of students that are registered in TuitionCor, which stays in the WEST, and are looking for sec4 math tutors.
+Keying in `match 1 c/t` will return a list of students that are registered in TuitionCor, which either stays in the WEST, or are looking for sec4 math tutors.
+
+Match function will list out the potential students for John with the highest match (all attributes matched) on top of the list.
+
+All the matched attributes are highlighted in orange.
 
 ==== Step by Step breakdown
 
@@ -493,9 +497,6 @@ image::MatchSequenceDiagram.png[width="800']
 ** Cons: If there are 2 John stored in the application, there is a chance for the application to match a wrong client.
 
 
-==== Future Improvements
-* Currently, Match function lists all the clients that have one or more similar attributes without ranking it from the highest match to the lowest match. Future implementation should rank the list from the highest match to the lowest match.
-* Currently, there is no colour mapping to the `location`, `grade` and `subject` attributes. future implmentation could colour map them to make them more user friendly.
 // end::match[]
 
 // tag::sorting[]

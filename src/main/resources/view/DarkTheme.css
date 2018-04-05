@@ -375,22 +375,33 @@
     -fx-background-color: yellow;
 }
 
-#tags .orange {
+#tags .purple {
+    -fx-text-fill: black;
+    -fx-background-color: purple;
+}
+
+#tags .lightpink {
+    -fx-text-fill: black;
+    -fx-background-color: lightpink;
+}
+
+#tags .gold {
+    -fx-text-fill: black;
+    -fx-background-color: gold;
+}
+
+#tags .wheat {
+    -fx-text-fill: black;
+    -fx-background-color: wheat;
+}
+
+.orange {
     -fx-text-fill: black;
     -fx-background-color: orange;
 }
 
-#subjects {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
+.noFill {
+    -fx-text-fill: black;
+    -fx-background-color: transparent;
 }
 
-#subjects .label {
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-background-color: grey;
-    -fx-text-fill: black;
-    -fx-font-size: 11;
-    -fx-font-family: "Segoe UI Bold";
-}

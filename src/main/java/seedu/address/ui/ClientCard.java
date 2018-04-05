@@ -14,8 +14,12 @@ public class ClientCard extends UiPart<Region> {
 
     private static final String FXML = "ClientListCard.fxml";
 
-    private static final String[] TAGS_COLOUR_STYLES = {"red" , "blue" , "green" , "yellow" , "orange"};
+    private static final String[] TAGS_COLOUR_STYLES =
+        { "red" , "blue" , "green" , "yellow" , "purple" , "lightpink" , "gold" , "wheat" };
 
+    private static final String MATCH_COLOUR_STYLE = "orange";
+
+    private static final String UNMATCH_COLOUR_STYLE = "noFill";
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -39,11 +43,11 @@ public class ClientCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private Label place;
+    private Label places;
     @FXML
-    private Label grade;
+    private Label grades;
     @FXML
-    private Label subject;
+    private Label subjects;
     @FXML
     private FlowPane tags;
 
@@ -56,9 +60,9 @@ public class ClientCard extends UiPart<Region> {
         phone.setText(client.getPhone().value);
         address.setText(client.getAddress().value);
         email.setText(client.getEmail().value);
-        place.setText(client.getLocation().value);
-        grade.setText(client.getGrade().value);
-        subject.setText(client.getSubject().value);
+        intplaces(client);
+        intGrades(client);
+        intSubjects(client);
         intTags(client);
     }
 
@@ -74,6 +78,59 @@ public class ClientCard extends UiPart<Region> {
             newLabel.getStyleClass().add(getColour(tag.tagName));
             tags.getChildren().add(newLabel);
         });
+    }
+
+    /**
+     *@author Zhu-Jiahui
+     * Initialises Location
+     * If Location is matched with the client, Location field will be highlighted.
+     * @param client
+     */
+
+    private void intplaces(Client client) {
+
+        places.setText(client.getLocation().value);
+
+        if (client.getMatchedLocation() == true) {
+            places.getStyleClass().add(MATCH_COLOUR_STYLE);
+        } else {
+            places.getStyleClass().add(UNMATCH_COLOUR_STYLE);
+        }
+    }
+
+    /**
+     *@author Zhu-Jiahui
+     * Initialises Grade
+     * If Grade is matched with the client, Grade field will be highlighted.
+     * @param client
+     */
+
+    private void intGrades(Client client) {
+
+        grades.setText(client.getGrade().value);
+
+        if (client.getMatchedGrade() == true) {
+            grades.getStyleClass().add(MATCH_COLOUR_STYLE);
+        } else {
+            grades.getStyleClass().add(UNMATCH_COLOUR_STYLE);
+        }
+    }
+
+    /**
+     *@author Zhu-Jiahui
+     * Initialises Subject
+     * If Subject is matched with the client, Subject field will be highlighted.
+     * @param client
+     */
+
+    private void intSubjects(Client client) {
+        subjects.setText(client.getSubject().value);
+
+        if (client.getMatchedSubject() == true) {
+            subjects.getStyleClass().add(MATCH_COLOUR_STYLE);
+        } else {
+            subjects.getStyleClass().add(UNMATCH_COLOUR_STYLE);
+        }
     }
 
     /**
