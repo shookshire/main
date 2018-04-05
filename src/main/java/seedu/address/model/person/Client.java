@@ -59,19 +59,25 @@ public class Client extends Person {
         this.rank = value;
     }
 
-    public boolean getMatchedGrade() { return matchedGrade; }
+    public boolean getMatchedGrade() {
+        return matchedGrade;
+    }
 
     public void setMatchedGrade(boolean isMatch) {
         this.matchedGrade = isMatch;
     }
 
-    public boolean getMatchedSubject() { return matchedSubject; }
+    public boolean getMatchedSubject() {
+        return matchedSubject;
+    }
 
     public void setMatchedSubject(boolean isMatch) {
         this.matchedSubject = isMatch;
     }
 
-    public boolean getMatchedLocation() { return matchedLocation; }
+    public boolean getMatchedLocation() {
+        return matchedLocation;
+    }
 
     public void setMatchedLocation(boolean isMatch) {
         this.matchedLocation = isMatch;

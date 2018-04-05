@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 
 /**
@@ -84,11 +83,17 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .collect(Collectors.toList());
     }
 
-    public String getLocation() { return locationLabel.getText(); }
+    public String getLocation() {
+        return locationLabel.getText();
+    }
 
-    public String getGrade() { return gradeLabel.getText(); }
+    public String getGrade() {
+        return gradeLabel.getText();
+    }
 
-    public String getSubject() { return subjectLabel.getText(); }
+    public String getSubject() {
+        return subjectLabel.getText();
+    }
 
     public List<String> getTagStyleClasses(String tag) {
         return tagLabels.stream()
