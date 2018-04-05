@@ -90,7 +90,8 @@ public interface Model {
     void updateRankedStudentList();
 
     /**
-     * Reset {@code rank}, {@code MatchedGrade}, {@code MatchedLocation} and {@code MatchedSubject} in all Clientlist to default value
+     * Reset {@code rank}, {@code MatchedGrade}, {@code MatchedLocation} and {@code MatchedSubject} in
+     * all Clientlist to default value
      */
     void resetHighLight();
 

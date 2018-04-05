@@ -18,9 +18,9 @@ public class Client extends Person {
     private final Subject subject;
     private final Category category;
     private int rank = 0;
-    private boolean MatchedGrade = false;
-    private boolean MatchedSubject = false;
-    private boolean MatchedLocation = false;
+    private boolean matchedGrade = false;
+    private boolean matchedSubject = false;
+    private boolean matchedLocation = false;
 
     /**
      * Every field must be present and not null.
@@ -59,22 +59,22 @@ public class Client extends Person {
         this.rank = value;
     }
 
-    public boolean getMatchedGrade() {return MatchedGrade; }
+    public boolean getMatchedGrade() { return matchedGrade; }
 
     public void setMatchedGrade(boolean isMatch) {
-        this.MatchedGrade = isMatch;
+        this.matchedGrade = isMatch;
     }
 
-    public boolean getMatchedSubject() {return MatchedSubject; }
+    public boolean getMatchedSubject() { return matchedSubject; }
 
     public void setMatchedSubject(boolean isMatch) {
-        this.MatchedSubject = isMatch;
+        this.matchedSubject = isMatch;
     }
 
-    public boolean getMatchedLocation() {return MatchedLocation; }
+    public boolean getMatchedLocation() { return matchedLocation; }
 
     public void setMatchedLocation(boolean isMatch) {
-        this.MatchedLocation = isMatch;
+        this.matchedLocation = isMatch;
     }
 
     @Override

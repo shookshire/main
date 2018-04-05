@@ -226,32 +226,33 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Reset {@code rank}, {@code MatchedGrade}, {@code MatchedLocation} and {@code MatchedSubject} in all Clientlist to default value
+     * Reset {@code rank}, {@code MatchedGrade}, {@code MatchedLocation} and {@code MatchedSubject} in all
+     * Clientlist to default value
      */
 
     @Override
     public void resetHighLight() {
-        for (Client client : filteredTutors){
+        for (Client client : filteredTutors) {
             client.setRank(0);
             client.setMatchedLocation(false);
             client.setMatchedGrade(false);
             client.setMatchedSubject(false);
         }
-        for (Client client : filteredStudents){
-            client.setRank(0);
-            client.setMatchedLocation(false);
-            client.setMatchedGrade(false);
-            client.setMatchedSubject(false);
-        }
-
-        for (Client client : sortedFilteredStudents){
+        for (Client client : filteredStudents) {
             client.setRank(0);
             client.setMatchedLocation(false);
             client.setMatchedGrade(false);
             client.setMatchedSubject(false);
         }
 
-        for (Client client : sortedFilteredTutors){
+        for (Client client : sortedFilteredStudents) {
+            client.setRank(0);
+            client.setMatchedLocation(false);
+            client.setMatchedGrade(false);
+            client.setMatchedSubject(false);
+        }
+
+        for (Client client : sortedFilteredTutors) {
             client.setRank(0);
             client.setMatchedLocation(false);
             client.setMatchedGrade(false);
