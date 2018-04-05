@@ -1270,6 +1270,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |match clients that only fit certain requirements |clients will have more choice to choose from
 
+|`* * *` |user |easily remove the subjects of the students when they find tutors
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`* *` |user |search multiple tags |narrow down the search to clients that fit all the different tags searched.
