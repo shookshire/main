@@ -505,7 +505,7 @@ Alias: `r`
 e.g. `find James Jake` +
 Alias: `f`
 * *Match* : `match INDEX CATEGORY` +
-e.g. `match 1 c/s'` +
+e.g. `match 1 c/s` +
 Alias: `m`
 * *Sort* : `sort TYPE CATEGORY` +
 eg. `sort n c/s` +
