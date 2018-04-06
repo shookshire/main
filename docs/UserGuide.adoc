@@ -504,17 +504,17 @@ Alias: `r`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake` +
 Alias: `f`
-* *Match* : `match NAME` +
-e.g. `match James` +
+* *Match* : `match INDEX CATEGORY` +
+e.g. `match 1 c/s'` +
 Alias: `m`
-* *Sort* : `sort` +
-eg. `sort TYPE c/s` +
+* *Sort* : `sort TYPE CATEGORY` +
+eg. `sort n c/s` +
 Alias: `so`
-* *Close* : `close` +
-eg. `close INDEX c/s` +
+* *Close* : `close INDEX CATEGORY` +
+eg. `close 1 c/s` +
 Alias: `cs`
-* *Restore* : `restore` +
-eg. `restore INDEX c/s` +
+* *Restore* : `restore INDEX CATEGORY` +
+eg. `restore 1 c/s` +
 Alias: `res`
 * *Switch* : `switch` +
 Alias: `sw`
