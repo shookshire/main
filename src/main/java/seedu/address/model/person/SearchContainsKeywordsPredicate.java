@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.util.GradeUtil;
 
 /**
  * Tests that a {@code Client}'s attributes matches any of the keywords given.
@@ -29,7 +30,7 @@ public class SearchContainsKeywordsPredicate implements Predicate<Client> {
                 || keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getLocation().value, keyword))
                 || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getGrade().value, keyword))
+                .anyMatch(keyword -> GradeUtil.containsGradeIgnoreCase(client.getGrade().valueWeightage, keyword))
                 || keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getSubject().value, keyword))
                 || keywords.stream()

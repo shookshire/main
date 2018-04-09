@@ -77,8 +77,8 @@ public class Grade {
 
     public final int valueWeightage;
 
-    private final int levelIndex = 0;
-    private final int yearIndex = 1;
+    private static final int levelIndex = 0;
+    private static final int yearIndex = 1;
 
     /**
      * Constructs an {@code Grade}.
@@ -89,14 +89,14 @@ public class Grade {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
         this.value = grade.trim().replaceAll(" +", " ");
-        this.valueWeightage = getGradeIndex();
+        this.valueWeightage = getGradeIndex(this.value);
     }
 
     /**
      * @return an int value base on the fields
      */
-    private int getGradeIndex() {
-        final String levelField = getGradeFields()[levelIndex].toLowerCase();
+    public static int getGradeIndex(String value) {
+        final String levelField = getGradeFields(value)[levelIndex].toLowerCase();
 
         int tempIndex = 0;
 
@@ -145,7 +145,7 @@ public class Grade {
             throw new AssertionError("It should not be possible to reach here");
         }
 
-        tempIndex += (Integer.parseInt(getGradeFields()[yearIndex]) - 1);
+        tempIndex += (Integer.parseInt(getGradeFields(value)[yearIndex]) - 1);
 
         return tempIndex;
     }
@@ -192,7 +192,7 @@ public class Grade {
     /**
      * @return Grade in terms of an array containing Level(Primary,Secondary..) and Year(1,2..)
      */
-    private String[] getGradeFields() {
+    private static String[] getGradeFields(String value) {
         String[] allGrades = value.split("\\s+");
         String[] gradeFields =  allGrades[0].split("(?=[\\d])");
         String temp = gradeFields[levelIndex];
