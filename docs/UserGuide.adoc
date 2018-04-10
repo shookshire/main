@@ -32,7 +32,7 @@ This app will not work with earlier versions of Java 8.
 +
 image::Ui.png[width="790"]
 +
-.  By default, upon launching TuitionCor you will be shown the active client list.
+.  By default, upon launching TuitionCor you will be shown the active client list. If you are a new user, the active client list will be filled with sample students and tutors.
 ** Active client list contains two separate list. Clients shown here are those who looking for students or tutors here.
 *** The list on the left represents the student's list where you can view information regarding students who are looking for tutors.
 *** The list on the right represents the tutor's list where you can view information regarding tutors who are looking for students.
@@ -57,6 +57,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`addclient`**`c/s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/Urgent` l/north g/s4 s/math : adds a contact named `John Doe` to TuitionCor.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
+
+.  Some pointers +
+Duplicates of similar students in the student's list is not allowed. Vice versa for tutor's list. However, duplicate contacts between student's and tutor's list is allowed as it's possible for a tutor to also be a student. +
++
+A duplication of student or tutor happens when they do not have at least one difference in the following fields: {Name, Address, Phone Number, Email}.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -488,7 +493,7 @@ _{explain how the user can enable/disable data encryption}_
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
 Alias: `a`
 * *AddClient* `addclient c/CATEGORY n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... l/LOCATION g/GRADE s/SUBJECT` +
-e.g. `addclient c/t n/Tutor1 p/98765432 a/Blk 10 Singapore, #01-239 e/testing@example.com t/family l/north g/pri3 s/physics` +
+e.g. `addclient c/t n/Tutor1 p/98765432 a/Blk 10 Singapore, #01-239 e/testing@example.com t/family l/north g/p3 s/physics` +
 Alias: `ac`
 * *Clear* : `clear` +
 Alias: `c`
