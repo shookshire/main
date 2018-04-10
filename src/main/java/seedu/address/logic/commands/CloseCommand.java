@@ -26,8 +26,9 @@ public class CloseCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Close an active tutor or student and store them in "
             + "a closed student or tutor list. \n"
-            + "Parameters: " + COMMAND_WORD + " " + "INDEX" + " " + PREFIX_CATEGORY + "CATEGORY "
-            + "(CATEGORY can only be either 's' or 't', where 's' represents students and 't' represents tutor).\n"
+            + "Parameters: " + COMMAND_WORD + " " + "INDEX" + " " + PREFIX_CATEGORY + "CATEGORY \n"
+            + "INDEX should be non-zero and non-negative and "
+            + "CATEGORY can only be either 's' or 't', where 's' represents students and 't' represents tutor).\n"
             + "Example: " + COMMAND_WORD + " " + "1" + " " + PREFIX_CATEGORY + "t\n";
 
     public static final String MESSAGE_CLOSE_STUDENT_SUCCESS = "Student closed: %1$s";
