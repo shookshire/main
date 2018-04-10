@@ -176,23 +176,32 @@ public class Grade {
         }
         String[] splitGrade = test.split("\\s+");
         Set<String> isUnique = new HashSet<>();
+        Set<Integer> isUniqueWeightage = new HashSet<>();
+
         boolean isValid = true;
         for (String ss : splitGrade) {
             if (isValid) {
                 isValid = isValidGradeRegex(ss);
                 isUnique.add(ss);
             }
+
+            if (isValid) {
+                isUniqueWeightage.add(getGradeIndex(ss));
+            }
         }
-        if (isUnique.size() != splitGrade.length) {
+        if (isUnique.size() != splitGrade.length || isUniqueWeightage.size() != splitGrade.length) {
             isValid = false;
         }
         return isValid;
     }
 
     /**
-     * @return Grade in terms of an array containing Level(Primary,Secondary..) and Year(1,2..)
+     * @param value must have no leading whitespace or trailing whitespaces
+     * @return only the first Grade in the string in terms of an array containing
+     * Level(Primary,Secondary..) and Year(1,2...
      */
     private static String[] getGradeFields(String value) {
+        assert(value.trim().equals(value));
         String[] allGrades = value.split("\\s+");
         String[] gradeFields =  allGrades[0].split("(?=[\\d])");
         String temp = gradeFields[levelIndex];

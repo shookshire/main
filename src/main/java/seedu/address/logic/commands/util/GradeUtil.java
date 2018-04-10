@@ -6,6 +6,7 @@ import static seedu.address.model.person.Grade.getAllGradeWeightage;
 import static seedu.address.model.person.Grade.getGradeIndex;
 import static seedu.address.model.person.Grade.isValidGrade;
 
+//@@author olimhc
 /**
  * Helper function for handling different format of grade
  */
