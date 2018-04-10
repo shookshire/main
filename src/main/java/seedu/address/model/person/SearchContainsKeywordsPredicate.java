@@ -30,7 +30,7 @@ public class SearchContainsKeywordsPredicate implements Predicate<Client> {
                 || keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getLocation().value, keyword))
                 || keywords.stream()
-                .anyMatch(keyword -> GradeUtil.containsGradeIgnoreCase(client.getGrade().valueWeightage, keyword))
+                .anyMatch(keyword -> GradeUtil.containsGradeIgnoreCase(client.getGrade().value, keyword))
                 || keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getSubject().value, keyword))
                 || keywords.stream()

@@ -2,6 +2,7 @@ package seedu.address.logic.commands.util;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.model.person.Grade.getAllGradeWeightage;
 import static seedu.address.model.person.Grade.getGradeIndex;
 import static seedu.address.model.person.Grade.isValidGrade;
 
@@ -15,14 +16,14 @@ public class GradeUtil {
      *   <br>examples:<pre>
      *       A p3 grade should match primary3.
      *       </pre>
-     * @param valueWeightage cannot be null
+     * @param value cannot be null
      * @param word cannot be null, cannot be empty, must be a single word
      */
-    public static boolean containsGradeIgnoreCase(int valueWeightage, String word) {
-        requireNonNull(valueWeightage);
+    public static boolean containsGradeIgnoreCase(String value, String word) {
+        requireNonNull(value);
         requireNonNull(word);
 
-        if(!isValidGrade(word)) {
+        if (!isValidGrade(word)) {
             return false;
         }
 
@@ -31,10 +32,14 @@ public class GradeUtil {
         checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
         int preppedWordValueWeightage = getGradeIndex(preppedWord);
+        int[] getAllGradeWeightage = getAllGradeWeightage(value);
 
-        if(valueWeightage == preppedWordValueWeightage) {
-            return true;
+        for (int i : getAllGradeWeightage) {
+            if (i == preppedWordValueWeightage) {
+                return true;
+            }
         }
+
         return false;
     }
 }

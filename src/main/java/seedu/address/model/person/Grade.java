@@ -73,12 +73,12 @@ public class Grade {
                     + "multiple grades should be typed with a single space between them "
                     + "in decreasing order of preferences with no repetitions";
 
-    public final String value;
-
-    public final int valueWeightage;
-
     private static final int levelIndex = 0;
     private static final int yearIndex = 1;
+
+    public final String value;
+
+    public final int valueWeightage; //Stores the int value weightage of only the first grade in the list
 
     /**
      * Constructs an {@code Grade}.
@@ -200,6 +200,19 @@ public class Grade {
         gradeFields[yearIndex].trim();
 
         return gradeFields;
+    }
+
+    /**
+     * @return an array containing all the grade weightage of the individual grades
+     */
+    public static int[] getAllGradeWeightage(String value) {
+        String[] allGrades = value.split("\\s+");
+        int[] allGradeWeightage = new int[allGrades.length];
+
+        for (int i = 0; i < allGrades.length; i++) {
+            allGradeWeightage[i] = getGradeIndex(allGrades[i]);
+        }
+        return allGradeWeightage;
     }
 
     @Override
