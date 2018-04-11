@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.util.GradeUtil;
 
 import java.util.function.Predicate;
 
@@ -26,12 +27,12 @@ public class MatchContainsKeywordsPredicate implements Predicate<Client> {
             other.setMatchedLocation(isMatch);
             rank++;
         }
-        if (StringUtil.containsWordIgnoreCase(other.getGrade().toString(), client.getGrade().toString())) {
+        if (GradeUtil.containsGradeIgnoreCase(other.getGrade().value, client.getGrade().toString().split("\\s+")[0])) {
             isMatch = true;
             other.setMatchedGrade(isMatch);
             rank++;
         }
-        if (StringUtil.containsWordIgnoreCase(other.getSubject().toString(), client.getSubject().toString())) {
+        if (StringUtil.containsWordIgnoreCase(other.getSubject().value, client.getSubject().toString().split("\\s+")[0])) {
             isMatch = true;
             other.setMatchedSubject(isMatch);
             rank++;
