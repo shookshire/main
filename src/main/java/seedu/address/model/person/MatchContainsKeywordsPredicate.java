@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.util.GradeUtil;
+
 import java.util.function.Predicate;
 
 //@@author Zhu-Jiahui
