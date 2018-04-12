@@ -91,7 +91,6 @@ A duplication of student or tutor happens when they do not have at least one dif
 ** Remove function to remove the specified subject.
 *** This allows the user to remove the specified subject from the client instead of having to type out all the remaining subjects in edit. This is under the consideration that the desired subject of the student would often change as he find's a tutor.
 
-
 *  In v1.5:
 ** Issues received in v1.4 were carefully reviewed and relevant changes were made. We thank users for your generous feedback.
 *** Bugs found were fixed.
@@ -134,7 +133,7 @@ Alias Format: `ac c/CATEGORY n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... 
 A client can have any number of tags (including 0)
 
 [NOTE]
-User can only enter only a specific location and a specific grade for each client. The type of location and grade accepted can be found below.
+The type of location and grade accepted can be found below.
 
 ****
 * It's required to indicate the category the particular client belongs to.
@@ -164,6 +163,7 @@ Format: `list`
 
 Alias Format: `l`
 
+// tag::sorting[]
 === Sorting a client: 'sort' {Since v1.3}
 
 Sorting tutor's list based on name +
@@ -224,13 +224,17 @@ Student's list displayed will be sorted base on subject.
 Student's list displayed will be sorted base on name.
 * `sort g c/s` +
 Student's list displayed will be sorted base on grade.
+// end::sorting[]
 
+// tag::switch[]
 === Switching between active and closed client's list : `switch` {Since v1.4}
 
 Switch the display between active and closed client's list. +
 Format: `switch` +
 Alias Format: `sw`
+// end::switch[]
 
+// tag::close[]
 === Closing a client : `close` {Since v1.4}
 
 Close an existing and active student in active student's list. +
@@ -248,7 +252,9 @@ This command is only available when viewing the active client's list. Use comman
 * Close the client based on selected category either c/s for students or c/t for tutors at the specified `INDEX`. The index refers to the index number shown in the last tutors or students listing. The index *must be a positive integer* 1, 2, 3, ...
 * Closed student or tutor will be removed from the active list. They can now be found in the closed list which is accessible by command word `switch`.
 ****
+// end::close[]
 
+// tag::restore[]
 === Restoring a client : `restore` {Since v1.4}
 
 Restore an existing and closed student in the closed student's list. +
@@ -266,6 +272,7 @@ This command is only available when viewing the closed client's list. Use comman
 * Restore the client based on selected category either c/s for students or c/t for tutors at the specified `INDEX`. The index refers to the index number shown in the last tutors or students listing. The index *must be a positive integer* 1, 2, 3, ...
 * Restored student or tutor will be removed from the closed list. They can now be found in the active list which is accessible by command word `switch`.
 ****
+// end::restore[]
 
 === Editing a client : `edit` {Since v1.3}
 

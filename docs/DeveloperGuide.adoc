@@ -10,7 +10,8 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/CS2103JAN2018-F11-B2/main forked from Team SE-EDU
+:repoURL: https://github.com/CS2103JAN2018-F11-B2/main
+:forked from Team SE-EDU
 :Team SE-EDU: https://github.com/se-edu/addressbook-level4
 
 By: `Team F11-B2`      Since: `Jun 2016`      Licence: `MIT`
@@ -790,7 +791,6 @@ image::SwitchSequenceDiagram.PNG[width="800"]
 * **Alternative 2:** Call a method in StudentListPanel and TutorListPanel to indicate switch event.
 ** Pros: Code is easier to understand.
 ** Cons: Direct coupling increase and changing a part might affect another component.
-
 // end::switch[]
 
 // tag::dataencryption[]
