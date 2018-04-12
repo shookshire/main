@@ -13,11 +13,12 @@ import static seedu.address.model.person.Grade.isValidGrade;
 public class GradeUtil {
 
     /**
-     * Returns true if the {@code valueWeightage} matches the {@code word} given that word is a valid grade
+     * Returns true if the {@code value} matches the {@code word} given that word is a valid grade
      *   <br>examples:<pre>
      *       A p3 grade should match primary3.
+     *       A client with P3 P4 grades should match a p4 grade
      *       </pre>
-     * @param value cannot be null
+     * @param value cannot be null, can be a string of multiple grades or just a grade
      * @param word cannot be null, cannot be empty, must be a single word
      */
     public static boolean containsGradeIgnoreCase(String value, String word) {

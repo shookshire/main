@@ -10,7 +10,8 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/CS2103JAN2018-F11-B2/main forked from Team SE-EDU
+:repoURL: https://github.com/CS2103JAN2018-F11-B2/main
+:forked from Team SE-EDU
 :Team SE-EDU: https://github.com/se-edu/addressbook-level4
 
 By: `Team F11-B2`      Since: `Jun 2016`      Licence: `MIT`
@@ -598,6 +599,7 @@ image::SortSequenceDiagram.PNG[width="800']
 // end::sorting[]
 
 // tag::close[]
+=== Close feature
 ==== Current Implementation
 
 The close command allows users to remove a particular client from the active client's list and stores it in the closed client's list.
@@ -654,6 +656,7 @@ image::CloseSequenceDiagram.PNG[width="800"]
 // end::close[]
 
 // tag::restore[]
+=== Restore feature
 ==== Current Implementation
 The restore command allows users to remove a particular client from the closed client's list and restore it back to the active client's list.
 
@@ -701,6 +704,7 @@ image::RestoreSequenceDiagram.PNG[width="800"]
 // end::restore
 
 // tag::switch[]
+=== Switch feature
 ==== Current Implementation
 
 Switch commands allows user to toggle between the active and closed client's list and it extends Command.
@@ -800,7 +804,6 @@ image::SwitchSequenceDiagram.PNG[width="800"]
 * **Alternative 2:** Call a method in StudentListPanel and TutorListPanel to indicate switch event.
 ** Pros: Code is easier to understand.
 ** Cons: Direct coupling increase and changing a part might affect another component.
-
 // end::switch[]
 
 // tag::dataencryption[]

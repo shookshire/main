@@ -6,7 +6,7 @@ package seedu.address.logic.commands.exceptions;
  */
 public class CommandNotAvailableInClosedViewException extends CommandException {
     public CommandNotAvailableInClosedViewException() {
-        super("Operation is not available in closed list view."
+        super("Command is not available in closed list view."
                 + " Please switch back to active list view with the command word: switch\n");
     }
 }
