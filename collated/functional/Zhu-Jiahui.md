@@ -68,6 +68,49 @@ public class MatchCommand extends Command {
     }
 }
 ```
+###### \java\seedu\address\logic\parser\MatchCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new MatchCommand object
+ */
+public class MatchCommandParser implements Parser<MatchCommand> {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the MatchCommand
+     * and returns an MatchCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public MatchCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY);
+
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_CATEGORY)
+                || argumentMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MatchCommand.MESSAGE_USAGE));
+        }
+
+        Index index;
+        Category category;
+
+        try {
+            index = ParserUtil.parseIndex(argumentMultimap.getPreamble());
+            category = ParserUtil.parseCategory(argumentMultimap.getValue(PREFIX_CATEGORY)).get();
+            return new MatchCommand(index, category);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MatchCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+}
+```
 ###### \java\seedu\address\model\ModelManager.java
 ``` java
     /**
@@ -79,7 +122,6 @@ public class MatchCommand extends Command {
     public void updateRankedStudentList() {
         Comparator<Client> rankStudent = new RankComparator();
         sortedFilteredStudents.setComparator(rankStudent);
-        indicateAddressBookChanged();
     }
 
     /**
@@ -91,7 +133,6 @@ public class MatchCommand extends Command {
     public void updateRankedTutorList() {
         Comparator<Client> rankTutor = new RankComparator();
         sortedFilteredTutors.setComparator(rankTutor);
-        indicateAddressBookChanged();
     }
 
     /**
@@ -148,17 +189,19 @@ public class MatchContainsKeywordsPredicate implements Predicate<Client> {
         boolean isMatch = false;
         int rank = 0;
 
-        if (other.getLocation().equals(client.getLocation())) {
+        if (StringUtil.containsWordIgnoreCase(other.getLocation().toString(), client.getLocation().toString())) {
             isMatch = true;
             other.setMatchedLocation(isMatch);
             rank++;
         }
-        if (other.getGrade().equals(client.getGrade())) {
+        if (GradeUtil.containsGradeIgnoreCase(other.getGrade().value, client.getGrade().toString()
+                .split("\\s+")[0])) {
             isMatch = true;
             other.setMatchedGrade(isMatch);
             rank++;
         }
-        if (other.getSubject().equals(client.getSubject())) {
+        if (StringUtil.containsWordIgnoreCase(other.getSubject().value, client.getSubject().toString()
+                .split("\\s+")[0])) {
             isMatch = true;
             other.setMatchedSubject(isMatch);
             rank++;
@@ -217,7 +260,7 @@ public class MatchContainsPersonsPredicate implements Predicate<Client> {
                 || keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getLocation().value, keyword))
                 || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getGrade().value, keyword))
+                .anyMatch(keyword -> GradeUtil.containsGradeIgnoreCase(client.getGrade().value, keyword))
                 || keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(client.getSubject().value, keyword))
                 || keywords.stream()
