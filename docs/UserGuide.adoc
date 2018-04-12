@@ -30,9 +30,9 @@ This app will not work with earlier versions of Java 8.
 .  Copy the file to the folder you want to use as the home folder for your client information.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.PNG[width="790"]
 +
-.  By default, upon launching TuitionCor you will be shown the active client list. If you are a new user, the active client list will be filled with sample students and tutors.
+.  By default, upon launching TuitionCor you will be shown the active client list. If you are a new user, the active client and closed list will be filled with sample students and tutors.
 ** Active client list contains two separate list. Clients shown here are those who looking for students or tutors here.
 *** The list on the left represents the student's list where you can view information regarding students who are looking for tutors.
 *** The list on the right represents the tutor's list where you can view information regarding tutors who are looking for students.
@@ -92,14 +92,22 @@ A duplication of student or tutor happens when they do not have at least one dif
 *** This allows the user to remove the specified subject from the client instead of having to type out all the remaining subjects in edit. This is under the consideration that the desired subject of the student would often change as he find's a tutor.
 
 
-*  Coming in v1.5:
-** Integrate all features together.
+*  In v1.5:
+** Issues received in v1.4 were carefully reviewed and relevant changes were made. We thank users for your generous feedback.
+*** Bugs found were fixed.
+*** Find function now works normally with same grades of different format. Eg: (P2 and Primary2).
+*** Find function now supports multiple grade fields.
 
 *  Coming in v2.0:
-** Auto match function where.
+** Auto match function.
 *** Whenever a new client either student or tutor is added, a list of tutor or student who fits the criteria of the tutor or student will be displayed to the user.
 ** Integrate it with an online platform.
 *** Whenever a user or student sign up on the online platform, their information will automatically be added into TuitionCor database.
+** Auto close function.
+*** This allows the application to auto delete a client from the closed list after a certain period.
+*** The grace period for auto deletion can be predetermined by the user.
+** Addition grade fields to be added.
+*** Polytechnic and ITE.
 
 ====
 *Command Format*

@@ -585,6 +585,7 @@ image::SortSequenceDiagram.PNG[width="800']
 // end::sorting[]
 
 // tag::close[]
+=== Close feature
 ==== Current Implementation
 
 The close command allows users to remove a particular client from the active client's list and stores it in the closed client's list.
@@ -641,6 +642,7 @@ image::CloseSequenceDiagram.PNG[width="800"]
 // end::close[]
 
 // tag::restore[]
+=== Restore feature
 ==== Current Implementation
 The restore command allows users to remove a particular client from the closed client's list and restore it back to the active client's list.
 
@@ -688,6 +690,7 @@ image::RestoreSequenceDiagram.PNG[width="800"]
 // end::restore
 
 // tag::switch[]
+=== Switch feature
 ==== Current Implementation
 
 Switch commands allows user to toggle between the active and closed client's list and it extends Command.
