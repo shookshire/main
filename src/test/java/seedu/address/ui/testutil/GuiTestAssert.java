@@ -63,7 +63,7 @@ public class GuiTestAssert {
     }
 
     /**
-     *TODO: Update in future if more colours are included
+     * Asserts that the colour matches the particular tag label.
      */
     private static String getTagColorStyleFor(String tagName) {
 
@@ -93,8 +93,20 @@ public class GuiTestAssert {
         case "family":
             return "purple";
 
-        case "urgent":
+        case "Urgent":
             return "wheat";
+
+        case "FemaleTutorsOnly":
+            return "lightpink";
+
+        case "ExtraCareRequired":
+            return "red";
+
+        case "Smart":
+            return "blue";
+
+        case "WillingToPay":
+            return "lightpink";
 
         default:
             return "";

@@ -117,7 +117,7 @@ public class TypicalClients {
     private TypicalClients() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical students.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
@@ -140,9 +140,7 @@ public class TypicalClients {
     }
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
-     * @// TODO: 4/4/2018 Two similar methods, the one above still returns students, fix in V1.5
-     * @return
+     * Returns an {@code AddressBook} with all the typical clients (Includes students and tutors).
      */
     public static AddressBook getTypicalAddressBookNew() {
         AddressBook ab = new AddressBook();
