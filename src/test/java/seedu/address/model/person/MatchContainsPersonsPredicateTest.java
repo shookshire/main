@@ -1,13 +1,13 @@
 package seedu.address.model.person;
 
-import seedu.address.testutil.ClientBuilder;
-
-import org.junit.Test;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalClients.BENSON;
 import static seedu.address.testutil.TypicalClients.CARL;
+
+import org.junit.Test;
+
+import seedu.address.testutil.ClientBuilder;
 
 //@@author Zhu-Jiahui
 public class MatchContainsPersonsPredicateTest {
@@ -41,7 +41,7 @@ public class MatchContainsPersonsPredicateTest {
     }
 
     @Test
-    public void test_MatchContainsPersons_returnsTrue() {
+    public void test_matchContainsPersons_returnsTrue() {
 
         MatchContainsPersonsPredicate predicate =
                 new MatchContainsPersonsPredicate(BENSON);
@@ -54,7 +54,7 @@ public class MatchContainsPersonsPredicateTest {
     }
 
     @Test
-    public void test_MatchDoesNotContainPersons_returnsFalse() {
+    public void test_matchDoesNotContainPersons_returnsFalse() {
 
         MatchContainsPersonsPredicate predicate =
                 new MatchContainsPersonsPredicate(BENSON);
