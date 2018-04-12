@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -243,7 +244,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateRankedStudentList() {
         Comparator<Client> rankStudent = new RankComparator();
         sortedFilteredStudents.setComparator(rankStudent);
-        indicateAddressBookChanged();
     }
 
     /**
@@ -255,7 +255,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateRankedTutorList() {
         Comparator<Client> rankTutor = new RankComparator();
         sortedFilteredTutors.setComparator(rankTutor);
-        indicateAddressBookChanged();
     }
 
     /**

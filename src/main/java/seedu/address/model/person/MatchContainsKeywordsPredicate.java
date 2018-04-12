@@ -2,6 +2,10 @@ package seedu.address.model.person;
 
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.util.GradeUtil;
+
+
 //@@author Zhu-Jiahui
 /**
  * Tests that a {@code Client}'s {@code Location, Grade and Subject} matches the entered {@code Client}'s
@@ -19,17 +23,19 @@ public class MatchContainsKeywordsPredicate implements Predicate<Client> {
         boolean isMatch = false;
         int rank = 0;
 
-        if (other.getLocation().equals(client.getLocation())) {
+        if (StringUtil.containsWordIgnoreCase(other.getLocation().toString(), client.getLocation().toString())) {
             isMatch = true;
             other.setMatchedLocation(isMatch);
             rank++;
         }
-        if (other.getGrade().equals(client.getGrade())) {
+        if (GradeUtil.containsGradeIgnoreCase(other.getGrade().value, client.getGrade().toString()
+                .split("\\s+")[0])) {
             isMatch = true;
             other.setMatchedGrade(isMatch);
             rank++;
         }
-        if (other.getSubject().equals(client.getSubject())) {
+        if (StringUtil.containsWordIgnoreCase(other.getSubject().value, client.getSubject().toString()
+                .split("\\s+")[0])) {
             isMatch = true;
             other.setMatchedSubject(isMatch);
             rank++;

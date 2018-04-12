@@ -407,16 +407,19 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ==== Current Implementation
 The match function behaves like a multi-layer find function. It helps to match clients that share one or more similar attributes.
 
-For example, John is a Tutor client that is staying in the WEST of Singapore, and is looking for students that requires help in sec4 math.
+For example, John is a Tutor client that is staying in the `west` of Singapore, and is looking for students that requires help in `s4`(secondary4) `math`.
 
 first, locate John by either using `find John` or finding him in the tutor list. Observe John's Index number.
 
-Lets say John's Index number if 1.
+image::MatchSequence1.png[width="800']
 
+from the sample image above, we can see that John's index number is 6 in tutors list.
 
-Keying in `match 1 c/t` will return a list of students that are registered in TuitionCor, which either stays in the WEST, or are looking for sec4 math tutors.
+image::MatchSequence2.png[width="800']
+Keying in the command in the format `match` `INDEX` `Category`. eg: `match 6 c/t`
 
-Match function will list out the potential students for John with the highest match (all attributes matched) on top of the list.
+image::MatchSequence3.png[width="800']
+Match function returns a list with all the potential students for John with the highest match (all attributes matched) on top of the list.
 
 All the matched attributes are highlighted in orange.
 
@@ -468,9 +471,11 @@ The detailed code is shown below:
 [NOTE]
 If there is no match client found, an empty list will be shown.
 
+image::MatchZeroClient.png[width="800']
+
 If the input client is a tutor, the tutor list will only be showing the particular of the input client.
 
-image::WorkingMatchFunction.PNG[width="800']
+image::MatchSequence3.png[width="800']
 
 this is done in MatchContainsPersonsPredicate.java
 The detailed code is shown below:
@@ -483,11 +488,11 @@ public boolean test(Client other) {
 ----
 A sequence diagram is shown below to show the current design when user input "match 1 c/s"
 
-image::MatchSequenceDiagram.png[width="800']
+image::MatchSequenceDiagram.png[width="800"]
 
-===== Design Considerations
+==== Design Considerations
 
-====== Aspect: UserInput
+===== Aspect: UserInput
 
 * **Alternative 1 (current choice):** User key in client index displayed with with client's category. e.g `match 1 c/t`
 ** Pros: There will be no mismatch since user specify the exact client to match with
@@ -496,7 +501,13 @@ image::MatchSequenceDiagram.png[width="800']
 ** Pros: More convenient for user to operate, lesser steps
 ** Cons: If there are 2 John stored in the application, there is a chance for the application to match a wrong client.
 
+==== Future Implementations
+===== Optimise match function to accommodate multiple `Grade` and `Subject` fields per client.
 
+image::MatchFunctionFutureImplementation.png[width="800"]
+
+* As illustrated above, match function currently highlights all the grades/subjects of a client as long as one of the grade/subject is matched.
+* Future Implementation is to only highlight the respective matched grade/subject.
 // end::match[]
 
 // tag::sorting[]
