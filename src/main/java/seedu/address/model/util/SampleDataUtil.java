@@ -86,14 +86,14 @@ public class SampleDataUtil {
 
     public static Client[] getSampleClosedStudents() {
         return new Client[]{
-                new Client(new Name("Tom"), new Phone("8134123"), new Email("Tom@example.com"),
-                        new Address("Blk 121 Jerry Avenue"),
-                        getTagSet("Assigned"), new Location("South"), new Grade("s1"),
-                        new Subject("English"), new Category("s")),
-                new Client(new Name("Jerry"), new Phone("94449983"), new Email("Jerry@example.com"),
-                        new Address("Blk 1 Tom Avenue"),
-                        getTagSet("Assigned"), new Location("East"), new Grade("k1"),
-                        new Subject("English"), new Category("s"))
+            new Client(new Name("Tom"), new Phone("8134123"), new Email("Tom@example.com"),
+                    new Address("Blk 121 Jerry Avenue"),
+                    getTagSet("Assigned"), new Location("South"), new Grade("s1"),
+                    new Subject("English"), new Category("s")),
+            new Client(new Name("Jerry"), new Phone("94449983"), new Email("Jerry@example.com"),
+                    new Address("Blk 1 Tom Avenue"),
+                    getTagSet("Assigned"), new Location("East"), new Grade("k1"),
+                    new Subject("English"), new Category("s"))
         };
     }
 
