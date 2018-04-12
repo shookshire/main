@@ -93,7 +93,7 @@ public class Grade {
     }
 
     /**
-     * @return an int value base on the fields
+     * @return an int value base on the grade or the first grade in a string of multiple grades
      */
     public static int getGradeIndex(String value) {
         final String levelField = getGradeFields(value)[levelIndex].toLowerCase();
@@ -196,14 +196,15 @@ public class Grade {
     }
 
     /**
-     * @param value must have no leading whitespace or trailing whitespaces
-     * @return only the first Grade in the string in terms of an array containing
+     * @return gradeFields of only the first Grade in the string in terms of an array containing
      * Level(Primary,Secondary..) and Year(1,2...
      */
     private static String[] getGradeFields(String value) {
-        assert(value.trim().equals(value));
         String[] allGrades = value.split("\\s+");
         String[] gradeFields =  allGrades[0].split("(?=[\\d])");
+
+        checkArgument(gradeFields.length == 2, "Error in grade fields format.");
+
         String temp = gradeFields[levelIndex];
         gradeFields[levelIndex] = temp.trim();
         gradeFields[yearIndex].trim();
