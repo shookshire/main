@@ -7,11 +7,11 @@ import seedu.address.ui.util.ListPanelController;
 
 //@@author olimhc
 /**
- *Sort the selected list according to their level in ascending order
+ *Sort the selected list according to their grade in ascending order
  */
 public class SortByGradeCommand extends SortCommand {
 
-    public static final String MESSAGE_SORT_DESC = " their level in ascending order.";
+    public static final String MESSAGE_SORT_DESC = " their grade in ascending order.";
 
     private Category category;
 

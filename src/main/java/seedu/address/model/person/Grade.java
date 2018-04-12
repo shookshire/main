@@ -73,12 +73,12 @@ public class Grade {
                     + "multiple grades should be typed with a single space between them "
                     + "in decreasing order of preferences with no repetitions";
 
+    private static final int levelIndex = 0;
+    private static final int yearIndex = 1;
+
     public final String value;
 
-    public final int valueWeightage;
-
-    private final int levelIndex = 0;
-    private final int yearIndex = 1;
+    public final int valueWeightage; //Stores the int value weightage of only the first grade in the list
 
     /**
      * Constructs an {@code Grade}.
@@ -88,15 +88,15 @@ public class Grade {
     public Grade(String grade) {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
-        this.value = grade.trim().replaceAll(" +", " ");;
-        this.valueWeightage = getGradeIndex();
+        this.value = grade.trim().replaceAll(" +", " ");
+        this.valueWeightage = getGradeIndex(this.value);
     }
 
     /**
-     * @return an int value base on the fields
+     * @return an int value base on the grade or the first grade in a string of multiple grades
      */
-    private int getGradeIndex() {
-        final String levelField = getGradeFields()[levelIndex].toLowerCase();
+    public static int getGradeIndex(String value) {
+        final String levelField = getGradeFields(value)[levelIndex].toLowerCase();
 
         int tempIndex = 0;
 
@@ -145,7 +145,7 @@ public class Grade {
             throw new AssertionError("It should not be possible to reach here");
         }
 
-        tempIndex += (Integer.parseInt(getGradeFields()[yearIndex]) - 1);
+        tempIndex += (Integer.parseInt(getGradeFields(value)[yearIndex]) - 1);
 
         return tempIndex;
     }
@@ -176,30 +176,53 @@ public class Grade {
         }
         String[] splitGrade = test.split("\\s+");
         Set<String> isUnique = new HashSet<>();
+        Set<Integer> isUniqueWeightage = new HashSet<>();
+
         boolean isValid = true;
         for (String ss : splitGrade) {
             if (isValid) {
                 isValid = isValidGradeRegex(ss);
                 isUnique.add(ss);
             }
+
+            if (isValid) {
+                isUniqueWeightage.add(getGradeIndex(ss));
+            }
         }
-        if (isUnique.size() != splitGrade.length) {
+        if (isUnique.size() != splitGrade.length || isUniqueWeightage.size() != splitGrade.length) {
             isValid = false;
         }
         return isValid;
     }
 
     /**
-     * @return Grade in terms of an array containing Level(Primary,Secondary..) and Year(1,2..)
+     * @return gradeFields of only the first Grade in the string in terms of an array containing
+     * Level(Primary,Secondary..) and Year(1,2...
      */
-    private String[] getGradeFields() {
+    private static String[] getGradeFields(String value) {
         String[] allGrades = value.split("\\s+");
         String[] gradeFields =  allGrades[0].split("(?=[\\d])");
+
+        checkArgument(gradeFields.length == 2, "Error in grade fields format.");
+
         String temp = gradeFields[levelIndex];
         gradeFields[levelIndex] = temp.trim();
         gradeFields[yearIndex].trim();
 
         return gradeFields;
+    }
+
+    /**
+     * @return an array containing all the grade weightage of the individual grades
+     */
+    public static int[] getAllGradeWeightage(String value) {
+        String[] allGrades = value.split("\\s+");
+        int[] allGradeWeightage = new int[allGrades.length];
+
+        for (int i = 0; i < allGrades.length; i++) {
+            allGradeWeightage[i] = getGradeIndex(allGrades[i]);
+        }
+        return allGradeWeightage;
     }
 
     @Override
