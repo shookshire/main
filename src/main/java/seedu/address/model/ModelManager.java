@@ -139,7 +139,6 @@ public class ModelManager extends ComponentManager implements Model {
         Comparator<Client> sortByName = (tutor1, tutor2)-> (tutor1.getName().fullName)
                 .compareToIgnoreCase(tutor2.getName().fullName);
         sortedFilteredTutors.setComparator(sortByName);
-        indicateAddressBookChanged();
     }
 
     @Override
@@ -147,7 +146,6 @@ public class ModelManager extends ComponentManager implements Model {
         Comparator<Client> sortByName = (student1, student2)-> (student1.getName().fullName)
                 .compareToIgnoreCase(student2.getName().fullName);
         sortedFilteredStudents.setComparator(sortByName);
-        indicateAddressBookChanged();
     }
 
     @Override
@@ -155,7 +153,6 @@ public class ModelManager extends ComponentManager implements Model {
         Comparator<Client> sortByLocation = (tutor1, tutor2)-> (tutor1.getLocation().value)
                 .compareToIgnoreCase(tutor2.getLocation().value);
         sortedFilteredTutors.setComparator(sortByLocation);
-        indicateAddressBookChanged();
     }
 
     @Override
@@ -163,7 +160,6 @@ public class ModelManager extends ComponentManager implements Model {
         Comparator<Client> sortByLocation = (student1, student2)-> (student1.getLocation().value)
                 .compareToIgnoreCase(student2.getLocation().value);
         sortedFilteredStudents.setComparator(sortByLocation);
-        indicateAddressBookChanged();
     }
 
 
@@ -171,14 +167,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void sortByGradeFilteredClientTutorList() {
         Comparator<Client> sortByGrade = new SortByGradeComparator();
         sortedFilteredTutors.setComparator(sortByGrade);
-        indicateAddressBookChanged();
     }
 
     @Override
     public void sortByGradeFilteredClientStudentList() {
         Comparator<Client> sortByGrade = new SortByGradeComparator();
         sortedFilteredStudents.setComparator(sortByGrade);
-        indicateAddressBookChanged();
     }
 
     @Override
@@ -186,7 +180,6 @@ public class ModelManager extends ComponentManager implements Model {
         Comparator<Client> sortBySubject = (tutor1, tutor2)-> (tutor1.getSubject().value)
                 .compareToIgnoreCase(tutor2.getSubject().value);
         sortedFilteredTutors.setComparator(sortBySubject);
-        indicateAddressBookChanged();
     }
 
     @Override
@@ -194,7 +187,6 @@ public class ModelManager extends ComponentManager implements Model {
         Comparator<Client> sortBySubject = (student1, student2)-> (student1.getSubject().value)
                 .compareToIgnoreCase(student2.getSubject().value);
         sortedFilteredStudents.setComparator(sortBySubject);
-        indicateAddressBookChanged();
     }
     //@@author
 

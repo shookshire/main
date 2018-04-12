@@ -93,7 +93,7 @@ public class StatusBarFooter extends UiPart<Region> {
     @Subscribe
     private void handleClientListSwitchEvent(ClientListSwitchEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (this.displayStatus.getText() == SYNC_STATUS_ACTIVE_LIST) {
+        if (this.displayStatus.getText().equals(SYNC_STATUS_ACTIVE_LIST)) {
             setDisplayStatus(SYNC_STATUS_CLOSED_LIST);
         } else {
             setDisplayStatus(SYNC_STATUS_ACTIVE_LIST);
