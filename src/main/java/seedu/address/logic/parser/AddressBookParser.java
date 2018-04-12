@@ -89,6 +89,7 @@ public class AddressBookParser {
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
+
         case RedoCommand.COMMAND_ALIAS:
             return new RedoCommand();
 

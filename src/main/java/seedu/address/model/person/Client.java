@@ -7,6 +7,7 @@ import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 
+//@@author shookshire
 /**
  * Represents a Client in tuitionCor.
  * Guarantees: details are present and not null, field values are validated, immutable.

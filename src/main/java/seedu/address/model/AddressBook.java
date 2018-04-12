@@ -24,7 +24,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Duplicates are not allowed (by .equals comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
-
+    //@@author shookshire
     private final UniqueClientList students;
     private final UniqueClientList tutors;
     private final UniqueClientList closedStudents;
@@ -46,6 +46,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags = new UniqueTagList();
     }
 
+    //@@author
     public AddressBook() {}
 
     /**
@@ -57,7 +58,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// list overwrite operations
-
+    //@@author shookshire
     public void setStudents(List<Client> students) throws DuplicatePersonException {
         this.students.setClients(students);
     }
@@ -74,6 +75,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.closedTutors.setClients(closedTutors);
     }
 
+    //@@author
     public void setTags(Set<Tag> tags) {
         this.tags.setTags(tags);
     }
@@ -120,7 +122,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// person-level operations
-
+    //@@author shookshire
     /**
      * Adds a tutor to TuitionCor.
      * Also checks the new tutor's tags and updates {@link #tags} with any new tags found,
@@ -244,6 +246,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    //@@author
     /**
      *  Updates the master tag list to include tags in {@code client} that are not in the list.
      *  @return a copy of this {@code client} such that every tag in this person points to a Tag object in the master
@@ -266,6 +269,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 client.getLocation(), client.getGrade(), client.getSubject(), client.getCategory());
     }
 
+    //@@author shookshire
     /**
      * Removes {@code key} from the active client list in this {@code AddressBook}.
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
@@ -306,6 +310,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    //@@author
     //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
@@ -322,6 +327,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         // TODO: refine later
     }
 
+    //@@author shookshire
     @Override
     public ObservableList<Client> getStudentList() {
         return students.asObservableList();
@@ -332,6 +338,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return tutors.asObservableList();
     }
 
+    //@@author
     @Override
     public ObservableList<Client> getClosedStudentList() {
         return closedStudents.asObservableList();

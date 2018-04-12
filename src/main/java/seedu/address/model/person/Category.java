@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author shookshire
 /**
  * Represents if a Client is a student or tutor in TuitionCor.
  * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}

@@ -27,6 +27,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.ClientBuilder;
 
+//@@author shookshire
 public class AddClientCommandTest {
 
     @Rule

@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.HashSet;
 import java.util.Set;
 
+//@@author shookshire
 /**
  * Represents a Person's available Location in the TuitionCor.
  * Guarantees: immutable; is valid as declared in {@link #isValidLocation(String)}
