@@ -328,7 +328,7 @@ Examples:
 Removes the "math" subject from the 1st student.
 * `re 2 c/t s/physics` +
 Removes the "physics" subject from the 2nd tutor.
-// end::undoredo[]
+// end::remove[]
 
 // tag::find[]
 === Locating clients: `find` {Since v1.3}

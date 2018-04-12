@@ -465,6 +465,7 @@ public class SwitchCommandTest {
         model = new ModelManager(getTypicalAddressBookNew(), new UserPrefs());
         expectedModel =  new ModelManager(getSortedByGradeAddressBook(), new UserPrefs());
         switchCommand = new SwitchCommand();
+        switchCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         listPanelController = ListPanelController.getInstance();
         listPanelController.setDefault();
     }
@@ -490,7 +491,6 @@ public class SwitchCommandTest {
 
         commandResult = switchCommand.execute();
         assertEquals(expectedSwitchToActiveListMessage, commandResult.feedbackToUser);
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ClientListSwitchEvent);
     }
 }
 ```
