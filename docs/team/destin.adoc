@@ -1,0 +1,54 @@
+= Destin Ngeow - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TuitionCor
+
+---
+
+== Overview
+
+TuitionCor is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: *Morphed AddressBook - Level 4 into TuitionCor by adding support for clients in model, logic, storage*
+** What it does: Extends or changes the Person related fields and commands in AddressBook to suit Clients in TuitionCor
+** Justification: This changes the original AddressBook into TuitionCor and lay the foundation for future enhancements of TuitionCor.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Minor enhancement*: added a remove command that allows user to easily edit the the frequently edited subjects without having to re-type the entire remaining subjects.
+
+* *Code contributed*: [https://github.com/CS2103JAN2018-F11-B2/main/blob/master/collated/functional/shookshire.md[Functional code]] [https://github.com/CS2103JAN2018-F11-B2/main/blob/master/collated/test/shookshire.md[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Added new fields for the extension of Person to Client (Pull Requests https://github.com/CS2103JAN2018-F11-B2/main/pull/30[#30], https://github.com/CS2103JAN2018-F11-B2/main/pull/20[#20])
+*** Edited the existing add, edit, delete commands to work on the new Client class instead (Pull requests https://github.com/CS2103JAN2018-F11-B2/main/pull/81[#81], https://github.com/CS2103JAN2018-F11-B2/main/pull/30[#30])
+*** Remove command (Pull requests https://github.com/CS2103JAN2018-F11-B2/main/pull/89[#89])
+*** Changing existing commands that work on Person to work on Client instead (Pull requests https://github.com/CS2103JAN2018-F11-B2/main/pull/65[#65])
+*** Changed existing UI to display and to save students and tutors separately. (Pull requests https://github.com/CS2103JAN2018-F11-B2/main/pull/64[#64], https://github.com/CS2103JAN2018-F11-B2/main/pull/4[#4])
+*** Edited existing junit test to work on clients after changes were made to logic and model (Pull requests https://github.com/CS2103JAN2018-F11-B2/main/pull/31[#31])
+** Documentation:
+*** Updated the developer guide's model description to reflect the current implementation: https://github.com/CS2103JAN2018-F11-B2/main/pull/78[#78]
+*** Added the initial intended features contribution to developer guide: https://github.com/CS2103JAN2018-F11-B2/main/pull/25[#25]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=remove]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=modelComponent]

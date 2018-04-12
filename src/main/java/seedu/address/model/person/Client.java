@@ -90,4 +90,24 @@ public class Client extends Person {
                 this.getTags(), location, grade, subject, category);
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        builder.append(" Location: ")
+                .append(getLocation())
+                .append(" Grade: ")
+                .append(getGrade())
+                .append(" Subject: ")
+                .append(getSubject());
+        return builder.toString();
+    }
 }
