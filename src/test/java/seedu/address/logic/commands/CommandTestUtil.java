@@ -113,6 +113,7 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
+
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }

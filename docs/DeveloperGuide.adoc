@@ -194,6 +194,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1 c/s` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
+// tag::modelComponent[]
 [[Design-Model]]
 === Model component
 
@@ -251,6 +252,7 @@ Example of function that takes in additional argument to determine whether to wo
 * **Alternative 2:** Have separate commands (eg. deleteStudent and deleteTutor instead of just delete)
 ** Pros: Easy to implement.
 ** Cons: Large number of duplicated commands.
+// end::modelComponent[]
 
 [[Design-Storage]]
 === Storage component
@@ -1609,8 +1611,8 @@ Given below are the minor and major feature contributions for each of our team m
 
 . Major Contribution
 
-.. Extending of Person class to Client class +
-   Client class includes fields that are specific to TuitionCor such as subject, which is not available in person.
+.. Morphed AddressBook - Level 4 into TuitionCor by adding support for clients in model, logic, storage +
+   Client class and commands that are specific to TuitionCor such as subject, which is not available in person.
 
 . Minor Contribution
 

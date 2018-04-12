@@ -47,7 +47,7 @@ public class RemoveCommandTest {
 
         Client editedPerson = new ClientBuilder(personToRemove).withSubject("chemistry physics").build();
 
-        String expectedMessage = String.format(RemoveCommand.MESSAGE_REMOVE_CLIENT_SUCCESS, personToRemove);
+        String expectedMessage = String.format(RemoveCommand.MESSAGE_REMOVE_CLIENT_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateClient(model.getFilteredStudentList().get(0), editedPerson, new Category("s"));
@@ -77,7 +77,7 @@ public class RemoveCommandTest {
 
         Client editedPerson = new ClientBuilder(personToRemove).withSubject("chemistry physics").build();
 
-        String expectedMessage = String.format(RemoveCommand.MESSAGE_REMOVE_CLIENT_SUCCESS, personToRemove);
+        String expectedMessage = String.format(RemoveCommand.MESSAGE_REMOVE_CLIENT_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateClient(model.getFilteredStudentList().get(0), editedPerson, new Category("s"));
