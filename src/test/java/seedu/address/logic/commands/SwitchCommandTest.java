@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.events.ui.ClientListSwitchEvent;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -35,6 +37,7 @@ public class SwitchCommandTest {
         model = new ModelManager(getTypicalAddressBookNew(), new UserPrefs());
         expectedModel =  new ModelManager(getSortedByGradeAddressBook(), new UserPrefs());
         switchCommand = new SwitchCommand();
+        switchCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         listPanelController = ListPanelController.getInstance();
         listPanelController.setDefault();
     }
@@ -60,6 +63,5 @@ public class SwitchCommandTest {
 
         commandResult = switchCommand.execute();
         assertEquals(expectedSwitchToActiveListMessage, commandResult.feedbackToUser);
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ClientListSwitchEvent);
     }
 }

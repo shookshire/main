@@ -1,11 +1,10 @@
 package seedu.address.ui.util;
 
-//@@author olimhc
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 
-import java.util.logging.Logger;
-
+//@@author olimhc
 /**
  * Stores the type of list being displayed
  */
