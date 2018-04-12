@@ -184,9 +184,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * For test cases use
+     * For test cases use and when adding sample data
      * Adds a closed client to TuitionCor.
-     * This should not be used in runtime.
      * Also checks the new student's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the tutor to point to those in {@link #tags}.
      *
