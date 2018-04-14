@@ -162,6 +162,7 @@ Examples:
 
 * `addclient c/t n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/urgent l/north g/p1 s/math`
 * `ac c/s n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/urgent l/south g/primary 1 s/math`
+
 // end::addclient[]
 
 === Listing all persons : `list`
