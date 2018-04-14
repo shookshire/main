@@ -18,13 +18,12 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-
+//@@author shookshire
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
-    //@@author shookshire
     private final UniqueClientList students;
     private final UniqueClientList tutors;
     private final UniqueClientList closedStudents;
