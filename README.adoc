@@ -13,9 +13,12 @@ endif::[]
 * TuitionCor is targeted at tuition coordinators who have to manage a large amount of contacts.
 * The daily job-scope of a tuition coordinator involves the need to manage large amount of contacts and match the students to tutors according to their credentials, needs and location.
 * Therefore, TuitionCor aims to facilitate this process and make the job of a tuition coordinator easier.
-*In addition, users are also able to
-** find and filter contacts easily
-** add and edit contacts
+* In addition, users are also able to
+** Add clients
+** Match students to tutors or vice versa
+** Sort clients based on a particular aspect
+** Find clients based on keywords
+** Store assigned clients
 
 == Site Map
 
