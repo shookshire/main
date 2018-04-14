@@ -25,17 +25,19 @@ public class SortByLocationCommand extends SortCommand {
             throw new CommandNotAvailableInClosedViewException();
         }
 
-        switch (category.toString()) {
-        case COMMAND_WORD_TUTOR:
+        if (category.isTutor()) {
             model.sortByLocationFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
-
-        case COMMAND_WORD_STUDENT:
+        } else {
             model.sortByLocationFilteredClientStudentList();
             return new CommandResult(MESSAGE_SUCCESS_STUDENT + MESSAGE_SORT_DESC);
-
-        default:
-            return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortByLocationCommand // instanceof handles nulls
+                & this.category.equals(((SortByLocationCommand) other).category)); // state check // state check
     }
 }

@@ -3,13 +3,13 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.Category;
 
 //@@author olimhc
 /**
  * Represents a sort command
  */
 public abstract class SortCommand extends Command {
-
     public static final String COMMAND_WORD = "sort";
     public static final String COMMAND_ALIAS = "so";
 
@@ -22,8 +22,6 @@ public abstract class SortCommand extends Command {
 
     public static final String MESSAGE_SUCCESS_TUTOR = "Sorted tutor's list according to";
     public static final String MESSAGE_SUCCESS_STUDENT = "Sorted student's list according to";
-    public static final String MESSAGE_FAILURE = "Unable to sort the list";
-
 
     private static final String USAGE_MESSAGE_LIST = " "
             + COMMAND_WORD  + " " + COMMAND_WORD_NAME + " " + PREFIX_CATEGORY + COMMAND_WORD_TUTOR + ", "
