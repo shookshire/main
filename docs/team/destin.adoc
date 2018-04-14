@@ -52,3 +52,11 @@ include::../UserGuide.adoc[tag=remove]
 |===
 
 include::../DeveloperGuide.adoc[tag=modelComponent]
+
+== Proposed implementations/features
+
+* Automatic close feature
+** Instead of throwing an error when the user tries to remove the last subject from a client, ask the user if he would prefer to close the client. If yes, call the close function for the given client.
+* Function for changing the grades of the students
+** All the students would promote to the next grade at the end of every year eg. from p1 to p2. This feature would allow for the user to easily change all the student's grades at the end of each school year instead of having to manually edit their profile.
+** Alternatively, if a clock/calender feature is to be implemented in the future, this function can sync with that clock/calender to automatically change the grades of all the students at the end of the school year.

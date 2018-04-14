@@ -19,6 +19,8 @@ public class RemoveCommandParserTest {
     public void parse_validArgs_returnsRemoveCommand() {
         assertParseSuccess(parser, "1 c/s s/math",
                 new RemoveCommand(INDEX_FIRST_PERSON, new Subject("math"), new Category("s")));
+        assertParseSuccess(parser, "1 c/t s/math",
+                new RemoveCommand(INDEX_FIRST_PERSON, new Subject("math"), new Category("t")));
     }
 
     @Test

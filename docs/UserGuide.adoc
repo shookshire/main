@@ -95,6 +95,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *** Whenever a new client either student or tutor is added, a list of tutor or student who fits the criteria of the tutor or student will be displayed to the user.
 ** Integrate it with an online platform.
 *** Whenever a user or student sign up on the online platform, their information will automatically be added into TuitionCor database.
+** Automatic Close function
+*** An optional feature that will automatically Close a student (storing his/her contact into backup) when the last subject has been removed.
+** Automatic change of grade for students
+*** Either by allowing TuitionCor to sync with the computer's clock or through manually calling the command, all student's grade will be changed eg. from p1 to p2.
+** Timetable availability
+*** Include a timetable into TuitionCor similar to a personal reminder app. However, this timetable would instead be used to show the availability of the student/tutor to allow for better matching.
 
 ====
 *Command Format*
