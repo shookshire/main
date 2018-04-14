@@ -54,7 +54,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Some example commands you can try:
 * *`list`* : lists all contacts
-* **`addclient`**`c/s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/Urgent` l/north g/s4 s/math : adds a contact named `John Doe` to TuitionCor.
+* **`addclient`**`c/s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/Urgent l/north g/s4 s/math` : adds a contact named `John Doe` to TuitionCor.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -100,11 +100,11 @@ A duplication of student or tutor happens when they do not have at least one dif
 *  Coming in v2.0:
 ** Auto match function.
 *** Whenever a new client either student or tutor is added, a list of tutor or student who fits the criteria of the tutor or student will be displayed to the user.
-** Integrate it with an online platform.
-*** Whenever a user or student sign up on the online platform, their information will automatically be added into TuitionCor database.
-** Auto close function.
-*** This allows the application to auto delete a client from the closed list after a certain period.
-*** The grace period for auto deletion can be predetermined by the user.
+** Integration with Gmail.
+*** Users are able to link a valid Gmail account to TuitionCor.
+*** This allows TuitionCor to be able to send email notification to clients.
+** Email notification
+*** This allows users to to send a client through email relevant contact information regarding their assigned Tutors or Students upon a successful matching.
 ** Addition grade fields to be added.
 *** Polytechnic and ITE.
 
@@ -123,7 +123,7 @@ A duplication of student or tutor happens when they do not have at least one dif
 
 Format: `help`
 
-=== Adding a client: `addclient` {Since v1.2}
+=== Adding a client: `addclient` `[Since v1.2]`
 
 Adds a client to TuitionCor +
 Format: `addclient c/CATEGORY n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... l/LOCATION g/GRADE s/SUBJECT`
@@ -164,7 +164,7 @@ Format: `list`
 Alias Format: `l`
 
 // tag::sorting[]
-=== Sorting a client: 'sort' {Since v1.3}
+=== Sorting a client: 'sort' `[Since v1.3]`
 
 Sorting tutor's list based on name +
 Format: `sort n c/t` +
@@ -199,11 +199,11 @@ Format: `sort s c/s` +
 Alias Format: `so s c/s'
 
 ****
-*Sorts the client based on the selected category, either 't' for tutors or 's' for students based on a chosen criteria 'n' for name, 'g' for grade, 's' for subject and 'l' for location.
+Sorts the client based on the selected category, either 't' for tutors or 's' for students based on a chosen criteria 'n' for name, 'g' for grade, 's' for subject and 'l' for location.
 
-*Sorting by name, grade and subjects are based on alphabetical order.
+Sorting by name, grade and subjects are based on alphabetical order.
 
-*Sorting by grade are based on ascending order of seniority (Kindergarten->Primary->Secondary->Junior College->University)
+Sorting by grade are based on ascending order of seniority (Kindergarten->Primary->Secondary->Junior College->University)
 ****
 Examples:
 
@@ -227,7 +227,7 @@ Student's list displayed will be sorted base on grade.
 // end::sorting[]
 
 // tag::switch[]
-=== Switching between active and closed client's list : `switch` {Since v1.4}
+=== Switching between active and closed client's list : `switch` `[Since v1.4]`
 
 Switch the display between active and closed client's list. +
 Format: `switch` +
@@ -235,7 +235,7 @@ Alias Format: `sw`
 // end::switch[]
 
 // tag::close[]
-=== Closing a client : `close` {Since v1.4}
+=== Closing a client : `close` `[Since v1.4]`
 
 Close an existing and active student in active student's list. +
 Format: `close INDEX c/s` +
@@ -255,7 +255,7 @@ This command is only available when viewing the active client's list. Use comman
 // end::close[]
 
 // tag::restore[]
-=== Restoring a client : `restore` {Since v1.4}
+=== Restoring a client : `restore` `[Since v1.4]`
 
 Restore an existing and closed student in the closed student's list. +
 Format: `restore INDEX c/s` +
@@ -266,7 +266,7 @@ Format: `restore INDEX c/t` +
 Alias Format: `res INDEX c/t`
 
 [NOTE]
-This command is only available when viewing the closed client's list. Use command word `switch` to toggle from closed list to active list.
+This command is only available when viewing the closed client's list. Use command word `switch` to toggle from active list to closed list.
 
 ****
 * Restore the client based on selected category either c/s for students or c/t for tutors at the specified `INDEX`. The index refers to the index number shown in the last tutors or students listing. The index *must be a positive integer* 1, 2, 3, ...
@@ -274,7 +274,7 @@ This command is only available when viewing the closed client's list. Use comman
 ****
 // end::restore[]
 
-=== Editing a client : `edit` {Since v1.3}
+=== Editing a client : `edit` `[Since v1.3]`
 
 Edits an existing student in the address book. +
 Format: `edit INDEX c/s [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
@@ -304,7 +304,7 @@ Edits the phone number and email address of the 1st tutor to be `93213456` and `
 Edits the name of the 2nd tutor to be `Beatty Crower` and clears all existing tags.
 
 // tag::remove[]
-=== Remove a subject of a client : `remove` {Since v1.4}
+=== Remove a subject of a client : `remove` `[Since v1.4]`
 
 Removes the specific subject from an existing student in the address book. +
 Format: `remove INDEX c/s s/SUBJECT`
@@ -331,7 +331,7 @@ Removes the "physics" subject from the 2nd tutor.
 // end::remove[]
 
 // tag::find[]
-=== Locating clients: `find` {Since v1.3}
+=== Locating clients: `find` `[Since v1.3]`
 
 Finds clients that contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -339,6 +339,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Alias Format: `f KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
+* *For grades only* alias grades will match original grades. e.g `p2` will match `primary2`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Not only the name is searched, but all the fields of a client is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
@@ -349,6 +350,8 @@ Examples:
 
 * `find John` +
 Returns `john` and `John Doe`
+* `find p2` +
+Returns any client having grades `p2` or `primary2`
 * `f Betsy Tim John` +
 Returns any client having names `Betsy`, `Tim`, or `John`
 * `f 96528541` +
@@ -358,13 +361,13 @@ Returns any client having keyword `blk`
 // end::find[]
 
 // tag::match[]
-=== Matching potential clients: `match` {Since v1.3}
+=== Matching potential clients: `match` `[Since v1.3]`
 
-Matches potential tutors to selected student based on INDEX +
+Matches potential tutors to selected student based on `INDEX` +
 Format: `match INDEX c/s`
 Alias Format: `m INDEX c/s`
 
-Matches potential students to selected tutor based on INDEX+
+Matches potential students to selected tutor based on `INDEX` +
 Format: `match INDEX c/t`
 Alias Format: `m INDEX c/t`
 
@@ -388,7 +391,7 @@ At index 1 of student's list, Jim is a student who requires tutors that are stay
 
 // end::match[]
 
-=== Deleting a client : `delete` {Since v1.3}
+=== Deleting a client : `delete` `[Since v1.3]`
 
 Deletes the specified tutor from TuitionCor. +
 Format: `delete INDEX c/t`
@@ -400,7 +403,7 @@ Alias Format: `d INDEX c/s`
 
 ****
 * Deletes the client at the specified `INDEX`.
-* 'c/t' and 'c/s' refers to tutor's category respectively.
+* `c/t` and `c/s` refers to tutor's category respectively.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -481,14 +484,14 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear` {Since v1.0}
+=== Clearing all entries : `clear` `[Since v1.0]`
 
 Clears all entries from TuitionCor. +
 Format: `clear`
 
 Alias Format: `c`
 
-=== Exiting the program : `exit` {Since v1.0}
+=== Exiting the program : `exit` `[Since v1.0]`
 
 Exits the program. +
 Format: `exit`
@@ -500,11 +503,53 @@ Alias Format: `x`
 TuitionCor data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::gmail[]
+=== Integration with Gmail `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Link a valid Gmail account to TuitionCor. +
+
+[NOTE]
+TuitionCor will only be linked to *one* valid Gmail account at any point of time
+
+Format: `set e/EMAIL pw/PASSWORD` +
+A success message of the format _Successfully linked EMAIL to TuitionCor_ will be displayed for successful linking.
+
+A failure message of the format _Failed to link EMAIL to TuitionCor_ will be displayed for unsuccessful linking. Please check that you have inputted the correct email and password.
+
+Example:
+
+* `set e/BestCoordinatorInSg@gmail.com pw/Iamthebest` +
+Links Gmail account `BestCoordinatorInSg@gmail.com` to TuitionCor upon a successful login.
+// end::gmail[]
+
+// tag::emailnotification[]
+=== Email notification function `[coming in v2.0]`
+[IMPORTANT]
+Please ensure that you have successfully linked a Gmail account to TuitionCor before you are able to use this function
+
+Parameters:
+
+Format: `notify INDEX c/CATEGORY INDEX c/CATEGORY`
+
+[TIP]
+The first `INDEX c/CATEGORY` refers to the client you would like to notify and send an email with the relevant contact details. +
+The second `INDEX c/CATEGORY` refers to the client whose information you would like to send to the former client.
+
+[NOTE]
+Both CATEGORY cannot be referring to the same category.
+
+Examples:
+
+* `notify 1 c/s 1 c/t` +
+An email will be send to the first student on the students list using your linked Gmail account. The email will contain relevant information regarding the first tutor on the tutors list.
+
+* `notify 2 c/t 1 c/s` +
+An email will be send to the second tutor on the tutors list using your linked Gmail account. The email will contain relevant information regarding the first student on the students list.
+
+[NOTE]
+The email notification sent to will be based on the email in the client's information.
+
+// end::emailnotification
 
 == FAQ
 
