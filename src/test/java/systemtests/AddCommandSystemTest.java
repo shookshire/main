@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_TUTOR_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_AMY;
@@ -44,6 +45,7 @@ import static seedu.address.testutil.TypicalClients.BOB;
 import static seedu.address.testutil.TypicalClients.HOON;
 import static seedu.address.testutil.TypicalClients.IDA;
 import static seedu.address.testutil.TypicalClients.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalClients.TUTOR_BOB;
 
 import org.junit.Test;
 
@@ -53,6 +55,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Client;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -77,7 +80,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         String command = "   " + AddClientCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
                 + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " " + LOCATION_DESC_AMY + "  "
                 + GRADE_DESC_AMY + "     " + SUBJECT_DESC_AMY + "    " + CATEGORY_DESC_AMY + "     ";
-        assertCommandSuccess(command, toAdd);
+        assertCommandSuccess(command, toAdd, new Category("s"));
 
         /* Case: undo adding Amy to the list -> Amy deleted */
         command = UndoCommand.COMMAND_WORD;
@@ -96,7 +99,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 .withGrade(VALID_GRADE_AMY).withSubject(VALID_SUBJECT_AMY).withCategory(VALID_CATEGORY_AMY).build();
         command = AddClientCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND + LOCATION_DESC_AMY + GRADE_DESC_AMY + SUBJECT_DESC_AMY + CATEGORY_DESC_AMY;
-        assertCommandSuccess(command, toAdd);
+        assertCommandSuccess(command, toAdd, new Category("s"));
 
         /* Case: add a person with all fields same as another person in the address book except phone -> added */
         toAdd = new ClientBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY)
@@ -104,7 +107,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 .withGrade(VALID_GRADE_AMY).withSubject(VALID_SUBJECT_AMY).withCategory(VALID_CATEGORY_AMY).build();
         command = AddClientCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND + LOCATION_DESC_AMY + GRADE_DESC_AMY + SUBJECT_DESC_AMY + CATEGORY_DESC_AMY;
-        assertCommandSuccess(command, toAdd);
+        assertCommandSuccess(command, toAdd, new Category("s"));
 
         /* Case: add a person with all fields same as another person in the address book except email -> added */
         toAdd = new ClientBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_BOB)
@@ -112,7 +115,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 .withGrade(VALID_GRADE_AMY).withSubject(VALID_SUBJECT_AMY).withCategory(VALID_CATEGORY_AMY).build();
         command = AddClientCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
                 + TAG_DESC_FRIEND + LOCATION_DESC_AMY + GRADE_DESC_AMY + SUBJECT_DESC_AMY + CATEGORY_DESC_AMY;
-        assertCommandSuccess(command, toAdd);
+        assertCommandSuccess(command, toAdd, new Category("s"));
 
         /* Case: add a person with all fields same as another person in the address book except address -> added */
         toAdd = new ClientBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
@@ -120,7 +123,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 .withGrade(VALID_GRADE_AMY).withSubject(VALID_SUBJECT_AMY).withCategory(VALID_CATEGORY_AMY).build();
         command = AddClientCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_BOB
                 + TAG_DESC_FRIEND + LOCATION_DESC_AMY + GRADE_DESC_AMY + SUBJECT_DESC_AMY + CATEGORY_DESC_AMY;
-        assertCommandSuccess(command, toAdd);
+        assertCommandSuccess(command, toAdd, new Category("s"));
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();
@@ -131,7 +134,14 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddClientCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + LOCATION_DESC_BOB
                 + ADDRESS_DESC_BOB + NAME_DESC_BOB + GRADE_DESC_BOB
                 + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + CATEGORY_DESC_BOB + SUBJECT_DESC_BOB;
-        assertCommandSuccess(command, toAdd);
+        assertCommandSuccess(command, toAdd, new Category("s"));
+
+        /* Case: add a person to tutor instead of student. */
+        toAdd = TUTOR_BOB;
+        command = AddClientCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + LOCATION_DESC_BOB
+                + ADDRESS_DESC_AMY + NAME_DESC_BOB + GRADE_DESC_BOB
+                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + CATEGORY_DESC_TUTOR_BOB + SUBJECT_DESC_BOB;
+        assertCommandSuccess(command, toAdd, new Category("t"));
 
         /* Case: add a person, missing tags -> added */
         assertCommandSuccess(HOON);
@@ -220,7 +230,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Client toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd, new Category("s"));
     }
 
     /**
@@ -228,14 +238,23 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * instead.
      * @see AddCommandSystemTest#assertCommandSuccess(Client)
      */
-    private void assertCommandSuccess(String command, Client toAdd) {
+    private void assertCommandSuccess(String command, Client toAdd, Category c) {
         Model expectedModel = getModel();
         try {
-            expectedModel.addStudent(toAdd);
+            if (c.isStudent()) {
+                expectedModel.addStudent(toAdd);
+            } else {
+                expectedModel.addTutor(toAdd);
+            }
         } catch (DuplicatePersonException dpe) {
             throw new IllegalArgumentException("toAdd already exists in the model.");
         }
-        String expectedResultMessage = String.format(AddClientCommand.MESSAGE_SUCCESS_STUDENT, toAdd);
+        String expectedResultMessage;
+        if (c.isStudent()) {
+            expectedResultMessage = String.format(AddClientCommand.MESSAGE_SUCCESS_STUDENT, toAdd);
+        } else {
+            expectedResultMessage = String.format(AddClientCommand.MESSAGE_SUCCESS_TUTOR, toAdd);
+        }
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }

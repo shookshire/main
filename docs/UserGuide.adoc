@@ -102,6 +102,12 @@ A duplication of student or tutor happens when they do not have at least one dif
 *** Whenever a new client either student or tutor is added, a list of tutor or student who fits the criteria of the tutor or student will be displayed to the user.
 ** Integrate it with an online platform.
 *** Whenever a user or student sign up on the online platform, their information will automatically be added into TuitionCor database.
+** Automatic Close function
+*** An optional feature that will automatically Close a student (storing his/her contact into backup) when the last subject has been removed.
+** Automatic change of grade for students
+*** Either by allowing TuitionCor to sync with the computer's clock or through manually calling the command, all student's grade will be changed eg. from p1 to p2.
+** Timetable availability
+*** Include a timetable into TuitionCor similar to a personal reminder app. However, this timetable would instead be used to show the availability of the student/tutor to allow for better matching.
 ** Auto close function.
 *** This allows the application to auto delete a client from the closed list after a certain period.
 *** The grace period for auto deletion can be predetermined by the user.
@@ -123,6 +129,7 @@ A duplication of student or tutor happens when they do not have at least one dif
 
 Format: `help`
 
+// tag::addclient[]
 === Adding a client: `addclient` {Since v1.2}
 
 Adds a client to TuitionCor +
@@ -155,6 +162,7 @@ Examples:
 
 * `addclient c/t n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/urgent l/north g/p1 s/math`
 * `ac c/s n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/urgent l/south g/primary 1 s/math`
+// end::addclient[]
 
 === Listing all persons : `list`
 
