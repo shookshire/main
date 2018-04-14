@@ -29,7 +29,7 @@ Responsibilities: UI
 
 === Zhu Jiahui
 image::jiahui.jpg[width="150", align="left"]
-{empty}[https://github.com/Zhu-Jiahui[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Zhu-Jiahui[github]] [<<Zhu-Jiahui#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic
