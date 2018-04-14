@@ -129,6 +129,7 @@ A duplication of student or tutor happens when they do not have at least one dif
 
 Format: `help`
 
+// tag::addclient[]
 === Adding a client: `addclient` {Since v1.2}
 
 Adds a client to TuitionCor +
@@ -161,6 +162,7 @@ Examples:
 
 * `addclient c/t n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/urgent l/north g/p1 s/math`
 * `ac c/s n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/urgent l/south g/primary 1 s/math`
+// end::addclient[]
 
 === Listing all persons : `list`
 
