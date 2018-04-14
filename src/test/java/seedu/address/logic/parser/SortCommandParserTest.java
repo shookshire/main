@@ -1,17 +1,17 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.Test;
+
 import seedu.address.logic.commands.SortByGradeCommand;
 import seedu.address.logic.commands.SortByLocationCommand;
 import seedu.address.logic.commands.SortByNameCommand;
 import seedu.address.logic.commands.SortBySubjectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.model.person.Category;
-
-import org.junit.Test;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 //@@author olimhc
 public class SortCommandParserTest {
@@ -52,9 +52,6 @@ public class SortCommandParserTest {
                 SortCommand.MESSAGE_USAGE));
 
         //no category prefix and category specified
-        assertParseFailure(parser,  "n", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                SortCommand.MESSAGE_USAGE));
-
         assertParseFailure(parser,  "n", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SortCommand.MESSAGE_USAGE));
 

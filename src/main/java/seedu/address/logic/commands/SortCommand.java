@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.Category;
 
 //@@author olimhc
 /**
