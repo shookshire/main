@@ -23,6 +23,7 @@ public class FindCommand extends Command {
         this.predicate = predicate;
     }
 
+    //@@author Zhu-Jiahui
     @Override
     public CommandResult execute() {
         if (ListPanelController.isCurrentDisplayActiveList()) {
@@ -37,6 +38,7 @@ public class FindCommand extends Command {
                     model.getFilteredClosedStudentList().size(), model.getFilteredClosedTutorList().size()));
         }
     }
+    //@@author
 
     @Override
     public boolean equals(Object other) {
