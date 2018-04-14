@@ -497,11 +497,11 @@ image::MatchSequenceDiagram.png[width="800"]
 
 ===== Aspect: UserInput
 
-* **Alternative 1 (current choice):** User key in client index displayed with with client's category. e.g `match 1 c/t`
-** Pros: There will be no mismatch since user specify the exact client to match with
+* **Alternative 1 (current choice):** User key in client index displayed with with client's category. e.g `match 1 c/t`.
+** Pros: There will be no mismatch since user specify the exact client to match with.
 ** Cons: More user input and extra step is taken. User have to locate the client's index first before using match function.
-* **Alternative 2:** user key in the client's name. e.g `match John`
-** Pros: More convenient for user to operate, lesser steps
+* **Alternative 2:** user key in the client's name. e.g `match John`.
+** Pros: More convenient for user to operate, lesser steps.
 ** Cons: If there are 2 John stored in the application, there is a chance for the application to match a wrong client.
 
 ==== Future Implementations
@@ -510,7 +510,7 @@ image::MatchSequenceDiagram.png[width="800"]
 image::MatchFunctionFutureImplementation.png[width="800"]
 
 * As illustrated above, match function currently highlights all the grades/subjects of a client as long as one of the grade/subject is matched.
-* Future Implementation is to only highlight the respective matched grade/subject.
+* Future Implementation could be done to only highlight the respective matched grade/subject.
 // end::match[]
 
 // tag::sorting[]

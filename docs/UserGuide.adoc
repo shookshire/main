@@ -107,6 +107,9 @@ A duplication of student or tutor happens when they do not have at least one dif
 *** The grace period for auto deletion can be predetermined by the user.
 ** Addition grade fields to be added.
 *** Polytechnic and ITE.
+** Matching Specific grade or subject attributes.
+*** Current match command only matches the first grade or subject attribute when a client has more than 1 grade or subject attribute.
+*** Search all the grade and subject attribute and highlight the specific matched attribute only.
 
 ====
 *Command Format*
@@ -374,6 +377,7 @@ Alias Format: `m INDEX c/t`
 * Clients will be matched based on subject, grade or location.
 * Full words of a `grade` will be matched against Alias of a `grade` e.g. `Primary2` will be matched to `p2`
 * Only clients that have any matches based on subject, grade or location will be displayed.
+* If the client have multiple grade or subject attributes, only the first grade or subject attribute is used to match any potential clients.
 * Matched clients will be listed from the most number of matched attributes to the least number of matched attributes.
 * Matched attributes will be highlighted in orange.
 ****
@@ -500,11 +504,25 @@ Alias Format: `x`
 TuitionCor data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::automatch[]
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Auto match feature `[coming in v2.0]`
+
+** When the user enters a new client. the system will auto generates a list of potential clients for this newly added client.
+** This is to enhance the efficiency of our user and shorten the time needed for the user to match potential clients.
+** The reason for this enhancement is to facilitate the user when a potential client makes a call to seek for assignments. With this enhancement, the system is able to generate a list of potential clients right after the client is added into the system. The user is then able to reply the client on the available assignments right away before the client even hangs up the phone.
+** One possible way of implementing it is to call for matching command with the client info after the addclient command has successfully executed.
+
+// end::automatch[]
+
+// tag::matchmultiple[]
+=== Match multiple grade and subject attributes `[coming in v2.0]`
+
+** Currently, match command assumes all client has only one grade subject and location attribute. If a client has multiple grade attributes, match command only matches potential clients with his/her first grade attribute.
+** Enhancement could be made to match all the Grade attributes respectively and list the matching result from the highest match to the lowest match.
+** Only matched attributes should be highlighted.
+** One possible way of implementing it is to change Grade, Subject and Location to List<String> and compare them one by one with other clients.
+// end::matchmultiple[]
 
 == FAQ
 
@@ -513,9 +531,6 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
-Alias: `a`
 * *AddClient* `addclient c/CATEGORY n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... l/LOCATION g/GRADE s/SUBJECT` +
 e.g. `addclient c/t n/Tutor1 p/98765432 a/Blk 10 Singapore, #01-239 e/testing@example.com t/family l/north g/p3 s/physics` +
 Alias: `ac`

@@ -52,6 +52,10 @@ public class SampleDataUtil {
 
     public static Client[] getSampleTutors() {
         return new Client[]{
+            new Client(new Name("Johnny"), new Phone("87438873"), new Email("Johnnyenglish@example.com"),
+                    new Address("Blk 30 London Street, #06-40"),
+                    getTagSet("FemaleTutorsOnly"), new Location("North"), new Grade("p2"), new Subject("math"),
+                    new Category("s")),
             new Client(new Name("James"), new Phone("3213283"), new Email("james@example.com"),
                     new Address("Blk 111 James Avenue"),
                     getTagSet("Friendly"), new Location("North South"), new Grade("s1 s2 s3 s4"),
