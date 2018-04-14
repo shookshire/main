@@ -1,10 +1,15 @@
 package seedu.address.ui.util;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
+
 //@@author olimhc
 /**
  * Stores the type of list being displayed
  */
 public class ListPanelController {
+    private static final Logger logger = LogsCenter.getLogger(ListPanelController.class);
     private static ListPanelController instance = null;
 
     /**
@@ -30,10 +35,12 @@ public class ListPanelController {
         switch (currentlyDisplayed) {
         case activeList:
             currentlyDisplayed = DisplayType.closedList;
+            logger.fine("Switching display to closed client list.");
             break;
 
         case closedList:
             currentlyDisplayed = DisplayType.activeList;
+            logger.fine("Switching display to active client list.");
             break;
 
         default:

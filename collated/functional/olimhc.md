@@ -23,8 +23,9 @@ public class CloseCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Close an active tutor or student and store them in "
             + "a closed student or tutor list. \n"
-            + "Parameters: " + COMMAND_WORD + " " + "INDEX" + " " + PREFIX_CATEGORY + "CATEGORY "
-            + "(CATEGORY can only be either 's' or 't', where 's' represents students and 't' represents tutor).\n"
+            + "Parameters: " + COMMAND_WORD + " " + "INDEX" + " " + PREFIX_CATEGORY + "CATEGORY \n"
+            + "INDEX should be non-zero and non-negative and "
+            + "CATEGORY can only be either 's' or 't', where 's' represents students and 't' represents tutor).\n"
             + "Example: " + COMMAND_WORD + " " + "1" + " " + PREFIX_CATEGORY + "t\n";
 
     public static final String MESSAGE_CLOSE_STUDENT_SUCCESS = "Student closed: %1$s";
@@ -103,7 +104,7 @@ public class CloseCommand extends UndoableCommand {
  */
 public class CommandNotAvailableInActiveViewException extends CommandException {
     public CommandNotAvailableInActiveViewException() {
-        super("Operation is not available in active list view."
+        super("Command is not available in active list view."
                 + " Please switch back to closed list view with the command word: switch\n");
     }
 }
@@ -115,7 +116,7 @@ public class CommandNotAvailableInActiveViewException extends CommandException {
  */
 public class CommandNotAvailableInClosedViewException extends CommandException {
     public CommandNotAvailableInClosedViewException() {
-        super("Operation is not available in closed list view."
+        super("Command is not available in closed list view."
                 + " Please switch back to active list view with the command word: switch\n");
     }
 }
@@ -207,11 +208,11 @@ public class RestoreCommand extends UndoableCommand {
 ###### \java\seedu\address\logic\commands\SortByGradeCommand.java
 ``` java
 /**
- *Sort the selected list according to their level in ascending order
+ *Sort the selected list according to their grade in ascending order
  */
 public class SortByGradeCommand extends SortCommand {
 
-    public static final String MESSAGE_SORT_DESC = " their level in ascending order.";
+    public static final String MESSAGE_SORT_DESC = " their grade in ascending order.";
 
     private Category category;
 
@@ -399,6 +400,7 @@ public abstract class SortCommand extends Command {
 ``` java
 /**
  * Represents a switch command to enable user to switch between closed and active client list
+ * All active students and tutors or closed students and tutors will be shown after switching
  */
 public class SwitchCommand extends Command {
 
@@ -414,11 +416,56 @@ public class SwitchCommand extends Command {
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ClientListSwitchEvent());
         listPanelController.switchDisplay();
-        if (listPanelController.getCurrentListDisplayed() == ListPanelController.DisplayType.closedList) {
+        if (!ListPanelController.isCurrentDisplayActiveList()) {
+            model.updateFilteredClosedTutorList(PREDICATE_SHOW_ALL_CLOSED_TUTORS);
+            model.updateFilteredClosedStudentList(PREDICATE_SHOW_ALL_CLOSED_STUDENTS);
             return new CommandResult(MESSAGE_SUCCESS + MESSAGE_CLOSED_DISPLAY_LIST);
         } else {
+            model.updateFilteredTutorList(PREDICATE_SHOW_ALL_TUTORS);
+            model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
             return new CommandResult(MESSAGE_SUCCESS + MESSAGE_ACTIVE_DISPLAY_LIST);
         }
+    }
+}
+```
+###### \java\seedu\address\logic\commands\util\GradeUtil.java
+``` java
+/**
+ * Helper function for handling different format of grade
+ */
+public class GradeUtil {
+
+    /**
+     * Returns true if the {@code value} matches the {@code word} given that word is a valid grade
+     *   <br>examples:<pre>
+     *       A p3 grade should match primary3.
+     *       A client with P3 P4 grades should match a p4 grade
+     *       </pre>
+     * @param value cannot be null, can be a string of multiple grades or just a grade
+     * @param word cannot be null, cannot be empty, must be a single word
+     */
+    public static boolean containsGradeIgnoreCase(String value, String word) {
+        requireNonNull(value);
+        requireNonNull(word);
+
+        if (!isValidGrade(word)) {
+            return false;
+        }
+
+        String preppedWord = word.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+
+        int preppedWordValueWeightage = getGradeIndex(preppedWord);
+        int[] getAllGradeWeightage = getAllGradeWeightage(value);
+
+        for (int i : getAllGradeWeightage) {
+            if (i == preppedWordValueWeightage) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 ```
@@ -452,7 +499,8 @@ public class CloseCommandParser implements Parser<CloseCommand> {
         requireNonNull(args);
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY);
 
-        if (argumentMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_CATEGORY)
+                || argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CloseCommand.MESSAGE_USAGE));
         }
 
@@ -467,6 +515,14 @@ public class CloseCommandParser implements Parser<CloseCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CloseCommand.MESSAGE_USAGE));
         }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
 ```
@@ -486,7 +542,8 @@ public class RestoreCommandParser implements Parser<RestoreCommand> {
         requireNonNull(args);
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY);
 
-        if (argumentMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_CATEGORY)
+                || argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RestoreCommand.MESSAGE_USAGE));
         }
 
@@ -501,6 +558,14 @@ public class RestoreCommandParser implements Parser<RestoreCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RestoreCommand.MESSAGE_USAGE));
         }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
 ```
@@ -581,7 +646,6 @@ public class SortCommandParser implements Parser<SortCommand> {
         Comparator<Client> sortByName = (tutor1, tutor2)-> (tutor1.getName().fullName)
                 .compareToIgnoreCase(tutor2.getName().fullName);
         sortedFilteredTutors.setComparator(sortByName);
-        indicateAddressBookChanged();
     }
 
     @Override
@@ -589,7 +653,6 @@ public class SortCommandParser implements Parser<SortCommand> {
         Comparator<Client> sortByName = (student1, student2)-> (student1.getName().fullName)
                 .compareToIgnoreCase(student2.getName().fullName);
         sortedFilteredStudents.setComparator(sortByName);
-        indicateAddressBookChanged();
     }
 
     @Override
@@ -597,7 +660,6 @@ public class SortCommandParser implements Parser<SortCommand> {
         Comparator<Client> sortByLocation = (tutor1, tutor2)-> (tutor1.getLocation().value)
                 .compareToIgnoreCase(tutor2.getLocation().value);
         sortedFilteredTutors.setComparator(sortByLocation);
-        indicateAddressBookChanged();
     }
 
     @Override
@@ -605,7 +667,6 @@ public class SortCommandParser implements Parser<SortCommand> {
         Comparator<Client> sortByLocation = (student1, student2)-> (student1.getLocation().value)
                 .compareToIgnoreCase(student2.getLocation().value);
         sortedFilteredStudents.setComparator(sortByLocation);
-        indicateAddressBookChanged();
     }
 
 
@@ -613,14 +674,12 @@ public class SortCommandParser implements Parser<SortCommand> {
     public void sortByGradeFilteredClientTutorList() {
         Comparator<Client> sortByGrade = new SortByGradeComparator();
         sortedFilteredTutors.setComparator(sortByGrade);
-        indicateAddressBookChanged();
     }
 
     @Override
     public void sortByGradeFilteredClientStudentList() {
         Comparator<Client> sortByGrade = new SortByGradeComparator();
         sortedFilteredStudents.setComparator(sortByGrade);
-        indicateAddressBookChanged();
     }
 
     @Override
@@ -628,7 +687,6 @@ public class SortCommandParser implements Parser<SortCommand> {
         Comparator<Client> sortBySubject = (tutor1, tutor2)-> (tutor1.getSubject().value)
                 .compareToIgnoreCase(tutor2.getSubject().value);
         sortedFilteredTutors.setComparator(sortBySubject);
-        indicateAddressBookChanged();
     }
 
     @Override
@@ -636,7 +694,6 @@ public class SortCommandParser implements Parser<SortCommand> {
         Comparator<Client> sortBySubject = (student1, student2)-> (student1.getSubject().value)
                 .compareToIgnoreCase(student2.getSubject().value);
         sortedFilteredStudents.setComparator(sortBySubject);
-        indicateAddressBookChanged();
     }
 ```
 ###### \java\seedu\address\ui\StatusBarFooter.java
@@ -644,7 +701,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     @Subscribe
     private void handleClientListSwitchEvent(ClientListSwitchEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (this.displayStatus.getText() == SYNC_STATUS_ACTIVE_LIST) {
+        if (this.displayStatus.getText().equals(SYNC_STATUS_ACTIVE_LIST)) {
             setDisplayStatus(SYNC_STATUS_CLOSED_LIST);
         } else {
             setDisplayStatus(SYNC_STATUS_ACTIVE_LIST);
@@ -715,6 +772,7 @@ public class SortCommandParser implements Parser<SortCommand> {
  * Stores the type of list being displayed
  */
 public class ListPanelController {
+    private static final Logger logger = LogsCenter.getLogger(ListPanelController.class);
     private static ListPanelController instance = null;
 
     /**
@@ -740,10 +798,12 @@ public class ListPanelController {
         switch (currentlyDisplayed) {
         case activeList:
             currentlyDisplayed = DisplayType.closedList;
+            logger.fine("Switching display to closed client list.");
             break;
 
         case closedList:
             currentlyDisplayed = DisplayType.activeList;
+            logger.fine("Switching display to active client list.");
             break;
 
         default:
