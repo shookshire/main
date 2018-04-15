@@ -1422,7 +1422,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |match clients that only fit certain requirements |clients will have more choice to choose from
 
-|`* * *` |user |easily remove the subjects of the students when they find tutors
+|`* * *` |user |easily remove the subjects of the students when they find tutors |edit the subjects of students whenever they find a suitable tutor easily
+
+|`* * *` |user |advance the grades of all the students in the application |change the grades of all the students without manually editing them one by one
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
