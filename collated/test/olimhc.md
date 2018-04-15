@@ -494,6 +494,197 @@ public class SwitchCommandTest {
     }
 }
 ```
+###### \java\seedu\address\logic\parser\CloseCommandParserTest.java
+``` java
+public class CloseCommandParserTest {
+
+    private static final Category CATEGORY_STUDENT = new Category("s");
+    private static final Category CATEGORY_TUTOR =  new Category("t");
+
+    private CloseCommandParser parser = new CloseCommandParser();
+
+    @Test
+    public void parse_validArgs_returnsRestoreCommand() {
+        assertParseSuccess(parser, "1 c/s", new CloseCommand(INDEX_FIRST_PERSON, CATEGORY_STUDENT));
+        assertParseSuccess(parser, "1 c/t", new CloseCommand(INDEX_FIRST_PERSON, CATEGORY_TUTOR));
+    }
+
+    @Test
+    public void parse_emptyArg_throwsParseException() {
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CloseCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, "z c/s", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CloseCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "1 c/z", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CloseCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "1 w/s", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CloseCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_missingParts_failure() {
+        // no index specified
+        assertParseFailure(parser,  "   c/t", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CloseCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser,  "   c/s", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CloseCommand.MESSAGE_USAGE));
+
+        //no category prefix and category
+        assertParseFailure(parser,  "1 ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CloseCommand.MESSAGE_USAGE));
+
+        //no category specified
+        assertParseFailure(parser,  "1 c/", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CloseCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidIndex_failure() {
+        //negative index
+        assertParseFailure(parser,  "-1 c/t", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CloseCommand.MESSAGE_USAGE));
+
+        //zero index
+        assertParseFailure(parser,  "0 c/t", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CloseCommand.MESSAGE_USAGE));
+    }
+}
+```
+###### \java\seedu\address\logic\parser\RestoreCommandParserTest.java
+``` java
+public class RestoreCommandParserTest {
+
+    private static final Category CATEGORY_STUDENT = new Category("s");
+    private static final Category CATEGORY_TUTOR =  new Category("t");
+
+    private RestoreCommandParser parser = new RestoreCommandParser();
+
+    @Test
+    public void parse_validArgs_returnsRestoreCommand() {
+        assertParseSuccess(parser, "1 c/s", new RestoreCommand(INDEX_FIRST_PERSON, CATEGORY_STUDENT));
+        assertParseSuccess(parser, "1 c/t", new RestoreCommand(INDEX_FIRST_PERSON, CATEGORY_TUTOR));
+    }
+
+    @Test
+    public void parse_emptyArg_throwsParseException() {
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RestoreCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, "z c/s", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RestoreCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "1 c/z", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RestoreCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "1 w/s", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RestoreCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_missingParts_failure() {
+        // no index specified
+        assertParseFailure(parser,  "   c/t", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RestoreCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser,  "   c/s", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RestoreCommand.MESSAGE_USAGE));
+
+        //no category prefix and category
+        assertParseFailure(parser,  "1 ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RestoreCommand.MESSAGE_USAGE));
+
+        //no category specified
+        assertParseFailure(parser,  "1 c/", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RestoreCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidIndex_failure() {
+        //negative index
+        assertParseFailure(parser,  "-1 c/t", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RestoreCommand.MESSAGE_USAGE));
+
+        //zero index
+        assertParseFailure(parser,  "0 c/t", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RestoreCommand.MESSAGE_USAGE));
+    }
+
+}
+```
+###### \java\seedu\address\logic\parser\SortCommandParserTest.java
+``` java
+public class SortCommandParserTest {
+
+    private static final Category CATEGORY_STUDENT = new Category("s");
+    private static final Category CATEGORY_TUTOR =  new Category("t");
+
+    private SortCommandParser parser = new SortCommandParser();
+
+    @Test
+    public void parse_validArgs_returnsSortCommand() {
+        assertParseSuccess(parser, "n c/s", new SortByNameCommand(CATEGORY_STUDENT));
+        assertParseSuccess(parser, "n c/t", new SortByNameCommand(CATEGORY_TUTOR));
+
+        assertParseSuccess(parser, "g c/s", new SortByGradeCommand(CATEGORY_STUDENT));
+        assertParseSuccess(parser, "g c/t", new SortByGradeCommand(CATEGORY_TUTOR));
+
+        assertParseSuccess(parser, "l c/s", new SortByLocationCommand(CATEGORY_STUDENT));
+        assertParseSuccess(parser, "l c/t", new SortByLocationCommand(CATEGORY_TUTOR));
+
+        assertParseSuccess(parser, "s c/s", new SortBySubjectCommand(CATEGORY_STUDENT));
+        assertParseSuccess(parser, "s c/t", new SortBySubjectCommand(CATEGORY_TUTOR));
+    }
+
+    @Test
+    public void parse_emptyArg_throwsParseException() {
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SortCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_missingParts_failure() {
+        // no sort type specified
+        assertParseFailure(parser,  "   c/t", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SortCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser,  "   c/s", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SortCommand.MESSAGE_USAGE));
+
+        //no category prefix and category specified
+        assertParseFailure(parser,  "n", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SortCommand.MESSAGE_USAGE));
+
+        //no category specified
+        assertParseFailure(parser,  "n c/", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SortCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidValue_failure() {
+        //invalid type of sort
+        assertParseFailure(parser, "w c/t", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SortCommand.MESSAGE_USAGE));
+
+        //invalid category
+        assertParseFailure(parser, "w c/w", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SortCommand.MESSAGE_USAGE));
+
+        //invalid category prefix
+        assertParseFailure(parser, "n z/t", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SortCommand.MESSAGE_USAGE));
+    }
+}
+```
 ###### \java\seedu\address\testutil\SortedClients.java
 ``` java
 /**

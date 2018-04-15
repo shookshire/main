@@ -21,11 +21,6 @@ import seedu.address.model.person.Category;
  */
 public class SortCommandParser implements Parser<SortCommand> {
 
-    private final int listIndex = 0;
-    private final int sortTypeIndex = 1;
-    private final int tutorIndex = 0;
-    private final int studentIndex = 1;
-
     /**
      * Parse the given {@code String} of arguments in the context of SortCommand
      * @return either SortByGradeCommand, SortByNameCommand, SortByGradeCommand, SortBySubjectCommand
@@ -34,22 +29,30 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY);
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CATEGORY)
-                || argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_CATEGORY)
+                || argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
-        Category category;
         String sortType;
+        Category category;
 
         try {
-            sortType = argMultimap.getPreamble();
-            category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY)).get();
+            sortType = argumentMultimap.getPreamble();
+            category = ParserUtil.parseCategory(argumentMultimap.getValue(PREFIX_CATEGORY)).get();
+            return getSortCommandType(category, sortType);
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
+    }
+
+    /**
+     * @return the respective sort command based on the category parsed
+     * @throws ParseException
+     */
+    private SortCommand getSortCommandType(Category category, String sortType) throws ParseException {
 
         switch (sortType) {
         case SortCommand.COMMAND_WORD_NAME:

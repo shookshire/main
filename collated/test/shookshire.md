@@ -16,13 +16,23 @@ public class AddClientCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() throws Exception {
-        Client validClient = new ClientBuilder().build();
+        Client validStudent = new ClientBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addStudent(validClient);
+        expectedModel.addStudent(validStudent);
 
-        assertCommandSuccess(prepareCommand(validClient, model), model,
-                String.format(AddClientCommand.MESSAGE_SUCCESS_STUDENT, validClient), expectedModel);
+        assertCommandSuccess(prepareCommand(validStudent, model), model,
+                String.format(AddClientCommand.MESSAGE_SUCCESS_STUDENT, validStudent), expectedModel);
+
+        Client validTutor = new ClientBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND)
+                .withLocation(VALID_LOCATION_BOB).withGrade(VALID_GRADE_BOB).withSubject(VALID_GRADE_BOB)
+                .withCategory(VALID_CATEGORY_TUTOR_BOB).build();
+
+        expectedModel.addTutor(validTutor);
+
+        assertCommandSuccess(prepareCommand(validTutor, model), model,
+                String.format(AddClientCommand.MESSAGE_SUCCESS_TUTOR, validTutor), expectedModel);
     }
 
     @Test
@@ -59,11 +69,22 @@ public class AddClientCommandTest {
         ModelStubAcceptingClientAdded modelStub = new ModelStubAcceptingClientAdded();
         Client validClient = new ClientBuilder().build();
 
-        CommandResult commandResult = getAddClientCommandForPerson(validClient, modelStub).execute();
+        CommandResult commandResultStudent = getAddClientCommandForStudent(validClient, modelStub).execute();
 
         assertEquals(String.format(AddClientCommand.MESSAGE_SUCCESS_STUDENT, validClient),
-                commandResult.feedbackToUser);
+                commandResultStudent.feedbackToUser);
         assertEquals(Arrays.asList(validClient), modelStub.studentsAdded);
+
+        Client validTutor = new ClientBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND)
+                .withLocation(VALID_LOCATION_BOB).withGrade(VALID_GRADE_BOB).withSubject(VALID_GRADE_BOB)
+                .withCategory(VALID_CATEGORY_TUTOR_BOB).build();
+
+        CommandResult commandResultTutor = getAddClientCommandForTutor(validTutor, modelStub).execute();
+
+        assertEquals(String.format(AddClientCommand.MESSAGE_SUCCESS_TUTOR, validTutor),
+                commandResultTutor.feedbackToUser);
+        assertEquals(Arrays.asList(validTutor), modelStub.tutorsAdded);
     }
 
     @Test
@@ -74,7 +95,7 @@ public class AddClientCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddClientCommand.MESSAGE_DUPLICATE_PERSON);
 
-        getAddClientCommandForPerson(validClient, modelStub).execute();
+        getAddClientCommandForStudent(validClient, modelStub).execute();
     }
 
     @Test
@@ -102,9 +123,18 @@ public class AddClientCommandTest {
     }
 
     /**
-     * Generates a new AddClientCommand with the details of the given person.
+     * Generates a new AddClientCommand with the details of the given student.
      */
-    private AddClientCommand getAddClientCommandForPerson(Client client, Model model) {
+    private AddClientCommand getAddClientCommandForStudent(Client client, Model model) {
+        AddClientCommand command = new AddClientCommand(client);
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        return command;
+    }
+
+    /**
+     * Generates a new AddClientCommand with the details of the given tutor.
+     */
+    private AddClientCommand getAddClientCommandForTutor(Client client, Model model) {
         AddClientCommand command = new AddClientCommand(client);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
@@ -319,6 +349,11 @@ public class AddClientCommandParserTest {
                 .withLocation(VALID_LOCATION_BOB).withGrade(VALID_GRADE_BOB).withSubject(VALID_GRADE_BOB)
                 .withCategory(VALID_CATEGORY_BOB).build();
 
+        Client expectedTutor = new ClientBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND)
+                .withLocation(VALID_LOCATION_BOB).withGrade(VALID_GRADE_BOB).withSubject(VALID_GRADE_BOB)
+                .withCategory(VALID_CATEGORY_TUTOR_BOB).build();
+
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + LOCATION_DESC_BOB + GRADE_DESC_BOB + SUBJECT_DESC_BOB
@@ -343,6 +378,11 @@ public class AddClientCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + LOCATION_DESC_BOB + GRADE_DESC_BOB + SUBJECT_DESC_BOB
                 + CATEGORY_DESC_BOB, new AddClientCommand(expectedPerson));
+
+        // valid fields added to tutor
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + TAG_DESC_FRIEND + LOCATION_DESC_BOB + GRADE_DESC_BOB + SUBJECT_DESC_BOB
+                + CATEGORY_DESC_TUTOR_BOB, new AddClientCommand(expectedTutor));
 
         // multiple tags - all accepted
         Client expectedPersonMultipleTags = new ClientBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
@@ -442,6 +482,8 @@ public class RemoveCommandParserTest {
     public void parse_validArgs_returnsRemoveCommand() {
         assertParseSuccess(parser, "1 c/s s/math",
                 new RemoveCommand(INDEX_FIRST_PERSON, new Subject("math"), new Category("s")));
+        assertParseSuccess(parser, "1 c/t s/math",
+                new RemoveCommand(INDEX_FIRST_PERSON, new Subject("math"), new Category("t")));
     }
 
     @Test
