@@ -196,6 +196,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeletePersonSdForLogic.png[width="800"]
 
 // tag::modelComponent[]
+
 [[Design-Model]]
 === Model component
 
@@ -210,6 +211,7 @@ The `Model`,
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
 // end::modelComponent[]
 
 [[Design-Storage]]
@@ -235,6 +237,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::modelImplementation[]
+
 === Model
 ==== Current Implementation
 
@@ -316,6 +319,7 @@ On the other hand, a client can have multiple Tags as the Tag are stored through
 * **(Alternative 2)** Create a list similar to UniqueTagList for each field that requires the storage of multiple values
 ** Pros: Allows for greater flexibility and the ability to sync the various existing values in the AddressBook.
 ** Cons: Require many lists to be stored. Whenever more fields are added in future enhancements, it could potentially require the excessive creation of a new type unique list each time.
+
 // end::modelImplementation[]
 
 // tag::undoredo[]
@@ -1762,6 +1766,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Similar to previous.
 
 // tag::removeTest[]
+
 === Remove Subject keyword from a client
 
 . Removing a keyword from the Subject field of a specified client
