@@ -3,10 +3,12 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103JAN2018-F11-B2/main[image:https://travis-ci.org/CS2103JAN2018-F11-B2/main.svg?branch=master[Build Status]]
 
-image::docs/images/Ui.PNG[width="600"]
+ifndef::env-github[]
+image::docs/images/UI.jpg[width="600"]
+endif::[]
 
 ifndef::env-github[]
-image::images/Ui.PNG[width="600"]
+image::images/UI.jpg[width="600"]
 endif::[]
 
 * This is a desktop TuitionCor application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
