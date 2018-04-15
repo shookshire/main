@@ -652,7 +652,7 @@ image::SortSequenceDiagram.PNG[width="800']
 
 // end::sorting[]
 
-//tag::closedClientList[]
+// tag::closedClientList[]
 === Closed client list
 ==== Current Implementation
 
@@ -791,8 +791,10 @@ image::CloseSequenceDiagram.PNG[width="800"]
 
 // end::close[]
 
+
 // tag::restore[]
 === Restore feature
+
 ==== Current Implementation
 The restore command allows users to remove a particular client from the closed client's list and restore it back to the active client's list.
 
@@ -837,7 +839,7 @@ A sequence diagram is shown below to show the current design when a user input "
 
 image::RestoreSequenceDiagram.PNG[width="800"]
 
-// end::restore
+// end::restore[]
 
 // tag::switch[]
 === Switch feature
