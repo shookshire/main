@@ -1726,23 +1726,6 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1764,29 +1747,47 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a client
 
-=== Deleting a person
+. Deleting a client while all clients are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+// tag::removeTest[]
+=== Remove Subject keyword from a client
 
-=== Saving data
+. Removing a keyword from the Subject field of a specified client
 
-. Dealing with missing/corrupted data files
+.. Prerequisites1: At least 1 student and 1 tutor has to be in TuitionCor.
+.. Prerequisites2: Displayed list has to be active list.
+.. Test case: `remove 1 c/s s/math` +
+   Assumption1: First student in TuitionCor has "math" in the Subject field. For example the Subject field is "physics chemistry math english". Otherwise, replace "math" in the command with a word in the Subject field of the client.
+   Assumption2: First student in TuitionCor has more than 1 keyword in Subject field. (Each keyword is a single word separated by whitespace)
+   Expected: "math" would be removed from Subject field of the first student. Given the above example, the remaining Subjects should be "physics chemistry english". Success message would be given. Timestamp in status bar is updated.
+.. Test case: `remove 1 c/s s/math` +
+   Assumption: First student in TuitionCor does not have "math" in the Subject field.
+   Expected: Error message "The inputted message does not exist"
+.. Test case: `remove 1 c/s s/math` +
+   Assumption: First student in TuitionCor has only "math" in Subject field.
+   Expected: Error message warning user that removing the last keyword in Subject field is not allowed and suggests user to close client instead.
+.. Test case: `remove 1 c/t s/math` +
+   Assumption1: First tutor in TuitionCor has "math" in the Subject field. For example the Subject field is "physics chemistry math english". Otherwise, replace "math" in the command with a word in the Subject field of the client.
+   Assumption2: First tutor in TuitionCor has more than 1 keyword in Subject field. (Each keyword is a single word separated by whitespace)
+   Expected: "math" would be removed from Subject field of the first tutor. Given the above example, the remaining Subjects should be "physics chemistry english". Success message would be given. Timestamp in status bar is updated.
+.. Test case: `remove 0 c/s s/math` +
+   Expected: No keyword is removed from Subject field. Error details shown in status message. Status bar remains the same.
+.. Other invalid remove commands to try: `remove c/s s/math` (missing INDEX), `remove x c/s s/math` (where x is a number larger than the list size) +
+   `remove 1 s/math` (missing CATEGORY), `remove 1 c/g s/math` (invalid CATEGORY, CATEGORY should only be "s" or "t") +
+   `remove 1 c/s` (missing SUBJECT), `remove 1 c/s s/chemistry physics` (invalid SUBJECT, SUBJECT should only be a single word with no special characters and no whitespace).
+   Expected: Similar to previous.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+// end::removeTest[]
 
 [appendix]
 == Feature Contribution
