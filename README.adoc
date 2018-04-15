@@ -18,7 +18,8 @@ endif::[]
 ** Match students to tutors or vice versa
 ** Sort clients based on a particular aspect
 ** Find clients based on keywords
-** Store assigned clients
+** Close assigned clients
+** Restore closed clients
 
 == Site Map
 

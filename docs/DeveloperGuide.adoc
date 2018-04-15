@@ -70,7 +70,7 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, links in the documentation will still point to the `se-edu/addressbook-level4` repo. If you plan to develop this as a separate product (i.e. instead of contributing to the `se-edu/addressbook-level4`) , you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
+After forking the repo, links in the documentation will still point to the `CS2103JAN2018-F11-B2/main` repo. If you plan to develop this as a separate product (i.e. instead of contributing to the `CS2103JAN2018-F11-B2/main`) , you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
 
 ==== Setting up CI
 
@@ -557,9 +557,9 @@ image::MatchFunctionFutureImplementation.png[width="800"]
 === Sort feature
 ==== Current Implementation
 
-The sort command is facilitated by a SortCommandParser which implements Parser<SortCommand>. The sort function supports sorting of different fields, namely location, grade, subject and name, which updates the list according to the sorting method.
+The sort command is facilitated by a `SortCommandParser` which implements `Parser<SortCommand>`. The sort function supports sorting of different fields, namely location, grade, subject and name, which updates the list according to the sorting method.
 
-Different types of sorting methods extends abstract class SortCommand which extends Command resides in Logic as shown in the model below.
+Different types of sorting methods extends abstract class `SortCommand` which extends `Command` that resides in Logic as shown in the model below.
 
 image::SortCommandClassDiagram.PNG[width="800"]
 
@@ -595,17 +595,31 @@ public class SortBySubjectCommand extends SortCommand {
 }
 ----
 
-When the user wants to sort the specific list according to his/her needs, SortCommandParser will parse the user input and decide which type of SortCommand to invoke.
-An example of the input required "sort l c/t" which sorts tutor's list by location.
+When the user wants to sort the specific list according to his/her needs, `SortCommandParser` will parse the user input and decide which type of SortCommand to invoke.
+The implementation is as follows:
 
 [source,java]
 ----
 public SortCommand parse(String args) throws ParseException {
-    String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        requireNonNull(args);
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY);
+
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_CATEGORY)
+                || argumentMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
+
+        String sortType;
+        Category category;
+
+        try {
+            sortType = argumentMultimap.getPreamble();
+            category = ParserUtil.parseCategory(argumentMultimap.getValue(PREFIX_CATEGORY)).get();
+            return getSortCommandType(category, sortType);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
+    }
 ----
 
 [NOTE]
@@ -646,7 +660,7 @@ The closed client list is where closed clients students or tutors information ar
 
 The implementation of the storage is similar to how clients are stored in the TuitionCor. Two `UniqueClientList` namely `closedStudents` and `closedTutors` were created to store the information of closed students and tutors.
 
-The clients are then added into their respective `UniqueClientList` this way:
+The addition of clients into their respective `UniqueClientList` are implemented this way:
 [source,java]
 ----
     public void addClosedStudent(Client t) throws AssertionError {
@@ -667,9 +681,9 @@ The clients are then added into their respective `UniqueClientList` this way:
 ----
 
 [NOTE]
- An `AssertionError` is also thrown as the current there should not be any duplicated person as there should not exist any duplicated person in the active list.
+ An `AssertionError` is also thrown as there should not exist any duplicated person in the active list.
 
-Removal of clients from the list are also done this way:
+Implementation of the removal of clients from the list are as follows:
 [source,java]
 ----
     public boolean removeClosedClient(Client key, Category category) throws PersonNotFoundException {
@@ -698,7 +712,7 @@ Commands available in active client's list: +
 `addclient` `clear` `close` `delete` `edit` `exit` `find` `help` `history` `list` `match` `redo` `undo` `remove` `sort` `switch`
 
 
-A check is implemented this way in all commands features:
+A check is implemented this way in all commands features that available only when viewing active client list:
 
 [source,java]
 ----
@@ -707,15 +721,15 @@ A check is implemented this way in all commands features:
     }
 ----
 This allows `CommandNotAvailableInClosedViewException` to be thrown when the
-user is attempts to use a command unique to active list view while viewing close list view.
+user is attempts to use a command unique to active list view while viewing closed list view.
 
 ==== Design Considerations
 
 ===== Aspect: Integration of commands which were unique to active client list to closed client list.
 * **Alternative 1 (current choice):** Limit the number of commands available to closed clients list.
-** Pros: This is easier to implement as there would be less changes to existing commands and certain commands would not be relevant while in viewing closed client list.
+** Pros: This is easier to implement as there would be less changes to existing commands as certain commands are not relevant while viewing closed client list.
 ** Cons: Design of unique commands would still have to be changed if they were to be made available to both list.
-* **Alternative 2:** Allow the display to switch to a list based on whether the command was unique to either closed or active list.
+* **Alternative 2:** Allow the display to automatically switch to either closed or active list list where the command is available upon user input.
 ** Pros: This is more intuitive to users.
 ** Cons: This is much harder to implement as this would include require changes to be made to the command structure.
 // end::closedClientList[]
@@ -726,12 +740,12 @@ user is attempts to use a command unique to active list view while viewing close
 
 The close command allows users to remove a particular client from the active client's list and stores it in the closed client's list.
 
-* CloseCommand extends UndoableCommand and this is a undoable command. It overwrites executeUndoableCommand in abstract class UndoableCommand.
+* CloseCommand extends `UndoableCommand` and this is an undoable command. It overwrites `executeUndoableCommand` in abstract class `UndoableCommand`.
 
-** It will first remove the the selected client from the active client list. If this particular client is not found, a PersonNotFoundException will be thrown.
-** After which, the particular removed client will be added to the closed client list. An AssertionError will be thrown if a duplicated client is detected as it should not be possible to have a duplicated client in the active client list in TuitionCor.
+** It will first remove the the selected client from the active client list. If this particular client is not found, a `PersonNotFoundException` will be thrown.
+** After which, the particular removed client will be added to the closed client list. An `AssertionError` will be thrown if a duplicated client is detected as it should not be possible to have a duplicated client in the active client list in TuitionCor.
 
-The code is as follows:
+The implementation is as follows:
 [source,java]
 ----
     @Override
@@ -773,7 +787,7 @@ image::CloseSequenceDiagram.PNG[width="800"]
 ** Cons: This reduces code efficiency.
 * **Alternative 2:** Implement a closeClient method in model to execute deleteClient and addClosedStudent or addClosedTutor.
 ** Pros: Model can be called once.
-** Cons: This reduces code readability.
+** Cons: New developers might no understand as this reduces code readability.
 
 // end::close[]
 
@@ -782,14 +796,14 @@ image::CloseSequenceDiagram.PNG[width="800"]
 ==== Current Implementation
 The restore command allows users to remove a particular client from the closed client's list and restore it back to the active client's list.
 
-* RestoreCommand extends UndoableCommand and this is a undoable command. It overwrites executeUndoableCommand in abstract class UndoableCommand.
+* `RestoreCommand` extends `UndoableCommand` and this is an undoable command. It overwrites `executeUndoableCommand` in abstract class `UndoableCommand`.
 
-** It will first remove the the selected client from the closed client list. If this particular client is not found, a PersonNotFoundException will be thrown.
-** After which, the particular removed client will be added to the active client list. An AssertionError will be thrown if a duplicated client is detected as it should not be possible to have a duplicated client in the active client list in TuitionCor.
+** It will first remove the the selected client from the closed client list. If this particular client is not found, a `PersonNotFoundException` will be thrown.
+** After which, the particular removed client will be added to the active client list. An AssertionError will be thrown if a duplicated client is detected as it should not be possible to have a duplicated client in the closed client list in TuitionCor.
 
 * This design is very similar to close command's design.
 
-The code is as follows:
+The implementation is as follows:
 [source,java]
 ----
 @Override
@@ -829,9 +843,9 @@ image::RestoreSequenceDiagram.PNG[width="800"]
 === Switch feature
 ==== Current Implementation
 
-Switch commands allows user to toggle between the active and closed client's list and it extends Command.
+Switch commands allows user to toggle between the active and closed client's list and it extends `Command`.
 
-* Switch command overrides execute method in Command with the following code:
+* Implementation of Switch command that overrides `execute()` method in `Command` is as follows:
 
 [source,java]
 ----
@@ -847,7 +861,7 @@ Switch commands allows user to toggle between the active and closed client's lis
     }
 ----
 
-* A ListPanelController is used to keep track of the currently displayed list and switch the list when called.
+* A `ListPanelController` is used to keep track of the currently displayed list and switch the list when called.
 
 [source, java]
 ----
@@ -867,7 +881,7 @@ Switch commands allows user to toggle between the active and closed client's lis
     }
 ----
 
-* Switch command uses ClientListSwitchEvent to raise an event whenever the user wants to toggle the list displayed.
+* Switch command uses `ClientListSwitchEvent` to raise an event whenever the user wants to toggle the list displayed.
 
 [source,java]
 ----
@@ -881,7 +895,7 @@ Switch commands allows user to toggle between the active and closed client's lis
 [source,java]
 ----
 
-* When a event is raise it's handled by handleClientListSwitchEvent which resides in both StudentListPanel and TutorListPanel.
+* When a event is raise it's handled by `handleClientListSwitchEvent` which resides in both `StudentListPanel` and `TutorListPanel`.
 
 [source,java]
 ----
@@ -892,7 +906,7 @@ Switch commands allows user to toggle between the active and closed client's lis
     }
 ----
 
-* This will allow StudentListPanel and TutorListPanel to be updated accordingly based on the current list that is on display.
+* This will allow `StudentListPanel` and `TutorListPanel` to be updated accordingly based on the current list that is on display.
 
 [source,java]
 ----
@@ -923,9 +937,9 @@ image::SwitchSequenceDiagram.PNG[width="800"]
 * **Alternative 1 (current choice):** Raise new event to indicate switch event.
 ** Pros: Reduce direct coupling between components StudentListPanel and TutorListPanel with SwitchCommand
 ** Cons: Code might be harder to understand.
-* **Alternative 2:** Call a method in StudentListPanel and TutorListPanel to indicate switch event.
+* **Alternative 2:** Call a method in StudentListPanel and TutorListPanel to indicate a switch request.
 ** Pros: Code is easier to understand.
-** Cons: Direct coupling increase and changing a part might affect another component.
+** Cons: Direct coupling occurs and changing a part might affect another component.
 // end::switch[]
 
 === Logging
@@ -1343,17 +1357,21 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == Product Scope
 
-*Target user profile*:
-* Tuition coordinators who handle significant number of contacts and are comfortable with CLI applications.
+*Target user profile*: +
+ Tuition coordinators who handle significant number of contacts and are comfortable with CLI applications.
 
-*Value proposition*:
-TuitionCor is targeted at tuition coordinators who have to manage a large amount of contacts.
-The daily job-scope of a tuition coordinator involves the need to manage large amount of contacts and match the students to tutors according to their credentials, needs and location.
-Therefore, TuitionCor aims to facilitate this process and make the job of a tuition coordinator easier.
+* Value proposition*:
+** TuitionCor is targeted at tuition coordinators who have to manage a large amount of contacts.
+** The daily job-scope of a tuition coordinator involves the need to manage large amount of contacts and match the students to tutors according to their credentials, needs and location.
+** Therefore, TuitionCor aims to facilitate this process and make the job of a tuition coordinator easier.
 
-In addition, users are able to
-* find and filter contacts easily
-* add and edit contacts
+* In addition, users are able to
+** Add clients
+** Match students to tutors or vice versa
+** Sort clients based on a particular aspect
+** Find clients based on keywords
+** Close assigned clients
+** Restore closed clients
 
 [appendix]
 == User Stories
