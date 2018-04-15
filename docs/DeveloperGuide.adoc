@@ -537,11 +537,11 @@ image::MatchSequenceDiagram.png[width="800"]
 
 ===== Aspect: UserInput
 
-* **Alternative 1 (current choice):** User key in client index displayed with with client's category. e.g `match 1 c/t`
-** Pros: There will be no mismatch since user specify the exact client to match with
+* **Alternative 1 (current choice):** User key in client index displayed with with client's category. e.g `match 1 c/t`.
+** Pros: There will be no mismatch since user specify the exact client to match with.
 ** Cons: More user input and extra step is taken. User have to locate the client's index first before using match function.
-* **Alternative 2:** user key in the client's name. e.g `match John`
-** Pros: More convenient for user to operate, lesser steps
+* **Alternative 2:** user key in the client's name. e.g `match John`.
+** Pros: More convenient for user to operate, lesser steps.
 ** Cons: If there are 2 John stored in the application, there is a chance for the application to match a wrong client.
 
 ==== Future Implementations
@@ -550,7 +550,7 @@ image::MatchSequenceDiagram.png[width="800"]
 image::MatchFunctionFutureImplementation.png[width="800"]
 
 * As illustrated above, match function currently highlights all the grades/subjects of a client as long as one of the grade/subject is matched.
-* Future Implementation is to only highlight the respective matched grade/subject.
+* Future Implementation could be done to only highlight the respective matched grade/subject.
 // end::match[]
 
 // tag::sorting[]
@@ -637,6 +637,88 @@ image::SortSequenceDiagram.PNG[width="800']
 
 
 // end::sorting[]
+
+//tag::closedClientList[]
+=== Closed client list
+==== Current Implementation
+
+The closed client list is where closed clients students or tutors information are stored and displayed.
+
+The implementation of the storage is similar to how clients are stored in the TuitionCor. Two `UniqueClientList` namely `closedStudents` and `closedTutors` were created to store the information of closed students and tutors.
+
+The clients are then added into their respective `UniqueClientList` this way:
+[source,java]
+----
+    public void addClosedStudent(Client t) throws AssertionError {
+        closedStudents.add(closedStudent);
+    }
+
+   public void addClosedTutor(Client t) throws AssertionError {
+        closedTutors.add(closedTutor);
+    }
+
+   public void add(Client toAdd) throws AssertionError {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new AssertionError("It's impossible to have a duplicate person here");
+        }
+        internalList.add(toAdd);
+   }
+----
+
+[NOTE]
+ An `AssertionError` is also thrown as the current there should not be any duplicated person as there should not exist any duplicated person in the active list.
+
+Removal of clients from the list are also done this way:
+[source,java]
+----
+    public boolean removeClosedClient(Client key, Category category) throws PersonNotFoundException {
+        Boolean isSuccess;
+
+        if (category.isStudent()) {
+            isSuccess = closedStudents.remove(key);
+        } else {
+            isSuccess = closedTutors.remove(key);
+        }
+
+        if (isSuccess) {
+            return true;
+        } else {
+            throw new PersonNotFoundException();
+        }
+    }
+----
+
+With the addition of closed client list, certain commands will be unique to only closed or active client list
+
+Commands available in closed client's list: +
+`clear` `exit` `find` `help` `history` `list` `redo` `undo` `restore` `switch`
+
+Commands available in active client's list: +
+`addclient` `clear` `close` `delete` `edit` `exit` `find` `help` `history` `list` `match` `redo` `undo` `remove` `sort` `switch`
+
+
+A check is implemented this way in all commands features:
+
+[source,java]
+----
+    if (!ListPanelController.isCurrentDisplayActiveList()) {
+        throw new CommandNotAvailableInClosedViewException();
+    }
+----
+This allows `CommandNotAvailableInClosedViewException` to be thrown when the
+user is attempts to use a command unique to active list view while viewing close list view.
+
+==== Design Considerations
+
+===== Aspect: Integration of commands which were unique to active client list to closed client list.
+* **Alternative 1 (current choice):** Limit the number of commands available to closed clients list.
+** Pros: This is easier to implement as there would be less changes to existing commands and certain commands would not be relevant while in viewing closed client list.
+** Cons: Design of unique commands would still have to be changed if they were to be made available to both list.
+* **Alternative 2:** Allow the display to switch to a list based on whether the command was unique to either closed or active list.
+** Pros: This is more intuitive to users.
+** Cons: This is much harder to implement as this would include require changes to be made to the command structure.
+// end::closedClientList[]
 
 // tag::close[]
 === Close feature
@@ -845,13 +927,6 @@ image::SwitchSequenceDiagram.PNG[width="800"]
 ** Pros: Code is easier to understand.
 ** Cons: Direct coupling increase and changing a part might affect another component.
 // end::switch[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
