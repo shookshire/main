@@ -24,6 +24,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser, "1 c/s", new DeleteCommand(INDEX_FIRST_PERSON, new Category("s")));
+        assertParseSuccess(parser, "1 c/t", new DeleteCommand(INDEX_FIRST_PERSON, new Category("t")));
     }
 
     @Test

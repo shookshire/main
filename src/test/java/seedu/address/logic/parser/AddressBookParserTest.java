@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddClientCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.CloseCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -25,7 +27,10 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MatchCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RestoreCommand;
+import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Category;
@@ -73,14 +78,68 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_ALIAS) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_ALIAS + " 3") instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
     }
 
     @Test
     public void parseCommand_clearAlias() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_ALIAS) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_ALIAS + " 3") instanceof ClearCommand);
+    }
+
+    @Test
+    public void parseCommand_match() throws Exception {
+        MatchCommand command = (MatchCommand) parser.parseCommand(
+                MatchCommand.COMMAND_WORD + " 3" + " c/s");
+        assertEquals(new MatchCommand(INDEX_THIRD_PERSON, new Category("s")), command);
+    }
+
+    @Test
+    public void parseCommand_matchAlias() throws Exception {
+        MatchCommand command = (MatchCommand) parser.parseCommand(
+                MatchCommand.COMMAND_ALIAS + " 3" + " c/s");
+        assertEquals(new MatchCommand(INDEX_THIRD_PERSON, new Category("s")), command);
+    }
+
+    @Test
+    public void parseCommand_restore() throws Exception {
+        RestoreCommand command = (RestoreCommand) parser.parseCommand(
+                RestoreCommand.COMMAND_WORD + " 3" + " c/s");
+        assertEquals(new RestoreCommand(INDEX_THIRD_PERSON, new Category("s")), command);
+    }
+
+    @Test
+    public void parseCommand_restoreAlias() throws Exception {
+        RestoreCommand command = (RestoreCommand) parser.parseCommand(
+                RestoreCommand.COMMAND_ALIAS + " 3" + " c/s");
+        assertEquals(new RestoreCommand(INDEX_THIRD_PERSON, new Category("s")), command);
+    }
+
+    @Test
+    public void parseCommand_close() throws Exception {
+        CloseCommand command = (CloseCommand) parser.parseCommand(
+                CloseCommand.COMMAND_WORD + " 3" + " c/s");
+        assertEquals(new CloseCommand(INDEX_THIRD_PERSON, new Category("s")), command);
+    }
+
+    @Test
+    public void parseCommand_closeAlias() throws Exception {
+        CloseCommand command = (CloseCommand) parser.parseCommand(
+                CloseCommand.COMMAND_ALIAS + " 3" + " c/s");
+        assertEquals(new CloseCommand(INDEX_THIRD_PERSON, new Category("s")), command);
+    }
+
+    @Test
+    public void parseCommand_switch() throws Exception {
+        assertTrue(parser.parseCommand(SwitchCommand.COMMAND_WORD) instanceof SwitchCommand);
+        assertTrue(parser.parseCommand(SwitchCommand.COMMAND_WORD + " 3") instanceof SwitchCommand);
+    }
+
+    @Test
+    public void parseCommand_switchAlias() throws Exception {
+        assertTrue(parser.parseCommand(SwitchCommand.COMMAND_ALIAS) instanceof SwitchCommand);
+        assertTrue(parser.parseCommand(SwitchCommand.COMMAND_ALIAS + " 3") instanceof SwitchCommand);
     }
 
     @Test

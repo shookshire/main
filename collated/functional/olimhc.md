@@ -226,18 +226,20 @@ public class SortByGradeCommand extends SortCommand {
             throw new CommandNotAvailableInClosedViewException();
         }
 
-        switch (category.toString()) {
-        case COMMAND_WORD_TUTOR:
+        if (category.isTutor()) {
             model.sortByGradeFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
-
-        case COMMAND_WORD_STUDENT:
+        } else {
             model.sortByGradeFilteredClientStudentList();
             return new CommandResult(MESSAGE_SUCCESS_STUDENT + MESSAGE_SORT_DESC);
-
-        default:
-            return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortByGradeCommand // instanceof handles nulls
+                & this.category.equals(((SortByGradeCommand) other).category)); // state check // state check
     }
 }
 ```
@@ -262,18 +264,20 @@ public class SortByLocationCommand extends SortCommand {
             throw new CommandNotAvailableInClosedViewException();
         }
 
-        switch (category.toString()) {
-        case COMMAND_WORD_TUTOR:
+        if (category.isTutor()) {
             model.sortByLocationFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
-
-        case COMMAND_WORD_STUDENT:
+        } else {
             model.sortByLocationFilteredClientStudentList();
             return new CommandResult(MESSAGE_SUCCESS_STUDENT + MESSAGE_SORT_DESC);
-
-        default:
-            return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortByLocationCommand // instanceof handles nulls
+                & this.category.equals(((SortByLocationCommand) other).category)); // state check // state check
     }
 }
 ```
@@ -298,18 +302,20 @@ public class SortByNameCommand extends SortCommand {
             throw new CommandNotAvailableInClosedViewException();
         }
 
-        switch (category.toString()) {
-        case COMMAND_WORD_TUTOR:
+        if (category.isTutor()) {
             model.sortByNameFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
-
-        case COMMAND_WORD_STUDENT:
+        } else {
             model.sortByNameFilteredClientStudentList();
             return new CommandResult(MESSAGE_SUCCESS_STUDENT + MESSAGE_SORT_DESC);
-
-        default:
-            return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortByNameCommand // instanceof handles nulls
+                & this.category.equals(((SortByNameCommand) other).category)); // state check // state check
     }
 }
 ```
@@ -335,18 +341,20 @@ public class SortBySubjectCommand extends SortCommand {
             throw new CommandNotAvailableInClosedViewException();
         }
 
-        switch (category.toString()) {
-        case COMMAND_WORD_TUTOR:
+        if (category.isTutor()) {
             model.sortBySubjectFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
-
-        case COMMAND_WORD_STUDENT:
+        } else {
             model.sortBySubjectFilteredClientStudentList();
             return new CommandResult(MESSAGE_SUCCESS_STUDENT + MESSAGE_SORT_DESC);
-
-        default:
-            return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortBySubjectCommand // instanceof handles nulls
+                & this.category.equals(((SortBySubjectCommand) other).category)); // state check // state check
     }
 }
 ```
@@ -356,7 +364,6 @@ public class SortBySubjectCommand extends SortCommand {
  * Represents a sort command
  */
 public abstract class SortCommand extends Command {
-
     public static final String COMMAND_WORD = "sort";
     public static final String COMMAND_ALIAS = "so";
 
@@ -369,8 +376,6 @@ public abstract class SortCommand extends Command {
 
     public static final String MESSAGE_SUCCESS_TUTOR = "Sorted tutor's list according to";
     public static final String MESSAGE_SUCCESS_STUDENT = "Sorted student's list according to";
-    public static final String MESSAGE_FAILURE = "Unable to sort the list";
-
 
     private static final String USAGE_MESSAGE_LIST = " "
             + COMMAND_WORD  + " " + COMMAND_WORD_NAME + " " + PREFIX_CATEGORY + COMMAND_WORD_TUTOR + ", "
@@ -576,11 +581,6 @@ public class RestoreCommandParser implements Parser<RestoreCommand> {
  */
 public class SortCommandParser implements Parser<SortCommand> {
 
-    private final int listIndex = 0;
-    private final int sortTypeIndex = 1;
-    private final int tutorIndex = 0;
-    private final int studentIndex = 1;
-
     /**
      * Parse the given {@code String} of arguments in the context of SortCommand
      * @return either SortByGradeCommand, SortByNameCommand, SortByGradeCommand, SortBySubjectCommand
@@ -589,22 +589,30 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY);
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CATEGORY)
-                || argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_CATEGORY)
+                || argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
-        Category category;
         String sortType;
+        Category category;
 
         try {
-            sortType = argMultimap.getPreamble();
-            category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY)).get();
+            sortType = argumentMultimap.getPreamble();
+            category = ParserUtil.parseCategory(argumentMultimap.getValue(PREFIX_CATEGORY)).get();
+            return getSortCommandType(category, sortType);
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
+    }
+
+    /**
+     * @return the respective sort command based on the category parsed
+     * @throws ParseException
+     */
+    private SortCommand getSortCommandType(Category category, String sortType) throws ParseException {
 
         switch (sortType) {
         case SortCommand.COMMAND_WORD_NAME:

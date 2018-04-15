@@ -26,17 +26,19 @@ public class SortBySubjectCommand extends SortCommand {
             throw new CommandNotAvailableInClosedViewException();
         }
 
-        switch (category.toString()) {
-        case COMMAND_WORD_TUTOR:
+        if (category.isTutor()) {
             model.sortBySubjectFilteredClientTutorList();
             return new CommandResult(MESSAGE_SUCCESS_TUTOR + MESSAGE_SORT_DESC);
-
-        case COMMAND_WORD_STUDENT:
+        } else {
             model.sortBySubjectFilteredClientStudentList();
             return new CommandResult(MESSAGE_SUCCESS_STUDENT + MESSAGE_SORT_DESC);
-
-        default:
-            return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortBySubjectCommand // instanceof handles nulls
+                & this.category.equals(((SortBySubjectCommand) other).category)); // state check // state check
     }
 }

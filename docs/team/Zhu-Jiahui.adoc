@@ -19,7 +19,7 @@ TuitionCor is for those who *prefer to use a desktop app for managing client inf
 
 * *Minor enhancement*: enhanced find command that search all the keywords stored in TuiTionCor.
 
-* *Code contributed*: [https://github.com/CS2103JAN2018-F11-B2/main/blob/master/collated/functional/Zhu-Jiahui.md[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: [https://github.com/CS2103JAN2018-F11-B2/main/blob/master/collated/functional/Zhu-Jiahui.md[Functional code]] [https://github.com/CS2103JAN2018-F11-B2/main/blob/master/collated/test/Zhu-Jiahui.md[Test code]]
 
 * *Other contributions*:
 
@@ -40,6 +40,8 @@ TuitionCor is for those who *prefer to use a desktop app for managing client inf
 |===
 include::../UserGuide.adoc[tag=match]
 include::../UserGuide.adoc[tag=find]
+include::../UserGuide.adoc[tag=automatch]
+include::../UserGuide.adoc[tag=matchmultiple]
 
 == Contributions to the Developer Guide
 
@@ -48,3 +50,4 @@ include::../UserGuide.adoc[tag=find]
 |===
 
 include::../DeveloperGuide.adoc[tag=match]
+include::../DeveloperGuide.adoc[tag=matchmss]
