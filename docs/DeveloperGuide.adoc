@@ -1787,6 +1787,98 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Sorting a list
+
+. Sorting a list while all clients are listed
+
+.. Prerequisites: List all clients using the `list` command. Multiple clients in either student list or tutor list. Displayed list must be active client list.
+.. Test case: `sort n c/t` +
+   Expected: Tutor's list is being sorted according alphabetical order based on the client's name.
+.. Test case: `sort l c/t` +
+   Expected: Tutor's list is being sorted according to their location in alphabetical order based on the location displayed or the *first* location displayed if there exist multiple locations.
+.. Test case: `sort s c/t` +
+   Expected: Tutor's list is being sorted according to their subject in alphabetical order based on the subject displayed or the *first* location displayed if there exist multiple locations.
+.. Test case: `sort g c/t` +
+   Expected: Tutor's list is being sorted according to grade in ascending seniority `[Kindergarten->Primary->Secondary->Junior College->University]`. It will be sorted based on the *first* grade if there exist multiple grades.
+
+.. Test case: `sort n c/s` +
+   Expected: Student's list is being sorted according alphabetical order based on the client's name.
+.. Test case: `sort l c/s` +
+   Expected: Student's list is being sorted according to their location in alphabetical order based on the location displayed or the *first* location displayed if there exist multiple locations.
+.. Test case: `sort s c/s` +
+   Expected: Student's list is being sorted according to their subject in alphabetical order based on the subject displayed or the *first* location displayed if there exist multiple locations.
+.. Test case: `sort g c/s` +
+   Expected: Student's list is being sorted according to grade in ascending seniority `[Kindergarten->Primary->Secondary->Junior College->University]`. It will be sorted based on the *first* grade if there exist multiple grades.
+
+=== Switching the displayed client list
+
+. Default displayed list when launching TuitionCor
+.. Launch the application +
+   Expected: Active client list is being displayed. `<Currently displaying active clients>` should be shown in the status bar.
+
+. Switching the display
+.. Prerequisites: Currently in active client list.
+... Test case: `switch` +
+   Expected: Closed client list is being displayed. `<Currently displaying closed clients>` should be shown in the status bar.
+
+.. Prerequisites: Currently in closed client list.
+... Test case: `switch` +
+   Expected: Active client list is being displayed. `<Currently displaying active clients>` should be shown in the status bar.
+
+=== Closing a client
+
+. Closing a client while all clients are listed.
+.. Prerequisites: List all clients using the `list` command. Clients displayed in either student list or tutor list. Minimally there must exist at least 1 student and 1 tutor in their respective list. Displayed list must be *active client list*.
+.. Test case: `close 1 c/s` +
+   Assumptions: Assuming that the first student on the student list takes on the name `Alex Yeoh`. +
+   Expected: Student Alex Yeoh is being closed and is no longer seen on the student list in active client list. Switching the display using `switch`, Alex Yeoh will be seen displayed on the student list in closed client list.
+
+.. Test case: `close 1 c/t` +
+   Assumptions: Assuming that the first tutor on the tutor list takes on the name `George`. +
+   Expected: Tutor George is being closed and is no longer seen on the tutor list in active client list. Switching the display using `switch`, George will be seen displayed on the tutor list in closed client list.
+
+. Closing a client while in closed client list.
+.. Prerequisites: List all clients using the `list` command. Clients displayed in either student list or tutor list. Minimally there must exist at least 1 student and 1 tutor in their respective list. Displayed list must be *closed client list*.
+.. Test case: `close 1 c/s` +
+   Expected: No students are being closed. Error details shown in the status message.
+
+=== Restoring a client
+
+. Restoring a client while all clients are listed.
+.. Prerequisites: List all clients using the `list` command. Clients displayed in either student list or tutor list. Minimally there must exist at least 1 student and 1 tutor in their respective list. Displayed list must be *closed client list*.
+.. Test case: `restore 1 c/s` +
+   Assumptions: Assuming that the first student on the student list takes on the name `Tom`. +
+   Expected: Student Tom is being restored and is no longer seen on the student list in closed client list. Switching the display using `switch`, Tom will be seen displayed on the student list in active client list.
+
+.. Test case: `restore 1 c/t` +
+   Assumptions: Assuming that the first tutor on the tutor list takes on the name `Cindy`. +
+   Expected: Tutor Cindy is being restored and is no longer seen on the tutor list in closed client list. Switching the display using `switch`, Cindy will be seen displayed on the tutor list in active client list.
+
+. Restoring a client while in active client list.
+.. Prerequisites: List all clients using the `list` command. Clients displayed in either student list or tutor list. Minimally there must exist at least 1 student and 1 tutor in their respective list. Displayed list must be *active client list*.
+.. Test case: `restore 1 c/s` +
+   Expected: No students are being restored. Error details shown in the status message.
+
+=== Matching a client
+. Matching a client while all clients are listed.
+.. Prerequisites: List all clients using the `list` command. Clients displayed in either student list or tutor list. Minimally there must exist at least 1 student and 1 tutor in their respective list. Displayed list must be *active client list*.
+.. Test case: `match 1 c/s` +
+   Assumptions: Assuming that the first student on the student list with name `Alex Yeoh`, location `North`, grade `p2` and subject `math`. +
+   Expected: Student list will now only display Alex Yeoh. In the tutor list tutor James and Jennifer is being displayed. +
+   James is matched as his client card contains `Math` as his first subject and `North` as his first location. +
+   Jennifer is matched as her client card contains grade of `p2` and subject `math` is her only subject. +
+   The matched tutors fields are also being highlighted in orange.
+
+.. Test case: `match 4 c/t` +
+   Assumptions: Assuming that the forth tutor on the tutor list with name `Nancy`, location `Central`, grade `u1 u2` and subject `physics`. +
+   Expected: Tutor list will now only display Nancy. In the student list, student Bernice Yu, Roy Balakrishnan, Charlotte Oliveiro and David Li is being displayed. +
+   Berenice Yu is matched as her client card contains location `Central` and `Physics`. +
+   Roy Balakrishnan is matched as his client card contains location `Central` and `Physics`. +
+   Charlotte Oliveiro is matched as as her client card contains `Physics` as her first subject. +
+   David Li is matched as his client card contains location `Central`. +
+   The matched students fields are also being highlighted in orange. +
+   The matched students are also being displayed in descending order based on the number of matched fields, with the student with the most matched fields displayed first.
+
 [appendix]
 == Feature Contribution
 
