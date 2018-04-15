@@ -54,7 +54,7 @@ include::../UserGuide.adoc[tag=switch]
 
 include::../UserGuide.adoc[tag=gmail]
 
-include::../UserGuide.adoc[tag=emailnotification]
+include::../UserGuide.adoc[tag=email]
 
 == Contributions to the Developer Guide
 

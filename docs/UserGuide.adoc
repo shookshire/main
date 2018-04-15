@@ -54,12 +54,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Some example commands you can try:
 * *`list`* : lists all contacts
-* **`addclient`**`c/s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/Urgent l/north g/s4 s/math` : adds a contact named `John Doe` to TuitionCor.
+* **`addclient`**`c/s n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/Urgent l/north g/s4 s/math` : adds a contact of a student named `John Doe` to TuitionCor.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
-.  Some pointers +
-Duplicates of similar students in the student's list is not allowed. Vice versa for tutor's list. However, duplicate contacts between student's and tutor's list is allowed as it's possible for a tutor to also be a student. +
+.  Some pointers: +
+Duplicates of similar students in the student's list is not allowed, vice versa for tutor's list. However, duplicate contacts between student's and tutor's list is allowed as it's possible for a tutor to also be a student. +
 +
 A duplication of student or tutor happens when they do not have at least one difference in the following fields: {Name, Address, Phone Number, Email}.
 
@@ -147,16 +147,16 @@ The type of location and grade accepted can be found below.
 
 ****
 * It's required to indicate the category the particular client belongs to.
-* Accepted case-insensitive location available for user input are {North,South,East,West,Central}. Any other type of location will be invalid.
+* Accepted case-insensitive location available for user input are `[North,South,East,West,Central]`. Any other type of location will be invalid.
 * Accepted case-insensitive grade available for user input are as follows:
 ** Format of grade are in this particular format 'LEVEL YEAR' or alias format 'ALIASLEVEL YEAR' without any spacing in-between. Example: 'Primary1' or 'P1'.
-** LEVEL available are {Kindergarten, Primary, Secondary, Tertiary, University}. Alias LEVEL are {K,P,S,J,U} respectively.
+** LEVEL available are `[Kindergarten, Primary, Secondary, Tertiary, University]`. Alias LEVEL are `[K,P,S,J,U]` respectively.
 ** INDEX available varies differently for each Level.
-*** For Kindergarten INDEX available are {1,2,3}.
-*** For Primary INDEX available are {1,2,3,4,5,6}.
-*** For Secondary INDEX available are {1,2,3,4,5}.
-*** For Tertiary INDEX available are {1,2}.
-*** For University INDEX available are {1,2,3,4}
+*** For Kindergarten INDEX available are `[1,2,3]`.
+*** For Primary INDEX available are `[1,2,3,4,5,6]`.
+*** For Secondary INDEX available are `[1,2,3,4,5]`.
+*** For Tertiary INDEX available are `[1,2]`.
+*** For University INDEX available are `[1,2,3,4]`.
 * Subject are split based on black space. Hence a single subject has to be typed without any space.
 ** Example: "chinese studies" would be treated as two separate subject "chinese" and "studies" by other commands. Hence it should be typed without a blank space such as "chineseStudies".
 ****
@@ -164,7 +164,7 @@ The type of location and grade accepted can be found below.
 Examples:
 
 * `addclient c/t n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/urgent l/north g/p1 s/math`
-* `ac c/s n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/urgent l/south g/primary 1 s/math`
+* `ac c/s n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/urgent l/south g/primary1 s/math`
 
 // end::addclient[]
 
@@ -208,14 +208,16 @@ Alias Format: `so g c/s`
 
 Sorting student's list based on subject +
 Format: `sort s c/s` +
-Alias Format: `so s c/s'
+Alias Format: `so s c/s`
 
 ****
-Sorts the client based on the selected category, either 't' for tutors or 's' for students based on a chosen criteria 'n' for name, 'g' for grade, 's' for subject and 'l' for location.
+Sorts the client based on the selected category, either `t` for tutors or `s` for students based on a chosen sort type `n` for name, `g` for grade, `s` for subject and `l` for location.
 
-Sorting by name, grade and subjects are based on alphabetical order.
+Sorting by name, grade, location and subjects are based on alphabetical order. +
 
-Sorting by grade are based on ascending order of seniority (Kindergarten->Primary->Secondary->Junior College->University)
+In an event there are mutiple attributes for grade, location or subject, they will be sorted accordingly to the *first* grade, subject and location for the respective field.
+
+Sorting by grade are based on ascending order of seniority `[Kindergarten->Primary->Secondary->Junior College->University]`
 ****
 Examples:
 
@@ -351,7 +353,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Alias Format: `f KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* *For grades only* alias grades will match original grades. e.g `p2` will match `primary2`.
+* *For grades only*, alias grades will match original grades. e.g `p2` will match `primary2`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Not only the name is searched, but all the fields of a client is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
@@ -535,7 +537,7 @@ Example:
 Links Gmail account `BestCoordinatorInSg@gmail.com` to TuitionCor upon a successful login.
 // end::gmail[]
 
-// tag::emailnotification[]
+// tag::email[]
 === Email notification function `[coming in v2.0]`
 [IMPORTANT]
 Please ensure that you have successfully linked a Gmail account to TuitionCor before you are able to use this function
@@ -551,18 +553,18 @@ The second `INDEX c/CATEGORY` refers to the client whose information you would l
 [NOTE]
 Both CATEGORY cannot be referring to the same category.
 
+[NOTE]
+The email notification sent to will be based on the email in the client's information.
+
 Examples:
 
 * `notify 1 c/s 1 c/t` +
 An email will be send to the first student on the students list using your linked Gmail account. The email will contain relevant information regarding the first tutor on the tutors list.
 
 * `notify 2 c/t 1 c/s` +
-An email will be send to the second tutor on the tutors list using your linked Gmail account. The email will contain relevant information regarding the first student on the students list.
+An email will be send to the second tutor on the tutors list using your linked Gmail account. The email will contain relevant information regarding the first student on the students list. +
 
-[NOTE]
-The email notification sent to will be based on the email in the client's information.
-
-// end::emailnotification
+// end::email[]
 
 // tag::automatch[]
 
