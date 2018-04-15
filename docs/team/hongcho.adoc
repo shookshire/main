@@ -44,8 +44,6 @@ TuitionCor is for those who *prefer to use a desktop app for managing client inf
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=sorting]
-
 include::../UserGuide.adoc[tag=close]
 
 include::../UserGuide.adoc[tag=restore]
@@ -63,8 +61,6 @@ include::../UserGuide.adoc[tag=email]
 |===
 
 include::../DeveloperGuide.adoc[tag=closedClientList]
-
-include::../DeveloperGuide.adoc[tag=sorting]
 
 include::../DeveloperGuide.adoc[tag=close]
 
