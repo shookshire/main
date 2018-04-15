@@ -1430,6 +1430,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |advance the grades of all the students in the application |change the grades of all the students without manually editing them one by one
 
+|`* * *` |user |have an organised application | easily view, update and search the active clients and closed clients
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`* *` |user |search multiple tags |narrow down the search to clients that fit all the different tags searched.
