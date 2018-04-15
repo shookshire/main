@@ -344,6 +344,11 @@ public class RemoveCommandParser implements Parser<RemoveCommand> {
 ```
 ###### \java\seedu\address\model\AddressBook.java
 ``` java
+/**
+ * Wraps all data at the address-book level
+ * Duplicates are not allowed (by .equals comparison)
+ */
+public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueClientList students;
     private final UniqueClientList tutors;
     private final UniqueClientList closedStudents;

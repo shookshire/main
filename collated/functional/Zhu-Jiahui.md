@@ -1,4 +1,21 @@
 # Zhu-Jiahui
+###### \java\seedu\address\logic\commands\FindCommand.java
+``` java
+    @Override
+    public CommandResult execute() {
+        if (ListPanelController.isCurrentDisplayActiveList()) {
+            model.updateFilteredStudentList(predicate);
+            model.updateFilteredTutorList(predicate);
+            return new CommandResult(getMessageForClientListShownSummary(
+                    model.getFilteredStudentList().size(), model.getFilteredTutorList().size()));
+        } else {
+            model.updateFilteredClosedStudentList(predicate);
+            model.updateFilteredClosedTutorList(predicate);
+            return new CommandResult(getMessageForClientListShownSummary(
+                    model.getFilteredClosedStudentList().size(), model.getFilteredClosedTutorList().size()));
+        }
+    }
+```
 ###### \java\seedu\address\logic\commands\MatchCommand.java
 ``` java
 /**
