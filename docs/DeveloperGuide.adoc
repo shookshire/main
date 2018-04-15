@@ -1619,6 +1619,9 @@ Use case resumes at step 2.
 Use case ends.
 
 [discrete]
+
+
+// tag::matchmss[]
 === Use case: Matching a student
 
 *MSS*
@@ -1678,6 +1681,8 @@ Use case resumes at step 2.
 Use case ends.
 
 [appendix]
+// end::matchmss[]
+
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
