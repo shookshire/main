@@ -30,7 +30,7 @@ This app will not work with earlier versions of Java 8.
 .  Copy the file to the folder you want to use as the home folder for your client information.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.PNG[width="790"]
+image::Ui.png[width="790"]
 +
 .  By default, upon launching TuitionCor you will be shown the active client list. If you are a new user, the active client and closed list will be filled with sample students and tutors.
 ** Active client list contains two separate list. Clients shown here are those who looking for students or tutors here.
@@ -589,21 +589,22 @@ An email will be send to the second tutor on the tutors list using your linked G
 // tag::automatch[]
 
 === Auto match feature `[coming in v2.0]`
-
-** When the user enters a new client. the system will auto generates a list of potential clients for this newly added client.
-** This is to enhance the efficiency of our user and shorten the time needed for the user to match potential clients.
-** The reason for this enhancement is to facilitate the user when a potential client makes a call to seek for assignments. With this enhancement, the system is able to generate a list of potential clients right after the client is added into the system. The user is then able to reply the client on the available assignments right away before the client even hangs up the phone.
-** One possible way of implementing it is to call for matching command with the client info after the addclient command has successfully executed.
-
+****
+* When the user enters a new client. the system will auto generates a list of potential clients for this newly added client.
+* This is to enhance the efficiency of our user and shorten the time needed for the user to match potential clients.
+* The reason for this enhancement is to facilitate the user when a potential client makes a call to seek for assignments. With this enhancement, the system is able to generate a list of potential clients right after the client is added into the system. The user is then able to reply the client on the available assignments right away before the client even hangs up the phone.
+* One possible way of implementing it is to call for matching command with the client info after the addclient command has successfully executed.
+****
 // end::automatch[]
 
 // tag::matchmultiple[]
 === Match multiple grade and subject attributes `[coming in v2.0]`
-
-** Currently, match command assumes all client has only one grade subject and location attribute. If a client has multiple grade attributes, match command only matches potential clients with his/her first grade attribute.
-** Enhancement could be made to match all the Grade attributes respectively and list the matching result from the highest match to the lowest match.
-** Only matched attributes should be highlighted.
-** One possible way of implementing it is to change Grade, Subject and Location to List<String> and compare them one by one with other clients.
+****
+* Currently, match command assumes all client has only one grade subject and location attribute. If a client has multiple grade attributes, match command only matches potential clients with his/her first grade attribute.
+* Enhancement could be made to match all the Grade attributes respectively and list the matching result from the highest match to the lowest match.
+* Only matched attributes should be highlighted.
+* One possible way of implementing it is to change Grade, Subject and Location to List<String> and compare them one by one with other clients.
+****
 // end::matchmultiple[]
 
 == FAQ
