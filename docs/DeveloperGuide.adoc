@@ -1680,6 +1680,8 @@ Use case resumes at step 2.
 +
 Use case ends.
 
+[discrete]
+
 === Use case: Matching a tutor
 
 *MSS*
@@ -1708,6 +1710,8 @@ Use case resumes at step 2.
 ** 1a1. An empty tutor's list will be displayed to the user
 +
 Use case ends.
+
+[discrete]
 
 [appendix]
 // end::matchmss[]
