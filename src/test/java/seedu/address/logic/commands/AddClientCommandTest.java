@@ -5,6 +5,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_TUTOR_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LOCATION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,11 +52,22 @@ public class AddClientCommandTest {
         ModelStubAcceptingClientAdded modelStub = new ModelStubAcceptingClientAdded();
         Client validClient = new ClientBuilder().build();
 
-        CommandResult commandResult = getAddClientCommandForPerson(validClient, modelStub).execute();
+        CommandResult commandResultStudent = getAddClientCommandForStudent(validClient, modelStub).execute();
 
         assertEquals(String.format(AddClientCommand.MESSAGE_SUCCESS_STUDENT, validClient),
-                commandResult.feedbackToUser);
+                commandResultStudent.feedbackToUser);
         assertEquals(Arrays.asList(validClient), modelStub.studentsAdded);
+
+        Client validTutor = new ClientBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND)
+                .withLocation(VALID_LOCATION_BOB).withGrade(VALID_GRADE_BOB).withSubject(VALID_GRADE_BOB)
+                .withCategory(VALID_CATEGORY_TUTOR_BOB).build();
+
+        CommandResult commandResultTutor = getAddClientCommandForTutor(validTutor, modelStub).execute();
+
+        assertEquals(String.format(AddClientCommand.MESSAGE_SUCCESS_TUTOR, validTutor),
+                commandResultTutor.feedbackToUser);
+        assertEquals(Arrays.asList(validTutor), modelStub.tutorsAdded);
     }
 
     @Test
@@ -59,7 +78,7 @@ public class AddClientCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddClientCommand.MESSAGE_DUPLICATE_PERSON);
 
-        getAddClientCommandForPerson(validClient, modelStub).execute();
+        getAddClientCommandForStudent(validClient, modelStub).execute();
     }
 
     @Test
@@ -87,9 +106,18 @@ public class AddClientCommandTest {
     }
 
     /**
-     * Generates a new AddClientCommand with the details of the given person.
+     * Generates a new AddClientCommand with the details of the given student.
      */
-    private AddClientCommand getAddClientCommandForPerson(Client client, Model model) {
+    private AddClientCommand getAddClientCommandForStudent(Client client, Model model) {
+        AddClientCommand command = new AddClientCommand(client);
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        return command;
+    }
+
+    /**
+     * Generates a new AddClientCommand with the details of the given tutor.
+     */
+    private AddClientCommand getAddClientCommandForTutor(Client client, Model model) {
         AddClientCommand command = new AddClientCommand(client);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;

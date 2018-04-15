@@ -210,49 +210,6 @@ The `Model`,
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-==== Current Implementation
-
-The AddressBook currently stores two UniqueClientList (students and tutors) and clients that are stored in either one of them depending on whether the client's Category is "s" for students or "t" for tutors. This is done under the consideration that a client should never be both a student and tutor.
-
-image::StudentTutorList.png[width="800"]
-
-Commands that work only on either students or tutors would have to declare which Category they wish to work on in the command input. For example for the delete command would have to input `delete 1 c/s` to represent that they wish to delete from students.
-
-Hence, commands that work only on either students or tutors have to either be split into 2 functions or take in an additional argument stating which UniqueClientList to work on as shown below.
-
-.Example of splitting call into 2 functions
-image::SeparateFunctionForStudentTutor.png[width="800"]
-
-----
-public class updateClient(Client target, Client editedClient, Category category) {
-    if (category.isStudent) {
-        // ... work on students ...
-    } else if (category.isTutor) {
-        // ... work on tutors ...
-    }
-}
-----
-Example of function that takes in additional argument to determine whether to work on students or tutors
-
-==== Design Considerations
-
-===== Aspect: Keeping students and tutors in 1 or 2 list
-
-* **Alternative 1 (current choice):** Keep students and tutors separated in 2 UniqueClientList
-** Pros: Does not have to do an additional search through the list to differentiate students and tutors
-** Cons: Calls that work on only one of the 2 list would have to be separated.
-* **Alternative 2:** Keep all clients in the same UniqueClientList and differentiate them using the clients' Category value
-** Pros: Easy to implement.
-** Cons: Have to run an additional search through the list to differentiate students and tutors which could be slow when database is large.
-
-===== Aspect: Whether to have different commands for students and tutors
-* **Alternative 1 (current choice):** Make the Category prefix compulsory for any command that work on only 1 list
-** Pros: Minimises number of commands and use already existing prefix instead.
-** Cons: Needs to parse an additional prefix
-* **Alternative 2:** Have separate commands (eg. deleteStudent and deleteTutor instead of just delete)
-** Pros: Easy to implement.
-** Cons: Large number of duplicated commands.
 // end::modelComponent[]
 
 [[Design-Storage]]
@@ -276,6 +233,89 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::modelImplementation[]
+=== Model
+==== Current Implementation
+
+The AddressBook currently stores Clients in separate UniqueClientList (students, tutors, closedStudents, closedTutors) depending on category the Client belongs to.
+
+Due to students and tutors being stored as 2 separate UniqueClientList, commands that work on only 1 of the 2 list (eg. addclient, edit, delete etc.) would require the model to either expose 2 functions for the Command to call or to take in a Category argument which the model would then handle as shown below.
+
+image::StudentTutorList.png[width="800"]
+
+Commands that work only on either students or tutors would have to declare which Category they wish to work on in the command input. For example for the delete command would have to input `delete 1 c/s` to represent that they wish to delete from students.
+
+Hence, commands that work only on either students or tutors have to either be split into 2 functions or take in an additional argument stating which UniqueClientList to work on as shown below.
+
+.Example of splitting call into 2 functions
+image::SeparateFunctionForStudentTutor.png[width="800"]
+
+----
+public class updatePerson(Client target, Client editedClient, Category category) {
+    if (category.isStudent) {
+        // ... work on students ...
+    } else if (category.isTutor) {
+        // ... work on tutors ...
+    }
+}
+----
+Example of function that takes in additional argument to determine whether to work on students or tutors
+
+==== Design Considerations of Model
+
+===== Aspect: Keeping students and tutors in 1 or 2 list
+* **Alternative 1 (current choice):** Keep students and tutors separated in 2 UniqueClientList
+** Pros: Does not have to do an additional search through the list to differentiate students and tutors
+** Cons: Calls that work on only one of the 2 list would have to be separated.
+* **Alternative 2:** Keep all clients in the same UniqueClientList and differentiate them using the clients' Category value
+** Pros: Easy to implement.
+** Cons: Have to run an additional search through the list to differentiate students and tutors which could be slow when database is large.
+
+===== Aspect: Whether to have different commands for students and tutors
+* **Alternative 1 (current choice):** Make the Category prefix compulsory for any command that work on only 1 list
+** Pros: Minimises number of commands and use already existing prefix instead.
+** Cons: Needs to parse an additional prefix
+* **Alternative 2:** Have separate commands (eg. deleteStudent and deleteTutor instead of just delete)
+** Pros: Easy to implement.
+** Cons: Large number of duplicated commands.
+
+=== Client and the fields of Client
+==== Current Implementation
+
+The Client Class extends Person that consists of 5 fields (name, phone, email, address, tags) while Client has additional 4 fields (location, grade, subject, category).
+
+All of the fields uses a specific class that takes a single String as it's value as shown below.
+.Example of Subject field with it's value
+image::ClientFieldExample.png[width="800"]
+
+Hence, for fields that should actually take in multiple values (eg. Subject taking in "math physics chemistry") are currently stored as a single String while operations that work on the individual keywords have to manually split them into separate keywords through String operations.
+
+----
+private static Client createEditedPerson(Client personToEdit, Subject toRemove) {
+        assert personToEdit != null;
+
+        String editSubjects = personToEdit.getSubject().value;
+        ArrayList<String> editSubjectArray = new ArrayList<>(Arrays.asList(editSubjects.split(" ")));
+        editSubjectArray.remove(toRemove.value);
+
+        StringBuilder sb = new StringBuilder();
+        .....
+----
+
+As you can see from this section taken from Remove Command, after getting the String of the value of Subject, it has to use String operations to split it based on whitespace and reconstruct the string again later.
+
+On the other hand, a client can have multiple Tags as the Tag are stored through an UniqueTagList.
+
+==== Design Considerations
+===== Aspect: To store multiple values in a single String or as separate objects in a list
+* **(Alternative 1 (current choice)):** Store all the values as a single String and have commands that work on individual keywords split them.
+** Pros: Most commands simply require to read the value directly as a String and does not require to work on individual keyword. Does not require multiple types of unique list to be created for each of the field.
+** Cons: Lacks in flexibility in being able to individual values.
+* **(Alternative 2)** Create a list similar to UniqueTagList for each field that requires the storage of multiple values
+** Pros: Allows for greater flexibility and the ability to sync the various existing values in the AddressBook.
+** Cons: Require many lists to be stored. Whenever more fields are added in future enhancements, it could potentially require the excessive creation of a new type unique list each time.
+// end::modelImplementation[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -1407,8 +1447,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1.  User requests to list persons
-2.  TuitionCor shows a list of persons
+1.  User requests to list clients
+2.  TuitionCor shows a list of clients
 3.  User requests to delete a specific person in the list
 4.  TuitionCor deletes the person
 +
@@ -1427,6 +1467,48 @@ Use case ends.
 ** 3a1. TuitionCor shows an error message.
 +
 Use case resumes at step 2.
+
+// tag::mssdestin[]
+[discrete]
+=== Use case: Remove specific keyword from client's subject
+
+*MSS*
+
+1.  User requests to list clients
+2.  TuitionCor shows a list of clients
+3.  User requests to remove a keyword from specific client
+4.  TuitionCor removes the keyword from the subject field of the specified client
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TuitionCor shows an error message.
++
+Use case resumes at step 2.
+
+* 4a. The given keyword does not exist.
++
+[none]
+** 4a1. TuitionCor shows an error message.
++
+Use case resumes at step 2.
+
+* 4b. The given keyword the last subject in the specific client.
++
+[none]
+** 4b1. TuitionCor shows an error message that suggest for the user to close the client instead.
++
+Use case resumes at step 2.
+// end::mssdestin[]
 
 [discrete]
 === Use case: Sort student's or tutor's list by locality

@@ -23,8 +23,6 @@ TuitionCor is a desktop address book application used for teaching Software Engi
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** Added new fields for the extension of Person to Client (Pull Requests https://github.com/CS2103JAN2018-F11-B2/main/pull/30[#30], https://github.com/CS2103JAN2018-F11-B2/main/pull/20[#20])
 *** Edited the existing add, edit, delete commands to work on the new Client class instead (Pull requests https://github.com/CS2103JAN2018-F11-B2/main/pull/81[#81], https://github.com/CS2103JAN2018-F11-B2/main/pull/30[#30])
@@ -32,6 +30,7 @@ TuitionCor is a desktop address book application used for teaching Software Engi
 *** Changing existing commands that work on Person to work on Client instead (Pull requests https://github.com/CS2103JAN2018-F11-B2/main/pull/65[#65])
 *** Changed existing UI to display and to save students and tutors separately. (Pull requests https://github.com/CS2103JAN2018-F11-B2/main/pull/64[#64], https://github.com/CS2103JAN2018-F11-B2/main/pull/4[#4])
 *** Edited existing junit test to work on clients after changes were made to logic and model (Pull requests https://github.com/CS2103JAN2018-F11-B2/main/pull/31[#31])
+*** Allowed for multiple subjects, grades and location to be added with regex checking for each keyword individually instead of as a whole. (Pull requests https://github.com/CS2103JAN2018-F11-B2/main/pull/89[#89])
 ** Documentation:
 *** Updated the developer guide's model description to reflect the current implementation: https://github.com/CS2103JAN2018-F11-B2/main/pull/78[#78]
 *** Added the initial intended features contribution to developer guide: https://github.com/CS2103JAN2018-F11-B2/main/pull/25[#25]
@@ -43,6 +42,7 @@ TuitionCor is a desktop address book application used for teaching Software Engi
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=addclient]
 include::../UserGuide.adoc[tag=remove]
 
 == Contributions to the Developer Guide
@@ -52,3 +52,12 @@ include::../UserGuide.adoc[tag=remove]
 |===
 
 include::../DeveloperGuide.adoc[tag=modelComponent]
+include::../DeveloperGuide.adoc[tag=modelImplementation]
+
+== Proposed implementations/features
+
+* Automatic close feature
+** Instead of throwing an error when the user tries to remove the last subject from a client, ask the user if he would prefer to close the client. If yes, call the close function for the given client.
+* Function for changing the grades of the students
+** All the students would promote to the next grade at the end of every year eg. from p1 to p2. This feature would allow for the user to easily change all the student's grades at the end of each school year instead of having to manually edit their profile.
+** Alternatively, if a clock/calender feature is to be implemented in the future, this function can sync with that clock/calender to automatically change the grades of all the students at the end of the school year.
