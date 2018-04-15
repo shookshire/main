@@ -50,3 +50,4 @@ include::../UserGuide.adoc[tag=matchmultiple]
 |===
 
 include::../DeveloperGuide.adoc[tag=match]
+include::../DeveloperGuide.adoc[tag=matchmss]
