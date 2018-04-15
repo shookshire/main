@@ -318,6 +318,7 @@ Edits the phone number and email address of the 1st tutor to be `93213456` and `
 Edits the name of the 2nd tutor to be `Beatty Crower` and clears all existing tags.
 
 // tag::remove[]
+
 === Remove a subject of a client : `remove` `[Since v1.4]`
 
 Removes the specific subject from an existing student in the address book. +
@@ -342,6 +343,7 @@ Examples:
 Removes the "math" subject from the 1st student.
 * `re 2 c/t s/physics` +
 Removes the "physics" subject from the 2nd tutor.
+
 // end::remove[]
 
 // tag::find[]
@@ -517,6 +519,27 @@ Alias Format: `x`
 
 TuitionCor data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+// tag::gradeAdvancement[]
+
+=== advancement of Grade function `[coming in v2.0]`
+
+Advances all student's grades when this function is called (eg. change from p1 o p2).
+This is done under the consideration that all students would advance in grade at the end of the school year and having to edit every single entry would be very tedious when the data base is large.
+
+Format: `advanceGrade INDEX...` +
+A success message of the format _Successfully advanced students Grades_ will be displayed and all students whose grade is not already at the highest limit would be advanced.
+The students at the specified INDEXes would not have their Grade advanced.
+
+Example:
+
+* `advanceGrade` +
+All students Grades are advanced
+
+* `advanceGrade 2 10` +
+All students except from index 2 and 10 would have their Grades advanced.
+
+// end::gradeAdvancement[]
 
 // tag::gmail[]
 === Integration with Gmail `[coming in v2.0]`

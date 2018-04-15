@@ -196,6 +196,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeletePersonSdForLogic.png[width="800"]
 
 // tag::modelComponent[]
+
 [[Design-Model]]
 === Model component
 
@@ -210,6 +211,7 @@ The `Model`,
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
 // end::modelComponent[]
 
 [[Design-Storage]]
@@ -235,6 +237,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::modelImplementation[]
+
 === Model
 ==== Current Implementation
 
@@ -286,6 +289,7 @@ Example of function that takes in additional argument to determine whether to wo
 The Client Class extends Person that consists of 5 fields (name, phone, email, address, tags) while Client has additional 4 fields (location, grade, subject, category).
 
 All of the fields uses a specific class that takes a single String as it's value as shown below.
+
 .Example of Subject field with it's value
 image::ClientFieldExample.png[width="800"]
 
@@ -315,6 +319,7 @@ On the other hand, a client can have multiple Tags as the Tag are stored through
 * **(Alternative 2)** Create a list similar to UniqueTagList for each field that requires the storage of multiple values
 ** Pros: Allows for greater flexibility and the ability to sync the various existing values in the AddressBook.
 ** Cons: Require many lists to be stored. Whenever more fields are added in future enhancements, it could potentially require the excessive creation of a new type unique list each time.
+
 // end::modelImplementation[]
 
 // tag::undoredo[]
@@ -1421,7 +1426,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |match clients that only fit certain requirements |clients will have more choice to choose from
 
-|`* * *` |user |easily remove the subjects of the students when they find tutors
+|`* * *` |user |easily remove the subjects of the students when they find tutors |edit the subjects of students whenever they find a suitable tutor easily
+
+|`* * *` |user |advance the grades of all the students in the application |change the grades of all the students without manually editing them one by one
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
@@ -1725,23 +1732,6 @@ Windows, Linux, Unix, OS-X
 A contact detail that is not meant to be shared with others
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1763,29 +1753,48 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a client
 
-=== Deleting a person
+. Deleting a client while all clients are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+// tag::removeTest[]
 
-=== Saving data
+=== Remove Subject keyword from a client
 
-. Dealing with missing/corrupted data files
+. Removing a keyword from the Subject field of a specified client
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites1: At least 1 student and 1 tutor has to be in TuitionCor.
+.. Prerequisites2: Displayed list has to be active list.
+.. Test case: `remove 1 c/s s/math` +
+   Assumption1: First student in TuitionCor has "math" in the Subject field. For example the Subject field is "physics chemistry math english". Otherwise, replace "math" in the command with a word in the Subject field of the client.
+   Assumption2: First student in TuitionCor has more than 1 keyword in Subject field. (Each keyword is a single word separated by whitespace)
+   Expected: "math" would be removed from Subject field of the first student. Given the above example, the remaining Subjects should be "physics chemistry english". Success message would be given. Timestamp in status bar is updated.
+.. Test case: `remove 1 c/s s/math` +
+   Assumption: First student in TuitionCor does not have "math" in the Subject field.
+   Expected: Error message "The inputted message does not exist"
+.. Test case: `remove 1 c/s s/math` +
+   Assumption: First student in TuitionCor has only "math" in Subject field.
+   Expected: Error message warning user that removing the last keyword in Subject field is not allowed and suggests user to close client instead.
+.. Test case: `remove 1 c/t s/math` +
+   Assumption1: First tutor in TuitionCor has "math" in the Subject field. For example the Subject field is "physics chemistry math english". Otherwise, replace "math" in the command with a word in the Subject field of the client.
+   Assumption2: First tutor in TuitionCor has more than 1 keyword in Subject field. (Each keyword is a single word separated by whitespace)
+   Expected: "math" would be removed from Subject field of the first tutor. Given the above example, the remaining Subjects should be "physics chemistry english". Success message would be given. Timestamp in status bar is updated.
+.. Test case: `remove 0 c/s s/math` +
+   Expected: No keyword is removed from Subject field. Error details shown in status message. Status bar remains the same.
+.. Other invalid remove commands to try: `remove c/s s/math` (missing INDEX), `remove x c/s s/math` (where x is a number larger than the list size) +
+   `remove 1 s/math` (missing CATEGORY), `remove 1 c/g s/math` (invalid CATEGORY, CATEGORY should only be "s" or "t") +
+   `remove 1 c/s` (missing SUBJECT), `remove 1 c/s s/chemistry physics` (invalid SUBJECT, SUBJECT should only be a single word with no special characters and no whitespace).
+   Expected: Similar to previous.
 
-_{ more test cases ... }_
+// end::removeTest[]
 
 === Sorting a list
 
