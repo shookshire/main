@@ -286,6 +286,7 @@ Example of function that takes in additional argument to determine whether to wo
 The Client Class extends Person that consists of 5 fields (name, phone, email, address, tags) while Client has additional 4 fields (location, grade, subject, category).
 
 All of the fields uses a specific class that takes a single String as it's value as shown below.
+
 .Example of Subject field with it's value
 image::ClientFieldExample.png[width="800"]
 

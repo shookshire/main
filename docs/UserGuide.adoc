@@ -518,6 +518,26 @@ Alias Format: `x`
 TuitionCor data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+// tag::gradeAdvancement[]
+=== advancement of Grade function `[coming in v2.0]`
+
+Advances all student's grades when this function is called (eg. change from p1 o p2).
+This is done under the consideration that all students would advance in grade at the end of the school year and having to edit every single entry would be very tedious when the data base is large.
+
+Format: `advanceGrade INDEX...` +
+A success message of the format _Successfully advanced students Grades_ will be displayed and all students whose grade is not already at the highest limit would be advanced.
+The students at the specified INDEXes would not have their Grade advanced.
+
+Example:
+
+* `advanceGrade` +
+All students Grades are advanced
+
+* `advanceGrade 2 10` +
+All students except from index 2 and 10 would have their Grades advanced.
+
+// end::gradeAdvancement[]
+
 // tag::gmail[]
 === Integration with Gmail `[coming in v2.0]`
 

@@ -44,6 +44,7 @@ TuitionCor is a desktop address book application used for teaching Software Engi
 
 include::../UserGuide.adoc[tag=addclient]
 include::../UserGuide.adoc[tag=remove]
+include::../UserGuide.adoc[tag=gradeAdvancement]
 
 == Contributions to the Developer Guide
 
